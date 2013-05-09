@@ -1,0 +1,29 @@
+#FecdasPartesBundle_homepage:
+#    pattern:  /fecdas/{name}
+#    defaults: { _controller: FecdasPartesBundle:Default:index }
+
+PromoBundle_homepage:
+    pattern:  /
+    defaults: { _controller: "PromoBundle:Static:index" }
+    requirements:
+        _method:  GET
+
+
+#FecdasPartesBundle_homepage:
+#    pattern:  /
+#    defaults: { _controller: "FecdasPartesBundle:Page:index" }
+#    requirements:
+#        _method:  GET
+        
+#FecdasPartesBundle_contact:
+#    pattern:  /contact
+#    defaults: { _controller: "FecdasPartesBundle:Page:contact" }
+#    requirements:
+#        _method:  GET|POST
+
+#FecdasPartesBundle_login:
+#    pattern:  /login
+#    defaults: { _controller: "FecdasPartesBundle:Security:login" }
+#    requirements:
+#        _method:  GET|POST
+        

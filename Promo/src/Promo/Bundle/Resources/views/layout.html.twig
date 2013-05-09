@@ -1,0 +1,36 @@
+{# src/Promo/Bundle/Resources/views/layout.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    <link media="all" href="{{ asset('css/style.css') }}" type="text/css" rel="stylesheet" >
+    <link media="all" href="{{ asset('css/layout.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block javascriptshead %} 
+   	<script src="{{ asset('js/jquery.min.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block header %}Cap{% endblock %}
+
+{% block body %}
+	   			Cos
+			   	<p>jsmovie --> si</p>
+			   	<p>spritely --> si</p>
+			   	<p>jplayer ? </p>
+			   	<p>jsound ? </p>
+			   	<h2>Webs </h2>
+			   	<p><a href="http://www.contulogo.com">www.contulogo.com --> Imatges.Escollir contrastades colors-formes-inclinació</a></p>
+			   	<p><a href="http://www.promoquality.com">www.promoquality.com --> Productes</a></p>
+			   	<p>Intro 37 imatges a ritme imatges, textes ok?</p>
+			   	<p>1</p>
+			   	<p>1</p>
+			   	<p>2</p>
+			   	<p>3</p>
+			   	
+			   	<p>3</p>
+			   	<p>a</p>
+{% endblock %}
+{% block footer %}{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
