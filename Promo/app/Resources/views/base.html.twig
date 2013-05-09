@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <title>{% block title %}Promoquality{% endblock %}</title>
+		{% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" >
+        {% block javascriptshead %}{% endblock %}
+    </head>
+    <body>
+    	<div id="container">
+	   		<section id="header">{% block header %}{% endblock %}</section>
+	   		<section id="body">{% block body %}{% endblock %}</section>
+			<section id="footer">{% block footer %}{% endblock %}</section>
+		</div>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

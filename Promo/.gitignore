@@ -1,0 +1,14 @@
+# Eclipse
+.settings/*
+
+# Bootstrap
+app/bootstrap*
+
+# Symfony directories
+vendor/*
+*/logs/*
+*/cache/*
+web/bundles/*
+
+# Configuration files
+app/config/parameters.yml
