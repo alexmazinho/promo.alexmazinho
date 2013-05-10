@@ -1,11 +1,39 @@
 @CHARSET "UTF-8";
 
+/*
+Internet Explorer 9+, Firefox, Chrome, Safari, and Opera support the WOFF (Web Open Font Format) font.
+Firefox, Chrome, Safari, and Opera support fonts of type TTF (True Type Fonts) and OTF (OpenType Fonts).
+Internet Explorer also supports EOT (Embedded OpenType) fonts.
+*/
+
+@font-face {
+	font-family: vag-family;
+	src: url(../fonts/vagrlsb_.ttf);
+}
+@font-face {
+	font-family: vag-family;
+	src: url(../fonts/vagrounded-bold.ttf);
+	font-weight:bold;
+}
+
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	font-family: vag-family;
+	border: 0 none;
+    font-style: inherit;
+    font-weight: inherit;
+    outline: 0 none;
+    padding: 0;
+    vertical-align: baseline;
+}
+
 html,
 body {
-   margin:0;
-   padding:0;
-   height:100%;
+	margin:0;
+   	padding:0;
+   	height:100%;
 }
+
 #container {
    min-height:100%;
    position:relative;

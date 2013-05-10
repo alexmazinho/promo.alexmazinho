@@ -6,3 +6,56 @@
 {% block header %}
 {{ parent() }}
 {% endblock %}
+
+{% block body %}
+
+<div id="jquery_audioPlayer" class="jp-jplayer"></div>
+	   			Cos
+			   	<p>jsmovie --> si</p>
+			   	<p>spritely --> si</p>
+			   	<p>jplayer ? </p>
+			   	<p>jsound ? </p>
+			   	<h2>Webs </h2>
+			   	<p><a href="http://www.contulogo.com">www.contulogo.com --> Imatges.Escollir contrastades colors-formes-inclinació</a></p>
+			   	<p><a href="http://www.promoquality.com">www.promoquality.com --> Productes</a></p>
+			   	<p>Intro 37 imatges a ritme imatges, textes ok?</p>
+			   	<p>1</p>
+			   	<p>1</p>
+			   	<p>2</p>
+			   	<p>3</p>
+			   	
+			   	<p>3</p>
+			   	<p>a</p>
+			   	
+			   	
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
+
+	$(document).ready(function(){
+
+		$("#jquery_audioPlayer").jPlayer({
+        	ready: function() {
+		    	$(this).jPlayer("setMedia", {
+			    	mp3: "/media/intro.mp3"
+		        }).jPlayer("play");
+		        
+		        var click = document.ontouchstart === undefined ? 'click' : 'touchstart';
+		        var kickoff = function () {
+		        	$("#jquery_audioPlayer").jPlayer("play");
+		            document.documentElement.removeEventListener(click, kickoff, true);
+		        };
+		        document.documentElement.addEventListener(click, kickoff, true);
+		    },
+		    solution: "html,flash",
+		    volume: 1,
+		    swfPath: "/js"
+		});
+	});
+
+	</script>
+    
+{% endblock %}
