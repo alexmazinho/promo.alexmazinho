@@ -15,7 +15,9 @@
 	<img alt="Entrada menú información empresa" title="La empresa" src="{{ asset('images/contact-image.png') }}">
 </div>
 <div id="main-intro">
-	<div id="introsprite"></div>
+	<div id="introsprite">
+		<img alt="" src="/images/logo_promoquality_big.png">
+	</div>
 	<div id="text-intro-01" style="display: none">
 		<span id ="text-intro-tot-01" class="text-intro-tot">
 		<span class="text-intro-pregunta">¿No tienes tiempo para buscar?</span>
@@ -70,6 +72,7 @@ Cos
 
 		//$("#introsprite").sprite({fps: 4, no_of_frames: 4, play_frames: 4});
 
+		
 		setTimeout(function() {
 			$("#introsprite").html(  $("#text-intro-01").html()  );
 		}, 1000); 

@@ -95,12 +95,19 @@ a, a:hover, a:active {
 
 #introsprite {
     /*background: url("/images/sprite01.jpg") no-repeat scroll 0 0 transparent;*/
-    cursor: pointer;
+    /*cursor: pointer;*/
     height: 600px;
     position: relative;
     width: 800px;
     margin: auto;
     z-index: 2000;
+}
+
+#introsprite img {
+	width: 800px;
+	height: 600px;
+	left: 0;
+    position: absolute;
 }
 
 .text-intro-tot {
