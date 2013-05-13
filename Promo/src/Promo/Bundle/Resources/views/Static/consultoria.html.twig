@@ -1,0 +1,36 @@
+{% extends 'PromoBundle::layout.html.twig' %}
+
+{% block title %}Bienvenido a Promoquality!{% endblock %}
+
+{% block content %}
+<div class="text-bloc">
+<p>Como consultora de marketing ofrecemos un servicio de apoyo estratégico a nuestros clientes
+para el desarrollo de cualquier acción promocional y el cumplimiento de los objetivos marcados.</p>
+<p>&nbsp;</p>
+<p>Para ello es importante:</p>
+<ul>
+<li>Conocer el objetivo de la acción.</li>
+<li>Identificar el público al que queremos dirigirnos.</li>
+<li>Fijar el calendario y el presupuesto.</li>
+</ul>
+<p>&nbsp;</p>
+<p>Ofrecemos un servicio completo que abarca desde la localización e importación en exclusiva de
+artículos para campañas masivas, hasta la realización de menores cantidades que cubren necesidades
+puntuales tales, como ferias, reuniones comerciales u otros eventos. Los artículos pueden ser
+desde los más económicos hasta los más selectos y lujosos, siempre siguiendo las últimas tendencias
+y dependiendo de las necesidades de nuestros clientes.</p>
+</div>			   	
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
+    
+	$(document).ready(function(){
+		$("#menu-consultoria").addClass("menu-item-active");
+	});
+	
+	</script>
+    
+{% endblock %}

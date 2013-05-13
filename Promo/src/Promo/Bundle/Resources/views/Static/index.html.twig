@@ -6,39 +6,59 @@
 {% block header %}
 {{ parent() }}
 <style>
-#introsp1 {
-    background: url("/images/sprite01.jpg") no-repeat scroll 0 0 transparent;
-    cursor: pointer;
-    height: 225px;
-    /*left: 65px;
-    top: 150px;*/
-    position: absolute;
-    width: 300px;
-    z-index: 2000;
-}
+
 </style>
 {% endblock %}
 
-{% block body %}
-
-<div id="jquery_audioPlayer" class="jp-jplayer"></div>
-<div id="introsp1" style="width:300px; height:225px">
-	<!-- <img border="0" alt="" src="/images/sprite01.jpg" style="width:225px; height:300px;position:absolute;">
-	 -->
-	
+{% block main %}
+<div id="main-contact" class="left-block">
+	<img alt="Entrada menú información empresa" title="La empresa" src="{{ asset('images/contact-image.png') }}">
 </div>
+<div id="main-intro">
+	<div id="introsprite"></div>
+	<div id="text-intro-01" style="display: none">
+		<span id ="text-intro-tot-01" class="text-intro-tot">
+		<span class="text-intro-pregunta">¿No tienes tiempo para buscar?</span>
+		<span class="text-intro-resposta">Nosotros nos encargamos de encontrar lo que necesitas con nuestro equipo consultor</span></span>
+	</div>
+	<div id="text-intro-02" style="display: none">
+		<span id ="text-intro-tot-02" class="text-intro-tot">
+		<span class="text-intro-pregunta">¿Quieres regalar algo único?</span>
+		<span class="text-intro-resposta">Puedes personalizar las campañas como más te gusten</span></span>
+	</div>
+	<div id="text-intro-03" style="display: none">
+		<span id ="text-intro-tot-03" class="text-intro-tot">
+		<span class="text-intro-pregunta">¿Cansado de pagar mucho por todo?</span>
+		<span class="text-intro-resposta">Te ofrecemos los precios más competitivos del mercado</span></span>
+	</div>
+	<div id="text-intro-04" style="display: none">
+		<span id ="text-intro-tot-04" class="text-intro-tot">
+		<span class="text-intro-pregunta">&nbsp;<br/>¿Sabías qué?</span>
+		<span class="text-intro-resposta">Las mejores empresas del país han confiado en nuestro trabajo</span></span>
+	</div>
+	<div id="text-intro-05" style="display: none">
+		<span id ="text-intro-tot-05" class="text-intro-tot">
+		<span class="text-intro-pregunta">¿No encuentras nada que te convenza?</span>
+		<span class="text-intro-resposta">Te ofrecemos más de 8.000 productos donde elegir</span></span>
+	</div>
+	
+	<div id="jquery_audioPlayer" class="jp-jplayer"></div>
+	<div id="skip-intro"><a alt="Entrada menú información empresa" title="Entrada menú información empresa" href="{{ path('PromoBundle_empresa') }}">Saltar intro</a></div>
+</div>
+
+<!--
 <div id="intro"></div>
 Cos
-<p>jsmovie --> si</p>
-<p>spritely --> si</p>
+<p>jsmovie -> si</p>
+<p>spritely -> si</p>
 <p>jplayer ? </p>
-<h2>Webs </h2>
-<p><a href="http://www.contulogo.com">www.contulogo.com --> Imatges.Escollir contrastades colors-formes-inclinació</a></p>
-<p><a href="http://www.promoquality.com">www.promoquality.com --> Productes</a></p>
-<p>Intro 37 imatges a ritme imatges, textes ok?</p>
-			   	
-			   	
+<p><a href="http://www.contulogo.com">www.contulogo.com -> Imatges.Escollir contrastades colors-formes-inclinació</a></p>
+<p><a href="http://www.promoquality.com">www.promoquality.com -> Productes</a></p>
+<p>Intro 37 imatges a ritme imatges, textes ok?</p> -->	   	
+
+
 {% endblock %}
+
 
 {% block javascripts %}
     {{ parent() }}
@@ -48,7 +68,51 @@ Cos
 	$(document).ready(function(){
 
 
-		$("#introsp1").sprite({fps: 4, no_of_frames: 4, play_frames: 4});
+		//$("#introsprite").sprite({fps: 4, no_of_frames: 4, play_frames: 4});
+
+		setTimeout(function() {
+			$("#introsprite").html(  $("#text-intro-01").html()  );
+		}, 1000); 
+		
+		setTimeout(function() {
+			$("#introsprite").html(  $("#text-intro-02").html()  );
+		}, 2000); 
+		
+		setTimeout(function() {
+			$("#introsprite").html(  $("#text-intro-03").html()  );
+		}, 3000); 
+
+		setTimeout(function() {
+			$("#introsprite").html(  $("#text-intro-04").html()  );
+		}, 4000); 
+
+		setTimeout(function() {
+			$("#introsprite").html(  $("#text-intro-05").html()  );
+		}, 5000); 
+
+/*
+		$("#introsprite").html(  $("#text-intro-02").html()  );
+		$("#introsprite").html(  $("#text-intro-03").html()  );
+		$("#introsprite").html(  $("#text-intro-04").html()  );
+		$("#introsprite").html(  $("#text-intro-05").html()  );*/
+		
+		$("#jquery_audioPlayer").jPlayer({
+        	ready: function() {
+		    	$(this).jPlayer("setMedia", {
+			    	mp3: "/media/intro.mp3"
+		        }).jPlayer("play");
+		        
+		        var click = document.ontouchstart === undefined ? 'click' : 'touchstart';
+		        var kickoff = function () {
+		        	$("#jquery_audioPlayer").jPlayer("play");
+		            document.documentElement.removeEventListener(click, kickoff, true);
+		        };
+		        document.documentElement.addEventListener(click, kickoff, true);
+		    },
+		    solution: "html,flash",
+		    volume: 1,
+		    swfPath: "/js"
+		});
 		/*
 		$('#intro').jsMovie({
 			//images : ['loader_ani4x4.png'],
@@ -86,23 +150,7 @@ Cos
 
 		*/
 		
-		$("#jquery_audioPlayer").jPlayer({
-        	ready: function() {
-		    	$(this).jPlayer("setMedia", {
-			    	mp3: "/media/intro.mp3"
-		        }).jPlayer("play");
-		        
-		        var click = document.ontouchstart === undefined ? 'click' : 'touchstart';
-		        var kickoff = function () {
-		        	$("#jquery_audioPlayer").jPlayer("play");
-		            document.documentElement.removeEventListener(click, kickoff, true);
-		        };
-		        document.documentElement.addEventListener(click, kickoff, true);
-		    },
-		    solution: "html,flash",
-		    volume: 1,
-		    swfPath: "/js"
-		});
+		
 	});
 
 

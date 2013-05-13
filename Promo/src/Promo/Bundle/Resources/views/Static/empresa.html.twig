@@ -1,0 +1,30 @@
+{% extends 'PromoBundle::layout.html.twig' %}
+
+{% block title %}Bienvenido a Promoquality!{% endblock %}
+
+{% block content %}
+<div class="text-bloc">
+<p>Somos un equipo con más de 25 años de experiencia en marketing promocional y en diseño
+de acciones de captación y fidelización para todo tipo de empresas.</p>
+<p>&nbsp;</p>
+<p>Durante este tiempo, más de 200 empresas han confiado en nosotros la gestión integral de sus
+acciones de marketing: consultoría, producción, almacenaje y entrega de regalos.</p>
+<p>&nbsp;</p>
+<p>Nuestra actividad se centra en la promoción y comercialización de productos de todo tipo, tanto
+destinados al consumo (joyería, electrónica, hogar, ocio) como cualquier producto editorial del
+fondo del Grupo Planeta.</p>
+</div>			   	
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
+    
+	$(document).ready(function(){
+		$("#menu-empresa").addClass("menu-item-active");
+	});
+	
+	</script>
+    
+{% endblock %}

@@ -1,1 +1,160 @@
 @CHARSET "UTF-8";
+
+/************************* Generics *******************************/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	font-family: vag-family;
+	border: 0 none;
+    font-style: inherit;
+    font-weight: inherit;
+    outline: 0 none;
+    padding: 0;
+    vertical-align: baseline;
+    color: #1b307e;
+}
+
+html,
+body {
+	margin:0;
+   	padding:0;
+   	height:100%;
+}
+
+.clearfix {
+    clear: both;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+}
+
+.clearfix:after {
+    clear: both;
+    content: " ";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+img, a img {
+    border: medium none;
+    display: inline-block;
+    height: auto;
+    image-rendering: optimizequality;
+    margin: 0;
+    max-width: 100%;
+    padding: 0;
+}
+
+a, a:hover, a:active {
+	text-decoration:none;
+	color: inherit;
+}
+
+/************************* Generics final *******************************/
+
+#logo h1 {
+    display: block;
+    text-indent: -999em;
+    position: fixed;
+}
+
+#main-contact img {
+	width:35%;
+}
+
+/************************* Menu *******************************/
+
+.menu-item a {
+	/*margin-bottom: 10px;*/
+ 	/*width: 160px;*/
+ 	height:40px;
+ 	display:block;
+ 	background:transparent url('/images/menu-item.png') left top no-repeat;
+ 	/*background-size:150px 35px;*/
+ 	background-size:80% 30px;
+ 	color: #FFFFFF;
+	font-weight: bold;
+	padding-top: 3px;
+    text-indent: 5px;
+    font-size: 0.65em;
+}
+
+.menu-item a:hover,
+.menu-item-active a {
+	background:transparent url('/images/menu-item-active.png') left top no-repeat;
+	background-size:85% 39px;
+	/*background-size:158px 45px;*/
+	/*color: #009fee;*/
+	color: #7fcff6; 
+}
+
+
+
+/************************* Menu final *******************************/
+
+#introsprite {
+    /*background: url("/images/sprite01.jpg") no-repeat scroll 0 0 transparent;*/
+    cursor: pointer;
+    height: 600px;
+    position: relative;
+    width: 800px;
+    margin: auto;
+    z-index: 2000;
+}
+
+.text-intro-tot {
+	display:block; 
+	/*vertical-align:middle;*/
+	text-align: center;
+}
+
+.text-intro-pregunta {
+	display: inline-block;
+	font-weight: bold;
+	font-size: 4.5em;
+	color: #009fee; 
+}
+
+.text-intro-resposta {
+	display: inline-block;
+	font-size: 2.5em;
+	color: #000000;
+}
+
+#text-intro-tot-01 { width: 100%; }
+#text-intro-tot-02 { width: 80%;  margin: auto;  }
+#text-intro-tot-03 { width: 90%;  margin: auto;  }
+#text-intro-tot-04 { width: 90%;  margin: auto;  }
+#text-intro-tot-05 { width: 100%; }
+
+
+#skip-intro {
+	position: absolute;
+	bottom:0;
+	right:0;
+	height: 21px;
+	width: 65px;
+	padding-top: 2px;
+    text-indent: 2px;
+	font-size: 0.8em;
+	color: #FFFFFF;
+	background:transparent url('/images/category-item.png') right top no-repeat;
+	background-size:100% 20px;
+}
+
+.text-bloc {
+    font-size: 1.2em;
+    line-height: 1.7em;
+    /*text-align: justify;*/
+    width:90%;
+}
+.text-bloc p {
+	margin: 0;
+}
+
+.text-bloc ul {
+	padding: 0 15px;
+	margin:0px;	
+	line-height: 1.4em;
+}

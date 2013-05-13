@@ -1,55 +1,61 @@
 @CHARSET "UTF-8";
 
-/*
-Internet Explorer 9+, Firefox, Chrome, Safari, and Opera support the WOFF (Web Open Font Format) font.
-Firefox, Chrome, Safari, and Opera support fonts of type TTF (True Type Fonts) and OTF (OpenType Fonts).
-Internet Explorer also supports EOT (Embedded OpenType) fonts.
-*/
-
-@font-face {
-	font-family: vag-family;
-	src: url(../fonts/vagrlsb_.ttf);
-}
-@font-face {
-	font-family: vag-family;
-	src: url(../fonts/vagrounded-bold.ttf);
-	font-weight:bold;
-}
-
-
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
-	font-family: vag-family;
-	border: 0 none;
-    font-style: inherit;
-    font-weight: inherit;
-    outline: 0 none;
-    padding: 0;
-    vertical-align: baseline;
-}
-
-html,
-body {
-	margin:0;
-   	padding:0;
-   	height:100%;
-}
-
 #container {
-   min-height:100%;
-   position:relative;
+   	min-height:100%;
+   	position:relative;
+   	margin: auto;
+   	width: 1200px;
 }
+
 #header {
-   background:#ff0;
-   padding:10px;
+   	padding:10px;
+   	border-bottom: 1px solid #DDDDDD;
+	height: 120px;
+	position: relative;
 }
-#body {
-   padding:10px;
-   padding-bottom:60px;   /* Height of the footer */
+#main {
+   	padding:10px;
+   	padding-bottom:60px;   /* Height of the footer */
 }
 #footer {
-   position:absolute;
-   bottom:0;
-   width:100%;
-   height:60px;   /* Height of the footer */
-   background:#6cf;
+	position:absolute;
+   	bottom:0;
+   	width:100%;
+   	height:60px;   /* Height of the footer */
+   	border-top: 1px solid #DDDDDD;
 }
+
+#menu {
+	position: absolute;
+	bottom:0;
+	right:0;
+}
+
+#breadcrumb {
+	border-bottom: 1px solid #DDDDDD;
+	height:60px;   
+}
+
+#main-intro {
+	position: relative;
+	width: 90%;
+	margin: auto;
+	
+}
+
+.left-block {
+	float:left;
+	width: 25%;
+	border-right: 1px solid #DDDDDD;
+}
+.right-block {
+	width: 74%;
+	float:left;
+}
+
+.menu-item {
+	width: 20%;
+	float:left;
+}
+
+

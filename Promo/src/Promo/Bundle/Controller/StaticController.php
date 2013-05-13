@@ -14,4 +14,13 @@ class StaticController extends Controller
     {
         return $this->render('PromoBundle:Static:index.html.twig');
     }
+    public function empresaAction()
+    {
+    	return $this->render('PromoBundle:Static:empresa.html.twig');
+    }
+    public function consultoriaAction()
+    {
+    	return $this->render('PromoBundle:Static:consultoria.html.twig');
+    }
+    
 }

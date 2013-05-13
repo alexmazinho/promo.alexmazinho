@@ -1,29 +1,42 @@
-#FecdasPartesBundle_homepage:
-#    pattern:  /fecdas/{name}
-#    defaults: { _controller: FecdasPartesBundle:Default:index }
-
 PromoBundle_homepage:
     pattern:  /
     defaults: { _controller: "PromoBundle:Static:index" }
     requirements:
         _method:  GET
 
+PromoBundle_empresa:
+    pattern:  /empresa
+    defaults: { _controller: "PromoBundle:Static:empresa" }
+    requirements:
+        _method:  GET
 
-#FecdasPartesBundle_homepage:
-#    pattern:  /
-#    defaults: { _controller: "FecdasPartesBundle:Page:index" }
-#    requirements:
-#        _method:  GET
-        
-#FecdasPartesBundle_contact:
-#    pattern:  /contact
-#    defaults: { _controller: "FecdasPartesBundle:Page:contact" }
-#    requirements:
-#        _method:  GET|POST
+PromoBundle_consultoria:
+    pattern:  /consultoria
+    defaults: { _controller: "PromoBundle:Static:consultoria" }
+    requirements:
+        _method:  GET
 
-#FecdasPartesBundle_login:
-#    pattern:  /login
-#    defaults: { _controller: "FecdasPartesBundle:Security:login" }
-#    requirements:
-#        _method:  GET|POST
+PromoBundle_casosexito:
+    pattern:  /casosexito
+    defaults: { _controller: "PromoBundle:Static:casosexito" }
+    requirements:
+        _method:  GET
+
+PromoBundle_contacto:
+    pattern:  /contacto
+    defaults: { _controller: "PromoBundle:Static:contacto" }
+    requirements:
+        _method:  GET
+
+PromoBundle_catalogo:
+    pattern:  /catalogo
+    defaults: { _controller: "PromoBundle:Productos:catalogo" }
+    requirements:
+        _method:  GET
+
+PromoBundle_login:
+    pattern:  /admin/login
+    defaults: { _controller: "PromoBundle:Security:login" }
+    requirements:
+        _method:  GET|POST
         
