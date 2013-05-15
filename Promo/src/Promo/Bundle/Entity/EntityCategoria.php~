@@ -1,0 +1,49 @@
+<?php
+namespace Promo\Bundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="categories")
+ * 
+ * @author alex
+ *
+ */
+class EntityCategoria {
+	
+	/**
+	 * @ORM\Id
+	 * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+	 */
+	protected $id;	
+	
+	/**
+	 * @ORM\Column(type="string", length=50)
+	 */
+	protected $nom;
+		
+	/**
+     * @ORM\OneToOne(targetEntity="EntityImatge")
+     * @ORM\JoinColumn(name="imatge", referencedColumnName="id")
+     */
+	protected $imatge;
+
+	/**
+	 * @ORM\OneToMany(targetEntity="EntityCategoria", mappedBy="pare")
+	 */
+	private $fills;		// Categories filles
+	
+	/**
+	 * @ORM\ManyToOne(targetEntity="EntityCategoria", inversedBy="fills")
+	 * @ORM\JoinColumn(name="pare", referencedColumnName="id")
+	 */
+	private $pare;
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="EntityProducte", mappedBy="categoria")
+	 */
+	protected $productes;	// Owning side of the relationship
+
+}

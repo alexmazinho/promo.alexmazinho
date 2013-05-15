@@ -1,0 +1,28 @@
+{% extends 'PromoBundle::layout.html.twig' %}
+
+{% block title %}Bienvenido a Promoquality!{% endblock %}
+
+{% block content %}
+	<ol id="list-cataleg">
+	{% for categoria in categories %}
+   		<li class="data-cataleg" >
+	   		<div class="cataleg-imatge">{{ categoria.imatge.path }}</div>
+   			<div class="cataleg-nom">{{ categoria.nom }}</div>
+   		</li>
+   	{% endfor %}
+	</ol>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
+    
+	$(document).ready(function(){
+		$("#menu-catalogo").addClass("menu-item-active");
+	});
+	
+	</script>
+    
+{% endblock %}

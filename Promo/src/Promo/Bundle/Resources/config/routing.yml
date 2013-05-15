@@ -30,7 +30,7 @@ PromoBundle_contacto:
 
 PromoBundle_catalogo:
     pattern:  /catalogo
-    defaults: { _controller: "PromoBundle:Productos:catalogo" }
+    defaults: { _controller: "PromoBundle:Productes:catalogo" }
     requirements:
         _method:  GET
 

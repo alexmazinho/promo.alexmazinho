@@ -1,0 +1,62 @@
+<?php
+namespace Promo\Bundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="usuaris")
+ * 
+ * @author alex
+ *
+ */
+class EntityUsuari {
+	
+	/**
+	 * @ORM\Id
+	 * @ORM\Column(name="usuari",type="string", length=12)
+	 */
+	protected $usuari;	
+	
+	/**
+	 * @ORM\Column(name="mail",type="string", length=50)
+	 * @Assert\Email()
+	 */
+	protected $mail;	// Mail 
+
+	/**
+	 * @ORM\Column(type="string", length=40)
+	 * @Assert\NotBlank()
+	 */
+	protected $pwd;
+	
+	/**
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $forceupdate;
+	
+	/**
+	 * @ORM\Column(type="string", length=40, nullable=true)
+	 */
+	protected $recoverytoken;
+	
+	/**
+	 * @ORM\Column(type="datetime", nullable=true)
+	 */
+	protected $recoveryexpiration;
+	
+	/**
+	 * @ORM\Column(type="datetime", nullable=true)
+	 */
+	protected $lastaccess;
+
+	
+	public function __construct() {
+		$this->forceupdate = true;
+	}
+	
+	public function __toString() {
+		return $this->user;
+	}
+}

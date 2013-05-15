@@ -1,0 +1,58 @@
+<?php
+namespace Promo\Bundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="productes")
+ * 
+ * @author alex
+ *
+ */
+class EntityProducte {
+	
+	/**
+	 * @ORM\Id
+	 * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+	 */
+	protected $id;	
+	
+	/**
+	 * @ORM\Column(type="string", length=50)
+	 */
+	protected $nom;
+		
+	/**
+     * @ORM\OneToOne(targetEntity="EntityImatge")
+     * @ORM\JoinColumn(name="imatgeportada", referencedColumnName="id")
+     */
+	protected $imatgePortada;
+	
+	/**
+     * @ORM\ManyToMany(targetEntity="EntityImatge")
+     * @ORM\JoinTable(name="imatges_productes",
+     *      joinColumns={@ORM\JoinColumn(name="producte", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="imatge", referencedColumnName="id")}
+     *      )
+     */
+	protected $imatges;	// Owning side of the relationship	
+	
+	/**
+	 * @ORM\ManyToOne(targetEntity="EntityCategoria", inversedBy="productes")
+	 * @ORM\JoinColumn(name="categoria", referencedColumnName="id")
+	 */
+	protected $categoria;  // Inverse side relationship
+	
+	/**
+	 * @ORM\Column(type="text")
+	 */
+	protected $especificacions;
+	
+	/**
+	 * @ORM\Column(type="text")
+	 */
+	protected $preus;
+	
+}

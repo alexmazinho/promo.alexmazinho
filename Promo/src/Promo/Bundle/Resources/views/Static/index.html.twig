@@ -3,6 +3,12 @@
 
 {% block title %}Bienvenido a Promoquality!{% endblock %}
 
+{% block javascriptshead %} 
+	{{ parent() }}
+   	<script src="{{ asset('js/jquery.jplayer-2.3.0.min.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+
 {% block header %}
 {{ parent() }}
 <style>
@@ -15,9 +21,7 @@
 	<img alt="Entrada menú información empresa" title="La empresa" src="{{ asset('images/contact-image.png') }}">
 </div>
 <div id="main-intro">
-	<div id="introsprite">
-		<img alt="" src="/images/logo_promoquality_big.png">
-	</div>
+	<div id="introsprite" class="jp-jplayer"></div>
 	<div id="text-intro-01" style="display: none">
 		<span id ="text-intro-tot-01" class="text-intro-tot">
 		<span class="text-intro-pregunta">¿No tienes tiempo para buscar?</span>
@@ -66,13 +70,159 @@ Cos
     {{ parent() }}
     
     <script type="text/javascript">
-    
-	$(document).ready(function(){
-
-
-		//$("#introsprite").sprite({fps: 4, no_of_frames: 4, play_frames: 4});
+	
+	
+    $(document).ready(function(){
 
 		
+    	loadVideo = function(id, texts) {
+		
+			if (texts.length > 0) {
+				$(id).jPlayer("destroy"); // Destroy any previous instance
+				var text = texts.shift();
+	    		$(id).jPlayer({
+	        		ready: function () {
+	    	    		$(this).jPlayer("setMedia", {
+	    	    			m4v: "/media/movie01.m4v",
+	    	    			ogv: "/media/movie01.ogv",
+	    	    			webmv: "/media/movie01.webm",
+	    	    			poster: "/images/logo_promoquality_big.png" 
+	    	    		})
+	    	    		.jPlayer("play");
+	
+	    	    		var click = document.ontouchstart === undefined ? 'click' : 'touchstart';
+	    		        var kickoff = function () {
+	    		        	$(id).jPlayer("play");
+	    		            document.documentElement.removeEventListener(click, kickoff, true);
+	    		        };
+	    		        document.documentElement.addEventListener(click, kickoff, true);
+	    	    		
+	        		},
+	        		ended: function () {
+	        			/*$(id).css('width', 'none');
+	        			$(id).css('height', 'none');*/
+	        			$(id).jPlayer("destroy");
+	        			
+	        			
+	        			$(id).html(  $(text).html()  );
+	        			
+	        			setTimeout(function() {
+		        			//$(id).html("");
+	        				loadVideo(id, texts); // Recursive
+	        			}, 1000);
+	                },	
+	        		supplied: "ogv, webmv, m4v",
+	        		size: {
+	        			width: "800px",
+	        			height: "600px"	
+	            	},
+	            	backgroundColor: "#ffffff",
+	        		swfPath: "/js",
+	        		wmode: "window",
+	        		solution: "html,flash"
+	        	});
+			};
+        };
+
+        
+        var texts = new Array("#text-intro-01", "#text-intro-02", "#text-intro-03");
+		
+        loadVideo("#introsprite", texts);
+    	/*
+    	$("#introsprite").jPlayer({
+    		ready: function () {
+	    		$(this).jPlayer("setMedia", {
+	    			m4v: "/media/movie10.mp4",
+	    			ogv: "/media/movie10.ogv",
+	    			webmv: "/media/movie10.webm",
+	    			poster: "/images/logo_promoquality_big.png" 
+	    		})
+	    		.jPlayer("play");
+
+	    		var click = document.ontouchstart === undefined ? 'click' : 'touchstart';
+		        var kickoff = function () {
+		        	$("#introsprite").jPlayer("play");
+		            document.documentElement.removeEventListener(click, kickoff, true);
+		        };
+		        document.documentElement.addEventListener(click, kickoff, true);
+	    		
+    		},
+    		ended: function () {
+    			$("#introsprite").html(  $("#text-intro-01").html()  );
+            },	
+    		supplied: "ogv, webmv, m4v",
+    		size: {
+    			width: "800px",
+    			height: "600px"	
+        	},
+        	backgroundColor: "#ffffff",
+    		swfPath: "/js",
+    		wmode: "window",
+    		solution: "html,flash",
+
+    	});*/
+
+    	
+    	
+    	
+    	//alert($.jPlayer.event.play);
+
+    	//$("#introsprite").html(  $("#text-intro-01").html()  );
+    	
+    /*
+    $("#introsprite").jPlayer({
+    	ready: function() {
+	    	$(this).jPlayer("setMedia", {
+		    	mp3: "/media/intro.mp3"
+	        }).jPlayer("play");
+	        
+	        var click = document.ontouchstart === undefined ? 'click' : 'touchstart';
+	        var kickoff = function () {
+	        	$("#jquery_audioPlayer").jPlayer("play");
+	            document.documentElement.removeEventListener(click, kickoff, true);
+	        };
+	        document.documentElement.addEventListener(click, kickoff, true);
+	    },
+	    solution: "html,flash",
+	    volume: 1,
+	    swfPath: "/js"
+	});*/
+    
+		// Intro 1 - 9 fotos
+
+		/*
+		setTimeout(function() {
+			audioPlay(0);
+		}, 0);
+			
+
+
+	
+		setTimeout(function() {
+			$("#introsprite").html("");
+			$("#introsprite").sprite({
+				fps: 6, 
+				no_of_frames: 9, 
+				//play_frames: 9,
+				on_last_frame: function(obj) {
+					//obj.spStop(); 
+					obj.destroy();
+					$("#introsprite").css('background', 'none');
+					audioStop();
+					$("#introsprite").html(  $("#text-intro-01").html()  );
+					
+			        //alert("1");
+			       
+			        //$("#jquery_audioPlayer").jPlayer("stop");
+			        //alert("2");
+			        
+			    }
+			});
+			//$('#introsprite').spStart();
+			
+		}, 800);*/
+
+		/*
 		setTimeout(function() {
 			$("#introsprite").html(  $("#text-intro-01").html()  );
 		}, 1000); 
@@ -91,31 +241,34 @@ Cos
 
 		setTimeout(function() {
 			$("#introsprite").html(  $("#text-intro-05").html()  );
-		}, 5000); 
+		}, 5000); */
 
-/*
-		$("#introsprite").html(  $("#text-intro-02").html()  );
-		$("#introsprite").html(  $("#text-intro-03").html()  );
-		$("#introsprite").html(  $("#text-intro-04").html()  );
-		$("#introsprite").html(  $("#text-intro-05").html()  );*/
+		/*
+		audioPlay = function(n) {
+			$("#jquery_audioPlayer").jPlayer({
+	        	ready: function() {
+			    	$(this).jPlayer("setMedia", {
+				    	mp3: "/media/intro.mp3"
+			        }).jPlayer("play");
+			        
+			        var click = document.ontouchstart === undefined ? 'click' : 'touchstart';
+			        var kickoff = function () {
+			        	$("#jquery_audioPlayer").jPlayer("play");
+			            document.documentElement.removeEventListener(click, kickoff, true);
+			        };
+			        document.documentElement.addEventListener(click, kickoff, true);
+			    },
+			    solution: "html,flash",
+			    volume: 1,
+			    swfPath: "/js"
+			});
+		};
+
+		audioStop = function() {
+			$("#jquery_audioPlayer").jPlayer("stop");
+		};*/
 		
-		$("#jquery_audioPlayer").jPlayer({
-        	ready: function() {
-		    	$(this).jPlayer("setMedia", {
-			    	mp3: "/media/intro.mp3"
-		        }).jPlayer("play");
-		        
-		        var click = document.ontouchstart === undefined ? 'click' : 'touchstart';
-		        var kickoff = function () {
-		        	$("#jquery_audioPlayer").jPlayer("play");
-		            document.documentElement.removeEventListener(click, kickoff, true);
-		        };
-		        document.documentElement.addEventListener(click, kickoff, true);
-		    },
-		    solution: "html,flash",
-		    volume: 1,
-		    swfPath: "/js"
-		});
+
 		/*
 		$('#intro').jsMovie({
 			//images : ['loader_ani4x4.png'],

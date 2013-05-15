@@ -94,20 +94,22 @@ a, a:hover, a:active {
 /************************* Menu final *******************************/
 
 #introsprite {
-    /*background: url("/images/sprite01.jpg") no-repeat scroll 0 0 transparent;*/
+    /*background: url("/images/sprite01.png") no-repeat scroll 0 0 transparent;*/
     /*cursor: pointer;*/
     height: 600px;
     position: relative;
     width: 800px;
     margin: auto;
     z-index: 2000;
+    border: 1px solid #DDDDDD;
 }
 
-#introsprite img {
-	width: 800px;
-	height: 600px;
+#introsprite img,
+#introsprite video,
+#introsprite object {
 	left: 0;
     position: absolute;
+    margin: 0 auto;
 }
 
 .text-intro-tot {
