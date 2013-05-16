@@ -34,6 +34,13 @@ PromoBundle_catalogo:
     requirements:
         _method:  GET
 
+PromoBundle_categoria:
+    pattern:  /admin/categoria
+    defaults: { _controller: "PromoBundle:Admin:categoria" }
+    requirements:
+        _method:  GET|POST
+
+
 PromoBundle_login:
     pattern:  /admin/login
     defaults: { _controller: "PromoBundle:Security:login" }

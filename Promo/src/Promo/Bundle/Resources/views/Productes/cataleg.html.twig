@@ -2,26 +2,68 @@
 
 {% block title %}Bienvenido a Promoquality!{% endblock %}
 
+{% block breadcrumb %}
+
+	{% if pare is null %}
+		<div id="admin-action">
+			<a href="{{ path('PromoBundle_categoria') }}">Nueva categoria</a>
+		</div>
+	{% else %}
+		<div id="current-category">
+			<h3>{{ pare.nom }}</h3>
+		</div>
+		<div id="admin-action">
+			<a href="{{ path('PromoBundle_categoria') }}">Nueva categoria</a>
+		</div>
+	{% endif %}
+{% endblock %}
+
 {% block content %}
-	<ol id="list-cataleg">
+	<ol id="list-cataleg"> 
 	{% for categoria in categories %}
-   		<li class="data-cataleg" >
-	   		<div class="cataleg-imatge">{{ categoria.imatge.path }}</div>
+   		<li>
+	   		<div class="cataleg-imatge"><img  width="{{ categoria.imatge.width }}" height="{{ categoria.imatge.height }}" alt="{{ categoria.imatge.titol }}" title="{{ categoria.imatge.titol }}" src="{{ asset('images/items/') }}{{ categoria.imatge.path }}"></div>
    			<div class="cataleg-nom">{{ categoria.nom }}</div>
    		</li>
    	{% endfor %}
-	</ol>
-
+	</ol> 
+	
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     
     <script type="text/javascript">
+
+    $(window).load(function(){
+    	alert("load");
+
+    	$("#list-cataleg img").each(function() {
+    		//alert($(this).height());
+		});
+   	});
+
     
 	$(document).ready(function(){
 		$("#menu-catalogo").addClass("menu-item-active");
+
+		function getOriginalWidthOfImg(img_element) {
+		    var t = new Image();
+		    t.src = (img_element.getAttribute ? img_element.getAttribute("src") : false) || img_element.src;
+		    return t.width;
+		};
+
+    	$("#list-cataleg img").each(function() {
+    		if ($(this).attr("height") >= $(this).attr("width")) {
+				$(this).addClass("cataleg-img-alta");
+			} else {
+				$(this).addClass("cataleg-img-ample");
+				$(this).parent().addClass("cataleg-imatge-cell");
+			} 
+		});
+		
 	});
+
 	
 	</script>
     

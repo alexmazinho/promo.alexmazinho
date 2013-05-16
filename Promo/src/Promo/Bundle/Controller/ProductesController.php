@@ -23,7 +23,7 @@ class ProductesController extends Controller
    			$currentCategoria = $this->getDoctrine()->getRepository('PromoBundle:EntityCategoria')->find($request->query->get('categoria'));
    			
    			if ($currentCategoria->getProductes() != null) {
-   				// No té categories filles, mostrar productes
+   				// No té categories filles, mostrar productes forward
    				
    				
    			} else {
@@ -42,7 +42,7 @@ class ProductesController extends Controller
     		$categories = $query->getResult();
     	}
     	
-    	return $this->render('PromoBundle:Productes:cataleg.html.twig',		array('categories' => $categories)); 
+    	return $this->render('PromoBundle:Productes:cataleg.html.twig',	array('categories' => $categories, 'pare' => $currentCategoria, 'admin' => true)); 
     }
     
 }

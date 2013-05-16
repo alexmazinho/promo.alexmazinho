@@ -1,0 +1,56 @@
+{% extends 'PromoBundle::layout.html.twig' %}
+
+{% block title %}Nueva categoria{% endblock %}
+
+{% block breadcrumb %}
+
+	{% if pare is null %}
+		<div id="current-category"><h3>Nueva categoría principal</h3></div>
+	{% else %}
+		<div id="current-category"><h3>Nueva subcategoría de {{ pare.nom }}</h3></div> 
+			<h3>{{ pare.nom }}</h3>
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+ 	{% if app.session.hasFlash('sms-notice') %}
+    <div class="sms-notice">
+        {{ app.session.flash('sms-notice') }}
+    </div>
+	{% endif %}
+
+	<form action="{{ path('PromoBundle_categoria') }}" method="post" {{ form_enctype(form) }}>
+	
+		<div class="nom-categoria">
+			{{ form_label(form.nom, 'Nombre', { 'attr': {'class': 'formlabel-outside'} }) }}
+			{{ form_widget(form.nom, { 'attr': {'class': 'forminput-outside'} }) }}
+		</div>
+		<div class="titol-imatge-categoria">
+			{{ form_label(form.imatge.titol, 'Descripción', { 'attr': {'class': 'formlabel-outside'} }) }}
+			{{ form_widget(form.imatge.titol, { 'attr': {'class': 'forminput-outside'} }) }}
+		</div>
+		<div class="titol-imatge-categoria">
+			{{ form_label(form.imatge.file, 'Subir imagen', { 'attr': {'class': 'formlabel-outside'} }) }}
+			{{ form_widget(form.imatge.file, { 'attr': {'class': 'forminput-outside'} }) }}
+		</div>
+		
+		{{ form_rest(form.imatge) }}
+		{{ form_rest(form) }}
+
+	    <input type="submit" value="Crear" />
+	</form>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
+    
+	$(document).ready(function(){
+	});
+	
+	</script>
+    
+{% endblock %}

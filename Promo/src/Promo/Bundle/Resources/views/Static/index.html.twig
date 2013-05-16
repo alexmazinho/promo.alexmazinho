@@ -83,9 +83,9 @@ Cos
 	    		$(id).jPlayer({
 	        		ready: function () {
 	    	    		$(this).jPlayer("setMedia", {
-	    	    			m4v: "/media/movie01.m4v",
-	    	    			ogv: "/media/movie01.ogv",
-	    	    			webmv: "/media/movie01.webm",
+	    	    			m4v: "/media/movie01_text.m4v",
+	    	    			ogv: "/media/movie01_text.ogv",
+	    	    			webmv: "/media/movie01_text.webm",
 	    	    			poster: "/images/logo_promoquality_big.png" 
 	    	    		})
 	    	    		.jPlayer("play");
@@ -99,17 +99,13 @@ Cos
 	    	    		
 	        		},
 	        		ended: function () {
-	        			/*$(id).css('width', 'none');
-	        			$(id).css('height', 'none');*/
-	        			$(id).jPlayer("destroy");
-	        			
-	        			
-	        			$(id).html(  $(text).html()  );
-	        			
+						/*
+						$(id).jPlayer("destroy");
+        				$(id).html(  $(text).html()  );
 	        			setTimeout(function() {
-		        			//$(id).html("");
 	        				loadVideo(id, texts); // Recursive
-	        			}, 1000);
+	        			}, 2000);*/
+	        			loadVideo(id, texts); // Recursive
 	                },	
 	        		supplied: "ogv, webmv, m4v",
 	        		size: {
@@ -128,6 +124,11 @@ Cos
         var texts = new Array("#text-intro-01", "#text-intro-02", "#text-intro-03");
 		
         loadVideo("#introsprite", texts);
+
+		//$("#introsprite").html(  $("#text-intro-01").html()  );
+
+
+        
     	/*
     	$("#introsprite").jPlayer({
     		ready: function () {

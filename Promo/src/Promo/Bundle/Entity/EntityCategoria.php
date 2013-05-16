@@ -33,13 +33,13 @@ class EntityCategoria {
 	/**
 	 * @ORM\OneToMany(targetEntity="EntityCategoria", mappedBy="pare")
 	 */
-	private $fills;		// Categories filles
+	protected $fills;		// Categories filles
 	
 	/**
 	 * @ORM\ManyToOne(targetEntity="EntityCategoria", inversedBy="fills")
 	 * @ORM\JoinColumn(name="pare", referencedColumnName="id")
 	 */
-	private $pare;
+	protected $pare;
 	
 	/**
 	 * @ORM\OneToMany(targetEntity="EntityProducte", mappedBy="categoria")

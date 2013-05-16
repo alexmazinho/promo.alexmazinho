@@ -51,6 +51,10 @@ a, a:hover, a:active {
 	color: inherit;
 }
 
+.sms-notice {
+	color: red;
+}
+
 /************************* Generics final *******************************/
 
 #logo h1 {
@@ -167,3 +171,70 @@ a, a:hover, a:active {
 	margin:0px;	
 	line-height: 1.4em;
 }
+
+/************************* Breadcumb *******************************/
+
+#current-category {
+	float: left;
+}
+
+#admin-action {
+	float: right
+}
+
+/************************* Breadcumb final *******************************/
+
+/************************* Cataleg *******************************/
+
+#list-cataleg {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+#list-cataleg li {
+    float: left;
+    color: #000000;
+    height: 160px;
+    margin: 3px;
+    padding: 1px;
+    text-align: center;
+    width: 19%;
+}
+
+#list-cataleg li .cataleg-imatge {
+	height: 120px;
+	margin: auto;
+} 
+
+.cataleg-imatge-cell {
+	vertical-align: middle;
+	text-align: center; 
+	display: table-cell; 
+}
+
+#list-cataleg li .cataleg-nom {
+	height: 40px;
+} 
+
+#list-cataleg li div {
+	color: #000000;
+	margin: 0px;
+}
+
+#list-cataleg li img {
+}
+
+.cataleg-img-alta {
+	height: 100%;
+	
+}
+
+.cataleg-img-ample {
+	width: 100%;
+}
+
+
+
+/************************* Cataleg final *******************************/
