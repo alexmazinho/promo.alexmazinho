@@ -2,6 +2,7 @@
 namespace Promo\Bundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Promo\Bundle\Util\Funcions;
 
 /**
  * @ORM\Entity
@@ -220,4 +221,15 @@ class EntityProducte {
     {
         return $this->categoria;
     }
+    
+    /**
+     * Get ruta
+     *
+     * @return string
+     */
+    public function getRuta()
+    {
+    	return $this->id."-".Funcions::netejarPath($this->nom);
+    }
+    
 }

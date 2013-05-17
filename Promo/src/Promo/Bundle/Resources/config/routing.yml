@@ -34,6 +34,13 @@ PromoBundle_catalogo:
     requirements:
         _method:  GET
 
+PromoBundle_catalogodetalle:
+    pattern:  /catalogo/producto/{producto}
+    defaults: { _controller: "PromoBundle:Productes:producto" }
+    requirements:
+        _method:  GET
+
+
 PromoBundle_categoria:
     pattern:  /admin/categoria
     defaults: { _controller: "PromoBundle:Admin:categoria" }

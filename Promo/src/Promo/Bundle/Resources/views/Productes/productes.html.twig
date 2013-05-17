@@ -1,0 +1,65 @@
+{% extends 'PromoBundle::layout.html.twig' %}
+
+{% block title %}Productos Promoquality!{% endblock %}
+
+{% block breadcrumb %}
+
+	<div id="current-category">
+		<h3><a href="{{ path('PromoBundle_catalogo', {'categoria': categoria.pare.ruta }) }}">{{ categoria.root }}</a></h3>
+	</div>
+	
+	{% if admin == true %}
+		<div id="admin-action">
+			<a href="{{ path('PromoBundle_producto', {'categoria': categoria.id }) }}">Nuevo producto</a>
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	<ol id="list-cataleg"> 
+	{% for producte in productes %}
+   		<li><a href="{{ path('PromoBundle_catalogodetalle', {'producto': producte.ruta}) }}">
+	   		<div class="cataleg-imatge">
+	   			<img  width="{{ producte.imatgeportada.width }}" height="{{ producte.imatgeportada.height }}" 
+	   			alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
+	   			src="{{ asset('images/items/') }}{{ producte.imatgeportada.path }}"></div>
+   			<div class="cataleg-nom">{{ producte.nom }}</div></a>
+   		</li>
+   	{% endfor %}
+	</ol> 
+	
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
+
+	$(document).ready(function(){
+		$("#menu-catalogo").addClass("menu-item-active");
+
+		calculateAspectRatioFit = function(srcWidth, srcHeight, maxWidth, maxHeight) {
+		    var ratio = [maxWidth / srcWidth, maxHeight / srcHeight ];
+		    ratio = Math.min(ratio[0], ratio[1]);
+
+		    return { width:srcWidth*ratio, height:srcHeight*ratio };
+		}
+
+    	$("#list-cataleg img").each(function() {
+        	var a = calculateAspectRatioFit($(this).attr("width"), $(this).attr("height"), $(this).parent().width(), $(this).parent().height() - 10);
+        	$(this).attr("width", Math.round(a.width));
+        	$(this).attr("height", Math.round(a.height));
+
+        	
+        	if (Math.round(a.width) > Math.round(a.height)) {
+            	
+            	$(this).parent().addClass("cataleg-imatge-cell");
+    		}
+		});
+		
+	});
+
+	
+	</script>
+    
+{% endblock %}

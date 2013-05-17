@@ -27,7 +27,8 @@ class ProductesController extends Controller
    			if (count($currentCategoria->getProductes()) > 0) {
    				// No té categories filles, mostrar productes forward
    				//$router->generate('blog_show', array('slug' => 'my-blog-post'), true);
-   				echo count($currentCategoria->getProductes());
+   				return $this->render('PromoBundle:Productes:productes.html.twig',	
+   						array('productes' => $currentCategoria->getProductes(), 'categoria' => $currentCategoria, 'admin' => true));
    			} else {
    				$categories = $currentCategoria->getFills();
    			}
@@ -45,4 +46,20 @@ class ProductesController extends Controller
     	return $this->render('PromoBundle:Productes:cataleg.html.twig',	array('categories' => $categories, 'pare' => $currentCategoria, 'admin' => true)); 
     }
     
+    public function productoAction($producto)
+    {
+
+    	$request = $this->getRequest();
+    	
+    	$em = $this->getDoctrine()->getEntityManager();
+    	
+    	$producteid = explode("-", $producto);
+    	 
+   		$currentProducto = $this->getDoctrine()->getRepository('PromoBundle:EntityProducte')
+   							->find($producteid[0]);
+    	
+    	return $this->render('PromoBundle:Productes:producte.html.twig',	
+    			array('producte' => $currentProducto, 'admin' => true)); 
+   		    
+    }
 }

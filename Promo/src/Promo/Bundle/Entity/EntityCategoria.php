@@ -220,7 +220,7 @@ class EntityCategoria {
     }
     
     /**
-     * Get path
+     * Get ruta
      *
      * @return string
      */

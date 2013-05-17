@@ -1,14 +1,19 @@
 {% extends 'PromoBundle::layout.html.twig' %}
 
-{% block title %}Bienvenido a Promoquality!{% endblock %}
+{% block title %}
+Catálogo Promoquality{% if pare is not null %}. {{ pare.nom }}	{% endif %}
+{% endblock %}
 
 {% block breadcrumb %}
-
 	{% set pareid = 0 %}
 	{% if pare is not null %}
 		{% set pareid = pare.id %}
 		<div id="current-category">
-			<h3>{{ pare.nom }}</h3>
+			{% if pare.pare is null %}
+			<h3><a href="{{ path('PromoBundle_catalogo') }}">{{ pare.root }}</a></h3>
+			{% else %}
+			<h3><a href="{{ path('PromoBundle_catalogo', {'categoria': pare.pare.ruta }) }}">{{ pare.root }}</a></h3>
+			{% endif %}
 		</div>
 	{% endif %}
 	

@@ -285,3 +285,34 @@ form .form-row {
 
 
 /************************* Cataleg final *******************************/
+
+/************************* Producte *******************************/
+
+#producte-nom {
+	font-weight: bold;
+	padding-left: 10px;
+    font-size: 0.9em;
+}
+
+.producte-titol {
+	font-weight: bold;
+	font-size: 0.7em;
+}
+
+.producte-detall {
+	font-size: 0.7em;
+	color: #999;
+}
+
+#producte-imatge-portada {
+	/*height: 120px;*/
+	text-align: center;
+	margin-left: auto;   
+	margin-right: auto; 
+}
+
+#producte-imatge-portada img {
+
+}
+
+/************************* Producte final *******************************/

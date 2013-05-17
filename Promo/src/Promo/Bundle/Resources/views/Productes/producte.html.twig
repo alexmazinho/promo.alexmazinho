@@ -1,0 +1,44 @@
+{% extends 'PromoBundle::layout.html.twig' %}
+
+{% block title %}
+Catálogo Promoquality. {{ producte.nom }}
+{% endblock %}
+
+{% block breadcrumb %}
+	<div id="current-category">
+		<h3><a href="{{ path('PromoBundle_catalogo', {'categoria': producte.categoria.ruta }) }}">{{ producte.categoria.root }}</a></h3>
+	</div>
+{% endblock %}
+
+{% block content %}
+	<div class="left-block">
+		<div id="producte-nom">{{ producte.nom }}</div>
+		<div id="producte-espc">
+			<p class="producte-titol">Especificaciones técnicas</p>
+			<p class="producte-detall">{{ producte.especificacions }}</p>
+		</div>
+		<div id="producte-preus">
+			<p class="producte-titol">Precios (no incluyen impresión)</p>
+			<p class="producte-detall">{{ producte.preus }}</p>
+		</div>
+	</div>
+	<div class="right-block">
+		<div id="producte-imatge-portada">
+			<img  width="{{ producte.imatgeportada.width }}" height="{{ producte.imatgeportada.height }}" 
+				alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
+				src="{{ asset('images/items/') }}{{ producte.imatgeportada.path }}">
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
+
+	$(document).ready(function(){
+		$("#menu-catalogo").addClass("menu-item-active");
+	});
+	</script>
+    
+{% endblock %}
