@@ -173,7 +173,7 @@ class EntityProducte {
      */
     public function addImatge(\Promo\Bundle\Entity\EntityImatge $imatges)
     {
-        $this->imatges[] = $imatges;
+        $this->imatges->add($imatges);
     
         return $this;
     }
@@ -207,7 +207,7 @@ class EntityProducte {
     public function setCategoria(\Promo\Bundle\Entity\EntityCategoria $categoria = null)
     {
         $this->categoria = $categoria;
-    
+        $categoria->addProducte($this);
         return $this;
     }
 

@@ -4,6 +4,7 @@ namespace Promo\Bundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Promo\Bundle\Util\Funcions;
 
 /**
  * @ORM\Entity
@@ -37,7 +38,7 @@ class EntityImatge {
 	protected $file;
 	
 	public function __toString() {
-		return (string) $this->$path;
+		return $this->path;
 	}
 
 	public function getWidth() {
@@ -62,20 +63,20 @@ class EntityImatge {
 	
 		// move takes the target directory and then the
 		// target filename to move to
-		$extension = $this->getFile()->guessExtension();
+		$extension = $this->getFile()->guessExtension(); 
 		
 		if ($extension == null or ($extension != "png" and $extension != "jpg" 
 								and $extension != "jpeg" and $extension != "gif")) {
 			return false;
 		} 
-
+		echo "hola";
 		// 	set the path property to the filename where you've saved the file
 		if ($name == null) {
-			$this->path = time() . "_". $this->netejarPath($this->getFile()->getClientOriginalName());
+			$this->path = time() . "_". Funcions::netejarPath($this->getFile()->getClientOriginalName());
 		} else {
-			$this->path = time() . "_". $this->netejarPath($name) . "." . $extension;
+			$this->path = time() . "_". Funcions::netejarPath($name) . "." . $extension;
 		}
-
+		echo "hola";
 		$this->getFile()->move($this->getUploadRootDir(), $this->path);
 
 		// clean up the file property as you won't need it anymore
@@ -188,62 +189,4 @@ class EntityImatge {
     	return $this->file;
     }
     
-    function netejarPath($string)
-    {
-    
-    	$string = trim($string);
-    
-    	$string = str_replace(
-    			array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
-    			array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
-    			$string
-    	);
-    
-    	$string = str_replace(
-    			array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
-    			array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
-    			$string
-    	);
-    
-    	$string = str_replace(
-    			array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
-    			array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
-    			$string
-    	);
-    
-    	$string = str_replace(
-    			array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
-    			array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
-    			$string
-    	);
-    
-    	$string = str_replace(
-    			array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
-    			array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
-    			$string
-    	);
-    
-    	$string = str_replace(
-    			array('ñ', 'Ñ', 'ç', 'Ç'),
-    			array('n', 'N', 'c', 'C',),
-    			$string
-    	);
-    
-    	//Esta parte se encarga de eliminar cualquier caracter extraño
-    	$string = str_replace(
-    			array("\\", "¨", "º", "-", "~",
-    					"#", "@", "|", "!", "\"",
-    					"·", "$", "%", "&", "/",
-    					"(", ")", "?", "'", "¡",
-    					"¿", "[", "^", "`", "]",
-    					"+", "}", "{", "¨", "´",
-    					">", "< ", ";", ",", ":",
-    					".", " "),
-    			'_',
-    			$string
-    	);
-    
-    
-    	return $string;
-    }
 }

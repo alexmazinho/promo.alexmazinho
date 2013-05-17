@@ -2,6 +2,7 @@
 namespace Promo\Bundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Promo\Bundle\Util\Funcions;
 
 /**
  * @ORM\Entity
@@ -29,11 +30,6 @@ class EntityCategoria {
      * @ORM\JoinColumn(name="imatge", referencedColumnName="id")
      */
 	protected $imatge;
-
-	/**
-	 * @ORM\OneToMany(targetEntity="EntityCategoria", mappedBy="pare")
-	 */
-	protected $fills;		// Categories filles
 	
 	/**
 	 * @ORM\ManyToOne(targetEntity="EntityCategoria", inversedBy="fills")
@@ -41,6 +37,11 @@ class EntityCategoria {
 	 */
 	protected $pare;
 	
+	/**
+	 * @ORM\OneToMany(targetEntity="EntityCategoria", mappedBy="pare")
+	 */
+	protected $fills;		// Categories filles
+
 	/**
 	 * @ORM\OneToMany(targetEntity="EntityProducte", mappedBy="categoria")
 	 */
@@ -54,6 +55,23 @@ class EntityCategoria {
         $this->fills = new \Doctrine\Common\Collections\ArrayCollection();
         $this->productes = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    
+    public function __toString() {
+    	return $this->getRoot();
+    }
+    
+    public function getRoot() {
+    	return $this->getRootChain($this);
+    }
+
+    private function getRootChain($categoria) {
+    	if ($categoria->getPare() != null) {
+    		return $categoria->getRootChain($categoria->getPare()) . " > " . $categoria->getNom();
+    	} else {
+    		return $categoria->getNom();
+    	}
+    }
+    
     
     /**
      * Get id
@@ -119,7 +137,7 @@ class EntityCategoria {
      */
     public function addFill(\Promo\Bundle\Entity\EntityCategoria $fills)
     {
-        $this->fills[] = $fills;
+    	$this->fills->add($fills);
     
         return $this;
     }
@@ -153,6 +171,7 @@ class EntityCategoria {
     public function setPare(\Promo\Bundle\Entity\EntityCategoria $pare = null)
     {
         $this->pare = $pare;
+        $pare->addFill($this);
     
         return $this;
     }
@@ -175,7 +194,7 @@ class EntityCategoria {
      */
     public function addProducte(\Promo\Bundle\Entity\EntityProducte $productes)
     {
-        $this->productes[] = $productes;
+        $this->productes->add($productes);
     
         return $this;
     }
@@ -198,5 +217,15 @@ class EntityCategoria {
     public function getProductes()
     {
         return $this->productes;
+    }
+    
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getRuta()
+    {
+    	return $this->id."-".Funcions::netejarPath($this->nom);
     }
 }

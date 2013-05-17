@@ -33,7 +33,12 @@
 
 #breadcrumb {
 	border-bottom: 1px solid #DDDDDD;
-	height:60px;   
+	height:60px;
+	position: relative;   
+}
+
+#content form {
+	padding: 10px;
 }
 
 #main-intro {

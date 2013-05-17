@@ -7,9 +7,7 @@
 	{% if pare is null %}
 		<div id="current-category"><h3>Nueva categoría principal</h3></div>
 	{% else %}
-		<div id="current-category"><h3>Nueva subcategoría de {{ pare.nom }}</h3></div> 
-			<h3>{{ pare.nom }}</h3>
-		</div>
+		<div id="current-category"><h3>Nueva subcategoría de {{ pare.nom }}</h3></div>
 	{% endif %}
 {% endblock %}
 
@@ -21,24 +19,29 @@
 	{% endif %}
 
 	<form action="{{ path('PromoBundle_categoria') }}" method="post" {{ form_enctype(form) }}>
-	
-		<div class="nom-categoria">
-			{{ form_label(form.nom, 'Nombre', { 'attr': {'class': 'formlabel-outside'} }) }}
-			{{ form_widget(form.nom, { 'attr': {'class': 'forminput-outside'} }) }}
+		{{ form_widget(form.id) }}
+		
+		<div id="nom-categoria" class="form-row">
+			{{ form_label(form.nom, 'Nombre*') }}
+			{{ form_widget(form.nom) }}
 		</div>
-		<div class="titol-imatge-categoria">
-			{{ form_label(form.imatge.titol, 'Descripción', { 'attr': {'class': 'formlabel-outside'} }) }}
-			{{ form_widget(form.imatge.titol, { 'attr': {'class': 'forminput-outside'} }) }}
+		<div id="titol-imatge-categoria" class="form-row">
+			{{ form_label(form.imatge.titol, 'Descripción (html title)') }}
+			{{ form_widget(form.imatge.titol) }}
 		</div>
-		<div class="titol-imatge-categoria">
-			{{ form_label(form.imatge.file, 'Subir imagen', { 'attr': {'class': 'formlabel-outside'} }) }}
-			{{ form_widget(form.imatge.file, { 'attr': {'class': 'forminput-outside'} }) }}
+		<div id="imatge-categoria" class="form-row">
+			{{ form_label(form.imatge.file, 'Subir imagen*') }}
+			{{ form_widget(form.imatge.file) }}
+		</div>
+		<div id="pare-categoria" class="form-row">
+			{{ form_label(form.pare, 'Padre') }}
+			{{ form_widget(form.pare) }}
 		</div>
 		
 		{{ form_rest(form.imatge) }}
 		{{ form_rest(form) }}
 
-	    <input type="submit" value="Crear" />
+	    <input type="submit" value="Crear categoría" />
 	</form>
 
 {% endblock %}

@@ -10,28 +10,28 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProductesController extends Controller
 {
-    public function catalogoAction()
+    public function catalogoAction($categoria)
     {
     	$request = $this->getRequest();
     	
     	$em = $this->getDoctrine()->getEntityManager();
     	
     	$currentCategoria = null;
+    	
+    	$categoriaid = explode("-", $categoria);
+    	
     	$categories = null;
-    	if ($request->query->has('categoria')) {
+    	if ($categoriaid[0] != 0) {
    			// Una categoria seleccionada  
-   			$currentCategoria = $this->getDoctrine()->getRepository('PromoBundle:EntityCategoria')->find($request->query->get('categoria'));
-   			
-   			if ($currentCategoria->getProductes() != null) {
+   			$currentCategoria = $this->getDoctrine()->getRepository('PromoBundle:EntityCategoria')->find($categoriaid[0]);
+   			if (count($currentCategoria->getProductes()) > 0) {
    				// No té categories filles, mostrar productes forward
-   				
-   				
+   				//$router->generate('blog_show', array('slug' => 'my-blog-post'), true);
+   				echo count($currentCategoria->getProductes());
    			} else {
    				$categories = $currentCategoria->getFills();
    			}
-    	}
-    	
-    	if ($categories == null) {
+    	} else {
     		// Seleccionar categories arrel, pare=null
     		$strQuery = "SELECT c FROM Promo\Bundle\Entity\EntityCategoria c ";
     		$strQuery .= " WHERE c.pare IS NULL ";

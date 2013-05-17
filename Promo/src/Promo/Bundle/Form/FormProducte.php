@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Promo\Bundle\Entity\EntityImatge;
 
-class FormCategoria extends AbstractType {
+class FormProducte extends AbstractType {
 
 	protected $options;
 	
@@ -21,9 +21,11 @@ class FormCategoria extends AbstractType {
 		
 		$builder->add('id', 'hidden');
 		
+		$builder->add('imatgeportada', new FormImatge());
+		
 		$builder->add('nom', 'text');
 		
-		$builder->add('pare', 'entity', array(
+		$builder->add('categoria', 'entity', array(
     		'class' => 'PromoBundle:EntityCategoria',
 			'query_builder' => function(EntityRepository $er) {
 				return $er->createQueryBuilder('c')
@@ -33,21 +35,23 @@ class FormCategoria extends AbstractType {
 			'expanded' => false,
 			'multiple' => false,
 		));
+
+		$builder->add('especificacions', 'textarea');
 		
-		$builder->add('imatge', new FormImatge());
+		$builder->add('preus', 'textarea');
 		
 	}
 	
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
 		$resolver->setDefaults(array(
-				'data_class' => 'Promo\Bundle\Entity\EntityCategoria',
+				'data_class' => 'Promo\Bundle\Entity\EntityProducte',
 		));
 	}
 	
 	public function getName()
 	{
-		return 'categoria';
+		return 'producte';
 	}
 
 }

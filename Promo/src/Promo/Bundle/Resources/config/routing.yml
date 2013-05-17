@@ -29,14 +29,20 @@ PromoBundle_contacto:
         _method:  GET
 
 PromoBundle_catalogo:
-    pattern:  /catalogo
-    defaults: { _controller: "PromoBundle:Productes:catalogo" }
+    pattern:  /catalogo/{categoria}
+    defaults: { _controller: "PromoBundle:Productes:catalogo", categoria: "0-lista_categorias" }
     requirements:
         _method:  GET
 
 PromoBundle_categoria:
     pattern:  /admin/categoria
     defaults: { _controller: "PromoBundle:Admin:categoria" }
+    requirements:
+        _method:  GET|POST
+
+PromoBundle_producto:
+    pattern:  /admin/producto
+    defaults: { _controller: "PromoBundle:Admin:producto" }
     requirements:
         _method:  GET|POST
 

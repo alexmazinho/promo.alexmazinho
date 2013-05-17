@@ -1,0 +1,64 @@
+{% extends 'PromoBundle::layout.html.twig' %}
+
+{% block title %}Nuevo producto{% endblock %}
+
+{% block breadcrumb %}
+
+	<div id="current-category"><h3>Nuevo producto de {{ producte.categoria.nom }}</h3></div>
+
+{% endblock %}
+
+{% block content %}
+ 	{% if app.session.hasFlash('sms-notice') %}
+    <div class="sms-notice">
+        {{ app.session.flash('sms-notice') }}
+    </div>
+	{% endif %}
+
+	<form action="{{ path('PromoBundle_producto') }}" method="post" {{ form_enctype(form) }}>
+		{{ form_widget(form.id) }}
+		
+		<div id="nom-producte" class="form-row">
+			{{ form_label(form.nom, 'Nombre*') }}
+			{{ form_widget(form.nom) }}
+		</div>
+		<div id="titol-imatge-producte" class="form-row">
+			{{ form_label(form.imatgeportada.titol, 'Descripción (html title)') }}
+			{{ form_widget(form.imatgeportada.titol) }}
+		</div>
+		<div id="imatge-producte" class="form-row">
+			{{ form_label(form.imatgeportada.file, 'Subir imagen*') }}
+			{{ form_widget(form.imatgeportada.file) }}
+		</div>
+		<div id="espec-producte" class="form-row">
+			{{ form_label(form.especificacions, 'Especificacions*') }}
+			{{ form_widget(form.especificacions) }}
+		</div>
+		<div id="preus-producte" class="form-row">
+			{{ form_label(form.preus, 'Precios*') }}
+			{{ form_widget(form.preus) }}
+		</div>
+		<div id="categoria-producte" class="form-row">
+			{{ form_label(form.categoria, 'Padre') }}
+			{{ form_widget(form.categoria) }}
+		</div>
+		
+		{{ form_rest(form.imatgeportada) }}
+		{{ form_rest(form) }}
+
+	    <input type="submit" value="Crear producto" />
+	</form>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
+    
+	$(document).ready(function(){
+	});
+	
+	</script>
+    
+{% endblock %}
