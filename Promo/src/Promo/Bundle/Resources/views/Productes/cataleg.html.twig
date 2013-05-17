@@ -50,25 +50,8 @@ Catálogo Promoquality{% if pare is not null %}. {{ pare.nom }}	{% endif %}
 	$(document).ready(function(){
 		$("#menu-catalogo").addClass("menu-item-active");
 
-		calculateAspectRatioFit = function(srcWidth, srcHeight, maxWidth, maxHeight) {
-		    var ratio = [maxWidth / srcWidth, maxHeight / srcHeight ];
-		    ratio = Math.min(ratio[0], ratio[1]);
-
-		    return { width:srcWidth*ratio, height:srcHeight*ratio };
-		}
-
-    	$("#list-cataleg img").each(function() {
-        	var a = calculateAspectRatioFit($(this).attr("width"), $(this).attr("height"), $(this).parent().width(), $(this).parent().height() - 10);
-        	$(this).attr("width", Math.round(a.width));
-        	$(this).attr("height", Math.round(a.height));
-
-        	
-        	if (Math.round(a.width) > Math.round(a.height)) {
-            	
-            	$(this).parent().addClass("cataleg-imatge-cell");
-    		}
-		});
-		
+		redimensionarImatgesCataleg("#list-cataleg img");
+			
 	});
 
 	

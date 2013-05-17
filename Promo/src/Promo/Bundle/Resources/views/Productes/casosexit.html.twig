@@ -1,21 +1,6 @@
 {% extends 'PromoBundle::layout.html.twig' %}
 
-{% block title %}Productos Promoquality!{% endblock %}
-
-{% block breadcrumb %}
-
-	{% if categoria.pare is not null %}
-	<div id="current-category">
-		<h3><a href="{{ path('PromoBundle_catalogo', {'categoria': categoria.pare.ruta }) }}">{{ categoria.root }}</a></h3>
-	</div>
-	{% endif %}
-	
-	{% if admin == true %}
-		<div id="admin-action">
-			<a href="{{ path('PromoBundle_producto', {'categoria': categoria.id }) }}">Nuevo producto</a>
-		</div>
-	{% endif %}
-{% endblock %}
+{% block title %}Casos de éxito. Productos recomendados{% endblock %}
 
 {% block content %}
 	<ol id="list-cataleg"> 
@@ -28,7 +13,7 @@
    			<div class="cataleg-nom">{{ producte.nom }}</div></a>
    		</li>
    	{% endfor %}
-	</ol> 
+	</ol>
 	
 {% endblock %}
 
@@ -38,10 +23,9 @@
     <script type="text/javascript">
 
 	$(document).ready(function(){
-		$("#menu-catalogo").addClass("menu-item-active");
+		$("#menu-casosexito").addClass("menu-item-active");
 
 		redimensionarImatgesCataleg("#list-cataleg img");
-		
 	});
 
 	

@@ -62,4 +62,24 @@ class ProductesController extends Controller
     			array('producte' => $currentProducto, 'admin' => true)); 
    		    
     }
+    
+    public function casosexitoAction() {
+    	
+    	$request = $this->getRequest();
+    	
+    	/* Consultar productes d'exit*/
+    	$em = $this->getDoctrine()->getEntityManager();
+    	
+    	$strQuery = "SELECT p FROM Promo\Bundle\Entity\EntityProducte p ";
+    	$strQuery .= " WHERE p.casexit = true ";
+    	$strQuery .= " ORDER BY p.nom";
+    		
+    	$query = $em->createQuery($strQuery);
+    		
+    	$productes = $query->getResult();
+    	    	
+    	return $this->render('PromoBundle:Productes:casosexit.html.twig',
+    			array('productes' => $productes, 'admin' => true));
+    		
+    }
 }

@@ -1,0 +1,63 @@
+{% extends 'PromoBundle::layout.html.twig' %}
+
+{% block title %}Promoquality, Consultoría de marketing{% endblock %}
+
+{% block content %}
+
+    {% if app.session.hasFlash('sms-notice') %}
+    <div class="sms-notice">
+        {{ app.session.flash('sms-notice') }}
+    </div>
+	{% endif %}
+    <div id="contact">
+	<form action="{{ path('PromoBundle_contacto') }}" method="post" {{ form_enctype(form) }}  class="appform">
+    	{{ form_errors(form) }}
+		<div id="contact-nom">
+			{{ form_label(form.nom, 'Nombre*:') }}
+			{{ form_widget(form.nom) }}
+			{{ form_errors(form.nom) }}
+		</div>
+		<div id="contact-adreca">
+			{{ form_label(form.adreca, 'Dirección:') }}
+			{{ form_widget(form.adreca) }}
+		</div>
+		<div id="contact-telf">
+			{{ form_label(form.telf, 'Teléfono:') }}
+			{{ form_widget(form.telf) }}
+		</div>
+		<div id="contact-email">
+			{{ form_label(form.email, 'E-mail*:') }}
+			{{ form_widget(form.email) }}
+			{{ form_errors(form.email) }}
+		</div>
+		<div id="contact-assumpte">
+			{{ form_label(form.assumpte, 'Asunto*:') }}
+			{{ form_widget(form.assumpte) }}
+			{{ form_errors(form.assumpte) }}
+		</div>
+		<div id="contact-missatge">
+			{{ form_label(form.missatge, 'Mensaje*:') }}
+			{{ form_widget(form.missatge) }}
+			{{ form_errors(form.missatge) }}
+		</div>
+		{{ form_rest(form) }}
+		<div>
+			<label>&nbsp;</label>
+        	<input type="submit" class="submit-form" value="Enviar" />
+        </div>        
+    </form> 
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+{{ parent() }}
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#menu-consultoria").addClass("menu-contacto");
+	});
+</script>
+
+
+{% endblock %}

@@ -16,12 +16,6 @@ PromoBundle_consultoria:
     requirements:
         _method:  GET
 
-PromoBundle_casosexito:
-    pattern:  /casosexito
-    defaults: { _controller: "PromoBundle:Static:casosexito" }
-    requirements:
-        _method:  GET
-
 PromoBundle_contacto:
     pattern:  /contacto
     defaults: { _controller: "PromoBundle:Static:contacto" }
@@ -37,6 +31,12 @@ PromoBundle_catalogo:
 PromoBundle_catalogodetalle:
     pattern:  /catalogo/producto/{producto}
     defaults: { _controller: "PromoBundle:Productes:producto" }
+    requirements:
+        _method:  GET
+
+PromoBundle_casosexito:
+    pattern:  /casosexito
+    defaults: { _controller: "PromoBundle:Productes:casosexito" }
     requirements:
         _method:  GET
 

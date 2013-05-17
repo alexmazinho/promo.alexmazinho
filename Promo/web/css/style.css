@@ -119,6 +119,27 @@ form .form-row {
 	padding-bottom: 10px;
 }
 
+.submit-form {
+ 	height:40px;
+ 	background:transparent url('/images/menu-item.png') center bottom no-repeat;
+ 	
+ 	background-size:80% 30px;
+ 	color: #FFFFFF;
+	font-weight: bold;
+	
+    text-indent: 5px;
+    font-size: 0.65em;
+}
+
+.submit-form:hover {
+	background:transparent url('/images/menu-item-active.png') left top no-repeat;
+	background-size:85% 39px;
+	/*background-size:158px 45px;*/
+	/*color: #009fee;*/
+	color: #7fcff6; 
+}
+
+
 /************************* Forms final *******************************/
 
 

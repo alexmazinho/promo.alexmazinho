@@ -69,14 +69,18 @@ class EntityImatge {
 								and $extension != "jpeg" and $extension != "gif")) {
 			return false;
 		} 
-		echo "hola";
+		
 		// 	set the path property to the filename where you've saved the file
+		// Màxim 50 amb extensió. Mida de path  time 10 + _ + nom + .ext 5 => nom <= 50-16= 34
+		
 		if ($name == null) {
-			$this->path = time() . "_". Funcions::netejarPath($this->getFile()->getClientOriginalName());
+			$nameAjustat = $this->getFile()->getClientOriginalName();
 		} else {
-			$this->path = time() . "_". Funcions::netejarPath($name) . "." . $extension;
+			$nameAjustat = $name;
 		}
-		echo "hola";
+		$nameAjustat = substr($nameAjustat, 0, 33);
+		$this->path = time() . "_". Funcions::netejarPath($nameAjustat) . "." . $extension;
+		
 		$this->getFile()->move($this->getUploadRootDir(), $this->path);
 
 		// clean up the file property as you won't need it anymore

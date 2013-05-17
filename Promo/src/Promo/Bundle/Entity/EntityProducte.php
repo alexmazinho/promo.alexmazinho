@@ -56,12 +56,19 @@ class EntityProducte {
 	 */
 	protected $preus;
 	
+	/**
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $casexit;
+	
+	
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->imatges = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->casexit = false;
+    	$this->imatges = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -220,6 +227,26 @@ class EntityProducte {
     public function getCategoria()
     {
         return $this->categoria;
+    }
+    
+    /**
+     * Set casexit
+     *
+     * @param boolean $casexit
+     */
+    public function setCasexit($casexit)
+    {
+    	$this->casexit = $casexit;
+    }
+    
+    /**
+     * Get casexit
+     *
+     * @return boolean
+     */
+    public function getCasexit()
+    {
+    	return $this->casexit;
     }
     
     /**
