@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Temps de generació: 15-05-2013 a les 13:54:54
+-- Temps de generació: 17-05-2013 a les 11:28:16
 -- Versió del servidor: 5.1.66
 -- Versió de PHP : 5.3.3-7+squeeze15
 
@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `nom` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_3AF34668389D7490` (`imatge`),
-  UNIQUE KEY `UNIQ_3AF3466823BF5034` (`pare`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+  KEY `pare` (`pare`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=22 ;
 
 --
 -- Bolcant dades de la taula `categories`
@@ -41,7 +41,12 @@ CREATE TABLE IF NOT EXISTS `categories` (
 
 INSERT INTO `categories` (`id`, `imatge`, `pare`, `nom`) VALUES
 (1, 1, NULL, 'Aventura, viaje y automóvil'),
-(2, 2, NULL, 'Cocina');
+(2, 2, NULL, 'Cocina'),
+(16, 16, NULL, 'aaa'),
+(17, 17, NULL, 'bbbbb'),
+(18, 18, NULL, 'Informática'),
+(19, 19, 2, 'Tazas y mug'),
+(21, 21, 2, 'Pequeños aparatos');
 
 -- --------------------------------------------------------
 
@@ -54,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `imatges` (
   `path` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `titol` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
 
 --
 -- Bolcant dades de la taula `imatges`
@@ -62,7 +67,13 @@ CREATE TABLE IF NOT EXISTS `imatges` (
 
 INSERT INTO `imatges` (`id`, `path`, `titol`) VALUES
 (1, '1_categoria_aventura.jpeg', 'Categoría aventura, viaje y automóvil'),
-(2, '2_categoria_cocina.jpeg', 'Categoría cocina');
+(2, '2_categoria_cocina.jpeg', 'Categoría cocina'),
+(16, '1368737329_aaa.jpeg', NULL),
+(17, '1368739305_bbbbb.jpeg', NULL),
+(18, '1368744830_Informatica.jpeg', 'Categoría Informática'),
+(19, '1368776434_Tazas_y_mug.jpeg', 'Categoría tazas y mug'),
+(21, '1368779899_Pequenos_aparatos.jpeg', 'Categoría Pequeños aparatos'),
+(22, '1368782667_Lector_tarjetas_SD_MS_Mini_SD_Micro_SD.', 'Lector tarjetas SD/MS/Mini SD/Micro SD');
 
 -- --------------------------------------------------------
 
@@ -99,12 +110,14 @@ CREATE TABLE IF NOT EXISTS `productes` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8C9B786CFEAA62C0` (`imatgeportada`),
   KEY `IDX_8C9B786C4E10122D` (`categoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 --
 -- Bolcant dades de la taula `productes`
 --
 
+INSERT INTO `productes` (`id`, `imatgeportada`, `categoria`, `nom`, `especificacions`, `preus`) VALUES
+(1, 22, 18, 'Lector tarjetas SD/MS/Mini SD/Micro SD', 'Ref.: CTL 53993', 'Unidad: 2.09 €\r\n+100: 1.57 €\r\n+400: 1.48 €\r\n+1000: 1.39 €\r\n+3000: 1.31 €');
 
 -- --------------------------------------------------------
 
@@ -136,7 +149,6 @@ CREATE TABLE IF NOT EXISTS `usuaris` (
 -- Restriccions per la taula `categories`
 --
 ALTER TABLE `categories`
-  ADD CONSTRAINT `FK_3AF3466823BF5034` FOREIGN KEY (`pare`) REFERENCES `categories` (`id`),
   ADD CONSTRAINT `FK_3AF34668389D7490` FOREIGN KEY (`imatge`) REFERENCES `imatges` (`id`);
 
 --
