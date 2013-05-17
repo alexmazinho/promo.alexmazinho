@@ -21,7 +21,8 @@ class FormContact extends AbstractType {
 		$builder->add('telf', 'text');
 		$builder->add('email', 'email');
 		$builder->add('assumpte', 'text');
-		$builder->add('missatge', 'textarea');
+		$builder->add('missatge', 'textarea',
+				array('attr' =>array('rows' => '12' )));
 	}
 	
 	public function setDefaultOptions(OptionsResolverInterface $resolver)

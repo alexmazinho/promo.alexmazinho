@@ -9,7 +9,7 @@
 
 #header {
    	padding:10px;
-   	border-bottom: 1px solid #DDDDDD;
+   	/*border-bottom: 1px solid #DDDDDD;*/
 	height: 120px;
 	position: relative;
 }
@@ -22,7 +22,7 @@
    	bottom:0;
    	width:100%;
    	height:60px;   /* Height of the footer */
-   	border-top: 1px solid #DDDDDD;
+   	/*border-top: 1px solid #DDDDDD;*/
 }
 
 #menu {
@@ -32,13 +32,9 @@
 }
 
 #breadcrumb {
-	border-bottom: 1px solid #DDDDDD;
+	/*border-bottom: 1px solid #DDDDDD;*/
 	height:60px;
 	position: relative;   
-}
-
-#content form {
-	padding: 10px;
 }
 
 #main-intro {
@@ -51,7 +47,7 @@
 .left-block {
 	float:left;
 	width: 25%;
-	border-right: 1px solid #DDDDDD;
+	/*border-right: 1px solid #DDDDDD;*/
 }
 .right-block {
 	width: 74%;

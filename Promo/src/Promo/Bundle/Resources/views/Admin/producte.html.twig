@@ -14,41 +14,43 @@
         {{ app.session.flash('sms-notice') }}
     </div>
 	{% endif %}
-
-	<form action="{{ path('PromoBundle_producto') }}" method="post" {{ form_enctype(form) }}>
-		{{ form_widget(form.id) }}
-		
-		<div id="nom-producte" class="form-row">
-			{{ form_label(form.nom, 'Nombre*') }}
-			{{ form_widget(form.nom) }}
-		</div>
-		<div id="titol-imatge-producte" class="form-row">
-			{{ form_label(form.imatgeportada.titol, 'Descripción (html title)') }}
-			{{ form_widget(form.imatgeportada.titol) }}
-		</div>
-		<div id="imatge-producte" class="form-row">
-			{{ form_label(form.imatgeportada.file, 'Subir imagen*') }}
-			{{ form_widget(form.imatgeportada.file) }}
-		</div>
-		<div id="espec-producte" class="form-row">
-			{{ form_label(form.especificacions, 'Especificacions*') }}
-			{{ form_widget(form.especificacions) }}
-		</div>
-		<div id="preus-producte" class="form-row">
-			{{ form_label(form.preus, 'Precios*') }}
-			{{ form_widget(form.preus) }}
-		</div>
-		<div id="categoria-producte" class="form-row">
-			{{ form_label(form.categoria, 'Padre') }}
-			{{ form_widget(form.categoria) }}
-		</div>
-		
-		{{ form_rest(form.imatgeportada) }}
-		{{ form_rest(form) }}
-
-	    <input type="submit" class="submit-form" value="Crear producto" />
-	</form>
-
+	<div id="producte"  class="form-container">
+		<form action="{{ path('PromoBundle_producto') }}" method="post" {{ form_enctype(form) }}>
+			{{ form_widget(form.id) }}
+			
+			<div id="imatge-producte" class="form-row">
+				{{ form_label(form.imatgeportada.file, 'Subir imagen*') }}
+				{{ form_widget(form.imatgeportada.file) }}
+			</div>
+			<div id="nom-producte" class="form-row">
+				{{ form_label(form.nom, 'Nombre*') }}
+				{{ form_widget(form.nom) }}
+			</div>
+			<div id="titol-imatge-producte" class="form-row">
+				{{ form_label(form.imatgeportada.titol, 'Descripción (html title)') }}
+				{{ form_widget(form.imatgeportada.titol) }}
+			</div>
+			<div id="espec-producte" class="form-row">
+				{{ form_label(form.especificacions, 'Especificacions*') }}
+				{{ form_widget(form.especificacions) }}
+			</div>
+			<div id="preus-producte" class="form-row">
+				{{ form_label(form.preus, 'Precios*') }}
+				{{ form_widget(form.preus) }}
+			</div>
+			<div id="categoria-producte" class="form-row">
+				{{ form_label(form.categoria, 'Padre') }}
+				{{ form_widget(form.categoria) }}
+			</div>
+			
+			{{ form_rest(form.imatgeportada) }}
+			{{ form_rest(form) }}
+			<div>
+				<label>&nbsp;</label>
+		    	<input type="submit" class="submit-form" value="Crear producto" />
+		    </div>
+		</form>
+	</div>
 {% endblock %}
 
 {% block javascripts %}

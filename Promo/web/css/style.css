@@ -95,52 +95,95 @@ a, a:hover, a:active {
 
 /************************* Forms *******************************/
 
+.form-container {
+	font-weight: bold;
+	font-size: 0.8em;
+	padding-left: 7px;
+}
 
 form label {
-	width: 20%;	
-	min-width: 150px;
 	display: block;
 	float: left;
+	margin-top: 5px;
 }
 
-form #categoria_nom {
-	width: 300px;	
+form input,
+form textarea,
+form select {
+	width: 50%;
 }
 
-form #categoria_imatge_titol {
-	width: 500px;	
-}
-
-form #categoria_imatge_file {
-	width: 500px;
+form input.submit-form {
+	width: inherit;
 }
 
 form .form-row {
 	padding-bottom: 10px;
 }
 
-.submit-form {
+form input.submit-form {
  	height:40px;
- 	background:transparent url('/images/menu-item.png') center bottom no-repeat;
- 	
- 	background-size:80% 30px;
+ 	background:transparent url('/images/menu-item.png') right top no-repeat;
+ 	background-size:150px 30px;
  	color: #FFFFFF;
-	font-weight: bold;
-	
-    text-indent: 5px;
-    font-size: 0.65em;
+    display: block;
+    font-size: 1em;
+    font-weight: bold;
+    border: medium none;
+    padding-bottom: 18px;
+    padding-right: 30px;
+    font-family: vag-family;
 }
 
-.submit-form:hover {
-	background:transparent url('/images/menu-item-active.png') left top no-repeat;
-	background-size:85% 39px;
-	/*background-size:158px 45px;*/
-	/*color: #009fee;*/
+form input.submit-form:hover {
 	color: #7fcff6; 
 }
 
 
 /************************* Forms final *******************************/
+
+/************************* Contact *******************************/
+
+#contact-text {
+	width: 45%;
+}
+
+#contact form {
+	width: 100%;
+}
+
+#contact form label {
+	width: 65px;
+}
+
+#contact h3 {
+	color: #009fed;
+	font-size: 1.5em;
+}
+
+.anotacio {
+	font-size: 0.7em;
+	font-weight: normal;
+}
+
+/************************* Contact final *******************************/
+
+/************************* Form categoria *******************************/
+
+#categoria form label {
+	width: 150px;
+}
+
+/************************* Form categoria final *******************************/
+
+/************************* Form producte *******************************/
+
+#producte form label {
+	width: 150px;
+}
+
+/************************* Form producte final *******************************/
+
 
 
 /************************* Menu final *******************************/
@@ -174,7 +217,7 @@ form .form-row {
 	display: inline-block;
 	font-weight: bold;
 	font-size: 4.5em;
-	color: #009fee; 
+	color: #009fed; 
 }
 
 .text-intro-resposta {

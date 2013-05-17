@@ -17,33 +17,36 @@
         {{ app.session.flash('sms-notice') }}
     </div>
 	{% endif %}
-
-	<form action="{{ path('PromoBundle_categoria') }}" method="post" {{ form_enctype(form) }}>
-		{{ form_widget(form.id) }}
-		
-		<div id="nom-categoria" class="form-row">
-			{{ form_label(form.nom, 'Nombre*') }}
-			{{ form_widget(form.nom) }}
-		</div>
-		<div id="titol-imatge-categoria" class="form-row">
-			{{ form_label(form.imatge.titol, 'Descripción (html title)') }}
-			{{ form_widget(form.imatge.titol) }}
-		</div>
-		<div id="imatge-categoria" class="form-row">
-			{{ form_label(form.imatge.file, 'Subir imagen*') }}
-			{{ form_widget(form.imatge.file) }}
-		</div>
-		<div id="pare-categoria" class="form-row">
-			{{ form_label(form.pare, 'Padre') }}
-			{{ form_widget(form.pare) }}
-		</div>
-		
-		{{ form_rest(form.imatge) }}
-		{{ form_rest(form) }}
-
-	    <input type="submit" class="submit-form" value="Crear categoría" />
-	</form>
-
+ 	<div id="categoria" class="form-container">
+		<form action="{{ path('PromoBundle_categoria') }}" method="post" {{ form_enctype(form) }}>
+			{{ form_widget(form.id) }}
+			
+			<div id="imatge-categoria" class="form-row">
+				{{ form_label(form.imatge.file, 'Subir imagen*:') }}
+				{{ form_widget(form.imatge.file) }}
+			</div>
+			<div id="nom-categoria" class="form-row">
+				{{ form_label(form.nom, 'Nombre*:') }}
+				{{ form_widget(form.nom) }}
+			</div>
+			<div id="titol-imatge-categoria" class="form-row">
+				{{ form_label(form.imatge.titol, 'Descripción (html title):') }}
+				{{ form_widget(form.imatge.titol) }}
+			</div>
+			<div id="pare-categoria" class="form-row">
+				{{ form_label(form.pare, 'Categoría padre:') }}
+				{{ form_widget(form.pare) }}
+			</div>
+			
+			{{ form_rest(form.imatge) }}
+			{{ form_rest(form) }}
+			
+			<div>
+				<label>&nbsp;</label>
+	        	<input type="submit" class="submit-form" value="Crear categoría" />
+	        </div>  
+		</form>
+	</div>
 {% endblock %}
 
 {% block javascripts %}

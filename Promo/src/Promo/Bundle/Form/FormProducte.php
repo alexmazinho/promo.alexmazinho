@@ -36,9 +36,11 @@ class FormProducte extends AbstractType {
 			'multiple' => false,
 		));
 
-		$builder->add('especificacions', 'textarea');
+		$builder->add('especificacions', 'textarea',
+				array('attr' =>array('rows' => '8' )));
 		
-		$builder->add('preus', 'textarea');
+		$builder->add('preus', 'textarea',
+				array('attr' =>array('rows' => '8' )));
 		
 	}
 	
