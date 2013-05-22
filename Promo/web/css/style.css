@@ -2,21 +2,63 @@
 
 /************************* Generics *******************************/
 
+/* CSS reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	/*font-size: 100%;*/
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* CSS reset end*/
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
 	font-family: vag-family;
 	border: 0 none;
     font-style: inherit;
     font-weight: inherit;
     outline: 0 none;
-    padding: 0;
-    vertical-align: baseline;
     color: #1b307e;
 }
 
 html,
 body {
-	margin:0;
-   	padding:0;
    	height:100%;
 }
 
@@ -79,9 +121,8 @@ a, a:hover, a:active {
  	background-size:80% 30px;
  	color: #FFFFFF;
 	font-weight: bold;
-	padding-top: 3px;
+	padding-top: 5px;
     text-indent: 5px;
-    font-size: 0.65em;
 }
 
 .menu-item a:hover,
@@ -99,6 +140,7 @@ a, a:hover, a:active {
 	font-weight: bold;
 	font-size: 0.8em;
 	padding-left: 7px;
+	
 }
 
 form label {
@@ -111,6 +153,8 @@ form input,
 form textarea,
 form select {
 	width: 50%;
+	margin-bottom: 10px;
+	padding: 2px 0;
 }
 
 form input.submit-form {
@@ -146,7 +190,15 @@ form input.submit-form:hover {
 
 #contact-text {
 	width: 45%;
+	margin-bottom: 10px;
 }
+
+#contact-text p, 
+#contact-text h3 {
+	margin-bottom: 10px;
+	line-height: normal;
+}
+
 
 #contact form {
 	width: 100%;
@@ -261,6 +313,7 @@ form input.submit-form:hover {
 	padding: 0 15px;
 	margin:0px;	
 	line-height: 1.4em;
+	list-style: disc outside none;
 }
 
 /************************* Breadcumb *******************************/
@@ -280,7 +333,7 @@ form input.submit-form:hover {
  	background-size:300px 20px;
  	color: #FFFFFF;
 	font-weight: bold;
-	padding-top: 1px;
+	padding-top: 3px;
 	padding-right: 10px;
     text-indent: 5px;
     font-size: 0.9em;

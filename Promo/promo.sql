@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Temps de generació: 17-05-2013 a les 11:28:16
+-- Temps de generació: 18-05-2013 a les 01:06:06
 -- Versió del servidor: 5.1.66
 -- Versió de PHP : 5.3.3-7+squeeze15
 
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `imatges` (
   `path` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `titol` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=24 ;
 
 --
 -- Bolcant dades de la taula `imatges`
@@ -73,7 +73,8 @@ INSERT INTO `imatges` (`id`, `path`, `titol`) VALUES
 (18, '1368744830_Informatica.jpeg', 'Categoría Informática'),
 (19, '1368776434_Tazas_y_mug.jpeg', 'Categoría tazas y mug'),
 (21, '1368779899_Pequenos_aparatos.jpeg', 'Categoría Pequeños aparatos'),
-(22, '1368782667_Lector_tarjetas_SD_MS_Mini_SD_Micro_SD.', 'Lector tarjetas SD/MS/Mini SD/Micro SD');
+(22, '1368782667_Lector_tarjetas_SD_MS_Mini_SD_Micr.jpeg', 'Lector tarjetas SD/MS/Mini SD/Micro SD'),
+(23, '1368824898_Carpeta_porta_papeles.jpeg', 'Carpeta porta papeles');
 
 -- --------------------------------------------------------
 
@@ -107,17 +108,19 @@ CREATE TABLE IF NOT EXISTS `productes` (
   `nom` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `especificacions` longtext COLLATE utf8_unicode_ci NOT NULL,
   `preus` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `casexit` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8C9B786CFEAA62C0` (`imatgeportada`),
   KEY `IDX_8C9B786C4E10122D` (`categoria`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Bolcant dades de la taula `productes`
 --
 
-INSERT INTO `productes` (`id`, `imatgeportada`, `categoria`, `nom`, `especificacions`, `preus`) VALUES
-(1, 22, 18, 'Lector tarjetas SD/MS/Mini SD/Micro SD', 'Ref.: CTL 53993', 'Unidad: 2.09 €\r\n+100: 1.57 €\r\n+400: 1.48 €\r\n+1000: 1.39 €\r\n+3000: 1.31 €');
+INSERT INTO `productes` (`id`, `imatgeportada`, `categoria`, `nom`, `especificacions`, `preus`, `casexit`) VALUES
+(1, 22, 18, 'Lector tarjetas SD/MS/Mini SD/Micro SD', 'Ref.: CTL 53993', 'Unidad: 2.09 €\r\n+100: 1.57 €\r\n+400: 1.48 €\r\n+1000: 1.39 €\r\n+3000: 1.31 €', 1),
+(2, 23, 18, 'Carpeta porta papeles', 'Ref: ASS10010\r\n\r\n100 gr', '>100   2€\r\n>200   1.5€', 0);
 
 -- --------------------------------------------------------
 
