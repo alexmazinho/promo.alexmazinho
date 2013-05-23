@@ -5,7 +5,7 @@ Catálogo Promoquality. {{ producte.nom }}
 {% endblock %}
 
 {% block breadcrumb %}
-	<div id="current-category">
+	<div id="current-category" class="category-item">
 		<h3><a href="{{ path('PromoBundle_catalogo', {'categoria': producte.categoria.ruta }) }}">{{ producte.categoria.root }}</a></h3>
 	</div>
 {% endblock %}

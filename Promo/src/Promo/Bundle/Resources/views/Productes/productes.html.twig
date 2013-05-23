@@ -5,7 +5,7 @@
 {% block breadcrumb %}
 
 	{% if categoria.pare is not null %}
-	<div id="current-category">
+	<div id="current-category" class="category-item">
 		<h3><a href="{{ path('PromoBundle_catalogo', {'categoria': categoria.pare.ruta }) }}">{{ categoria.root }}</a></h3>
 	</div>
 	{% endif %}

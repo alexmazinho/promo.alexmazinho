@@ -4,11 +4,12 @@
 
 {% block breadcrumb %}
 
+	<div id="current-category" class="category-item"><h3>
 	{% if pare is null %}
-		<div id="current-category"><h3>Nueva categoría principal</h3></div>
+		Nueva categoría principal
 	{% else %}
-		<div id="current-category"><h3>Nueva subcategoría de {{ pare.nom }}</h3></div>
-	{% endif %}
+		Nueva subcategoría de {{ pare.nom }}
+	{% endif %}</h3></div>
 {% endblock %}
 
 {% block content %}

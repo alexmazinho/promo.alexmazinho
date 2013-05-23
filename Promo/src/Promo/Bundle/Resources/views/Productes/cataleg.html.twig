@@ -8,12 +8,12 @@ Catálogo Promoquality{% if pare is not null %}. {{ pare.nom }}	{% endif %}
 	{% set pareid = 0 %}
 	{% if pare is not null %}
 		{% set pareid = pare.id %}
-		<div id="current-category">
+		<div id="current-category" class="category-item"><h3>
 			{% if pare.pare is null %}
-			<h3><a href="{{ path('PromoBundle_catalogo') }}">{{ pare.root }}</a></h3>
+			<a href="{{ path('PromoBundle_catalogo') }}">{{ pare.root }}</a>
 			{% else %}
-			<h3><a href="{{ path('PromoBundle_catalogo', {'categoria': pare.pare.ruta }) }}">{{ pare.root }}</a></h3>
-			{% endif %}
+			<a href="{{ path('PromoBundle_catalogo', {'categoria': pare.pare.ruta }) }}">{{ pare.root }}</a>
+			{% endif %}</h3>
 		</div>
 	{% endif %}
 	

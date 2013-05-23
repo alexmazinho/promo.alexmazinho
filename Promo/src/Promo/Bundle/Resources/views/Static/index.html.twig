@@ -16,12 +16,9 @@
 </style>
 {% endblock %}
 
-{% block main %}
-<div id="main-contact" class="left-block">
-	<img alt="Entrada menú información empresa" title="La empresa" src="{{ asset('images/contact-image.png') }}">
-</div>
+{% block content %}
 <div id="main-intro">
-	<div id="introsprite" class="jp-jplayer"></div>
+	<div id="introsprite"></div>
 	<div id="text-intro-01" style="display: none">
 		<span id ="text-intro-tot-01" class="text-intro-tot">
 		<span class="text-intro-pregunta">¿No tienes tiempo para buscar?</span>
@@ -49,7 +46,7 @@
 	</div>
 	
 	<div id="jquery_audioPlayer" class="jp-jplayer"></div>
-	<div id="skip-intro"><a alt="Entrada menú información empresa" title="Entrada menú información empresa" href="{{ path('PromoBundle_empresa') }}">Saltar intro</a></div>
+	<div id="skip-intro" class="category-item"><a alt="Entrada menú información empresa" title="Entrada menú información empresa" href="{{ path('PromoBundle_empresa') }}">Saltar intro</a></div>
 </div>
 
 <!--
@@ -71,10 +68,7 @@ Cos
     
     <script type="text/javascript">
 	
-	
     $(document).ready(function(){
-
-		
     	loadVideo = function(id, texts) {
 		
 			if (texts.length > 0) {
@@ -105,12 +99,12 @@ Cos
 	        			setTimeout(function() {
 	        				loadVideo(id, texts); // Recursive
 	        			}, 2000);*/
-	        			loadVideo(id, texts); // Recursive
+	        			//loadVideo(id, texts); // Recursive
 	                },	
 	        		supplied: "ogv, webmv, m4v",
 	        		size: {
-	        			width: "800px",
-	        			height: "600px"	
+	        			width: "600px",
+	        			height: "450px"	
 	            	},
 	            	backgroundColor: "#ffffff",
 	        		swfPath: "/js",
@@ -125,7 +119,7 @@ Cos
 		
         loadVideo("#introsprite", texts);
 
-		//$("#introsprite").html(  $("#text-intro-01").html()  );
+		//$("#introsprite").html(  $("#text-intro-06").html()  );
 
 
         
