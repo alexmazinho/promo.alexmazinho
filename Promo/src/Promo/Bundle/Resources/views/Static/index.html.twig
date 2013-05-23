@@ -6,6 +6,51 @@
 {% block javascriptshead %} 
 	{{ parent() }}
    	<script src="{{ asset('js/jquery.jplayer-2.3.0.min.js') }}" type="text/javascript"></script>
+   	
+   	 <script type="text/javascript">
+	
+    $(document).ready(function(){
+   		$("#introsprite").jPlayer({
+       		ready: function () {
+    	   		$(this).jPlayer("setMedia", {
+    	   			m4v: "/media/movie01_text.m4v",
+    	   			ogv: "/media/movie01_text.ogv",
+    	   			webmv: "/media/movie01_text.webm",
+    	   			poster: "/images/logo_promoquality_big.png" 
+    	   		}).jPlayer("play");
+
+    	    	var click = document.ontouchstart === undefined ? 'click' : 'touchstart';
+    		    var kickoff = function () {
+    		       	$("#introsprite").jPlayer("play");
+    		        document.documentElement.removeEventListener(click, kickoff, true);
+    		    };
+    		    document.documentElement.addEventListener(click, kickoff, true);
+
+    		    $("jp_video_0").bind("ended", function() {
+    		   		   alert("I'm done!");
+    		   	});
+    	   	},
+    		ended: function () {
+            },
+            timeupdate: function(event) {
+                /* Every 250 ms
+                if(event.jPlayer.status.currentTime > event.jPlayer.status.duration - 1) {
+                  $(this).jPlayer('pause');
+                }*/
+			},
+            loop: false,
+        	supplied: "webmv, ogv, m4v",
+        	size: {
+        		width: "600px",
+        		height: "450px"	
+            },
+            backgroundColor: "#ffffff",
+        	swfPath: "/js",
+        	wmode: "window",
+        	solution: "html,flash"
+        });
+	});
+	</script>
 {% endblock %}
 
 
@@ -18,7 +63,10 @@
 
 {% block content %}
 <div id="main-intro">
-	<div id="introsprite"></div>
+	<div id="introsprite" class="jp-jplayer"></div>
+	<div id="intro-end-image" style="display: none">
+		<img alt="Promoquality logo" title="Promoquality logo" src="{{ asset('images/logo_promoquality_big.png') }}">	
+	</div>
 	<div id="text-intro-01" style="display: none">
 		<span id ="text-intro-tot-01" class="text-intro-tot">
 		<span class="text-intro-pregunta">¿No tienes tiempo para buscar?</span>
@@ -44,8 +92,6 @@
 		<span class="text-intro-pregunta">¿No encuentras nada que te convenza?</span>
 		<span class="text-intro-resposta">Te ofrecemos más de 8.000 productos donde elegir</span></span>
 	</div>
-	
-	<div id="jquery_audioPlayer" class="jp-jplayer"></div>
 	<div id="skip-intro" class="category-item"><a alt="Entrada menú información empresa" title="Entrada menú información empresa" href="{{ path('PromoBundle_empresa') }}">Saltar intro</a></div>
 </div>
 
@@ -69,6 +115,46 @@ Cos
     <script type="text/javascript">
 	
     $(document).ready(function(){
+
+    	
+		//$("#introsprite").jPlayer("destroy"); // Destroy any previous instance
+   		$("#introsprite").jPlayer({
+       		ready: function () {
+    	   		$(this).jPlayer("setMedia", {
+    	   			m4v: "/media/movie01_text.m4v",
+    	   			ogv: "/media/movie01_text.ogv",
+    	   			webmv: "/media/movie01_text.webm",
+    	   			poster: "/images/logo_promoquality_big.png" 
+    	   		}).jPlayer("play");
+
+    	    	var click = document.ontouchstart === undefined ? 'click' : 'touchstart';
+    		    var kickoff = function () {
+    		       	$("#introsprite").jPlayer("play");
+    		        document.documentElement.removeEventListener(click, kickoff, true);
+    		    };
+    		    document.documentElement.addEventListener(click, kickoff, true);
+
+    		    $("jp_video_0").bind("ended", function() {
+    		   		   alert("I'm done!");
+    		   	});
+    	   	},
+    		ended: function () {
+    			alert("jplayer end!");
+            },
+        	supplied: "webmv, ogv, m4v",
+        	size: {
+        		width: "600px",
+        		height: "450px"	
+            },
+            backgroundColor: "#ffffff",
+        	swfPath: "/js",
+        	wmode: "window",
+        	solution: "html,flash"
+        });
+
+
+   		
+        /*
     	loadVideo = function(id, texts) {
 		
 			if (texts.length > 0) {
@@ -93,13 +179,9 @@ Cos
 	    	    		
 	        		},
 	        		ended: function () {
-						/*
-						$(id).jPlayer("destroy");
-        				$(id).html(  $(text).html()  );
 	        			setTimeout(function() {
-	        				loadVideo(id, texts); // Recursive
-	        			}, 2000);*/
-	        			//loadVideo(id, texts); // Recursive
+	        				$("#introsprite").html(  $("#intro-end-image").html()  );
+	        			}, 2000);
 	                },	
 	        		supplied: "ogv, webmv, m4v",
 	        		size: {
@@ -115,11 +197,11 @@ Cos
         };
 
         
-        var texts = new Array("#text-intro-01", "#text-intro-02", "#text-intro-03");
+        var texts = new Array("#text-intro-01", "#text-intro-02", "#text-intro-03");*/
 		
-        loadVideo("#introsprite", texts);
+        //loadVideo("#introsprite", texts);
 
-		//$("#introsprite").html(  $("#text-intro-06").html()  );
+		
 
 
         
