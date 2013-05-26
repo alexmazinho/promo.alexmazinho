@@ -252,41 +252,6 @@ form input.submit-form:hover {
     /*border: 1px solid #DDDDDD;*/
 }
 
-/*
-#introsprite img,
-#introsprite video,
-#introsprite object {
-	left: 0;
-    position: absolute;
-    margin: 0 auto;
-}
-
-.text-intro-tot {
-	display:block; 
-	vertical-align:middle;
-	text-align: center;
-}
-
-.text-intro-pregunta {
-	display: inline-block;
-	font-weight: bold;
-	font-size: 4.5em;
-	color: #009fed; 
-}
-
-.text-intro-resposta {
-	display: inline-block;
-	font-size: 2.5em;
-	color: #000000;
-}
-
-#text-intro-tot-01 { width: 100%; }
-#text-intro-tot-02 { width: 80%;  margin: auto;  }
-#text-intro-tot-03 { width: 90%;  margin: auto;  }
-#text-intro-tot-04 { width: 90%;  margin: auto;  }
-#text-intro-tot-05 { width: 100%; }*/
-
-
 #skip-intro {
 	font-size: 0.8em;
 	font-weight: normal;
@@ -314,11 +279,12 @@ form input.submit-form:hover {
 /************************* Breadcumb *******************************/
 
 #current-category {
-	float: left;
-	margin-left: 7px;
+	
 }
 
 .category-item {
+	float: left;
+	margin-left: 7px;
 	/*margin-bottom: 10px;*/
  	/*width: 160px;*/
  	height:20px;
@@ -345,8 +311,9 @@ form input.submit-form:hover {
 
 #admin-action {
 	float: right;
-	padding-right: 10px;
- 	padding-top: 15px;
+	color: #FFFFFF;
+	/*padding-right: 10px;
+ 	padding-top: 15px;*/
 }
 
 /************************* Breadcumb final *******************************/
@@ -360,6 +327,10 @@ form input.submit-form:hover {
     width: 100%;
 }
 
+#list-cataleg span {
+	padding-left: 7px;
+}
+
 #list-cataleg li {
     float: left;
     color: #000000;
@@ -368,6 +339,7 @@ form input.submit-form:hover {
     padding: 1px;
     text-align: center;
     width: 19%;
+    position: relative;
 }
 
 #list-cataleg li .cataleg-imatge {
@@ -404,25 +376,44 @@ form input.submit-form:hover {
 	width: 100%;
 }
 
+.admin-actions {
+	display:none;
+	position:absolute;
+	right: 0;
+	top:-5px;
+}
+
+.hover-cataleg-item {
+	opacity:0.4;
+	filter:alpha(opacity=40); /* For IE8 and earlier */
+}
 
 /************************* Cataleg final *******************************/
 
 /************************* Producte *******************************/
 
+.producte-dades {
+	padding-left: 7px;	
+}
+
 #producte-nom {
 	font-weight: bold;
-	padding-left: 10px;
-    font-size: 0.9em;
+    font-size: 1.0em;
+    line-height: 20px;
+    padding-bottom: 20px;	
 }
 
 .producte-titol {
 	font-weight: bold;
-	font-size: 0.7em;
+	font-size: 0.9em;
+	padding-bottom: 15px;	
 }
 
 .producte-detall {
-	font-size: 0.7em;
+	font-size: 0.9em;
 	color: #999;
+	padding-bottom: 15px;
+	line-height: 20px;
 }
 
 #producte-imatge-portada {
@@ -430,10 +421,39 @@ form input.submit-form:hover {
 	text-align: center;
 	margin-left: auto;   
 	margin-right: auto; 
+	min-height: 300px;
 }
 
 #producte-imatge-portada img {
 
 }
 
+#producte-imatges {
+	width: 100%;
+	
+}
+
+.producte-imatge {
+	width: 32%;
+	float: left;
+	
+}
 /************************* Producte final *******************************/
+
+/************************* Footer *******************************/
+
+
+#social-block {
+	padding-left:5px;
+}
+
+#social-icons img {
+	width: 30px;
+}
+
+#facebook-like {
+	padding-bottom:5px;
+} 
+
+
+/************************* Footer final *******************************/

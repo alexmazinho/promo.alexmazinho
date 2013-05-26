@@ -1,6 +1,10 @@
 {% extends 'PromoBundle::layout.html.twig' %}
 
-{% block title %}Nueva categoria{% endblock %}
+{% block meta_description %}Promoquality - Panel administración. Formulario de gestión de categorias{% endblock %}
+
+{% block meta_robots %}noindex, follow{% endblock %}
+
+{% block title %}Promoquality - Panel administración. Formulario de gestión de categorías{% endblock %}
 
 {% block breadcrumb %}
 
@@ -49,6 +53,8 @@
 		</form>
 	</div>
 {% endblock %}
+
+{% block footer %}{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}

@@ -1,14 +1,19 @@
 {% extends 'PromoBundle::layout.html.twig' %}
 
-{% block title %}Productos Promoquality!{% endblock %}
+{% block meta_description %}Catálogo de productos Promoquality. {{ categoria.nom }}{% endblock %}
+
+{% block title %}Catálogo de productos Promoquality. {{ categoria.nom }} {% endblock %}
 
 {% block breadcrumb %}
 
-	{% if categoria.pare is not null %}
 	<div id="current-category" class="category-item">
-		<h3><a href="{{ path('PromoBundle_catalogo', {'categoria': categoria.pare.ruta }) }}">{{ categoria.root }}</a></h3>
+		<h3>{% if categoria.pare is null %}
+			<a href="{{ path('PromoBundle_catalogo') }}">{{ categoria.root }}</a>
+			{% else %}
+			<a href="{{ path('PromoBundle_catalogo', {'categoria': categoria.pare.ruta }) }}">{{ categoria.pare.root }}</a>
+			{% endif %}
+		</h3>
 	</div>
-	{% endif %}
 	
 	{% if admin == true %}
 		<div id="admin-action">
@@ -26,11 +31,23 @@
 	   			alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
 	   			src="{{ asset('images/items/') }}{{ producte.imatgeportada.path }}"></div>
    			<div class="cataleg-nom">{{ producte.nom }}</div></a>
+   			{% if admin == true %}
+   			<div class="admin-actions">
+	   			<a href="{{ path('PromoBundle_producto', {'producto': categoria.id, 'action': 'remove' }) }}">
+	   				<img  width="15" height="15" alt="Eliminar producto" title="Eliminar producto" src="{{ asset('images/delete-icon.gif') }}">
+	   			</a>	
+	   			<a href="{{ path('PromoBundle_producto', {'producto': categoria.id, 'action': 'edit' }) }}">
+	   				<img width="15" height="15" alt="Editar producto" title="Editar producto" src="{{ asset('images/edit-icon.gif') }}">
+	   			</a>	
+   			</div>
+   			{% endif %}
    		</li>
    	{% endfor %}
 	</ol> 
 	
 {% endblock %}
+
+{% block footer %}{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
@@ -40,7 +57,9 @@
 	$(document).ready(function(){
 		$("#menu-catalogo").addClass("menu-item-active");
 
-		redimensionarImatgesCataleg("#list-cataleg img");
+		redimensionarImatgesCataleg(".cataleg-imatge img");
+
+		hoverCatalegAdminActions();
 		
 	});
 

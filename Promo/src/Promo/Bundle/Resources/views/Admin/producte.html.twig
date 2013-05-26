@@ -1,6 +1,10 @@
 {% extends 'PromoBundle::layout.html.twig' %}
 
-{% block title %}Nuevo producto{% endblock %}
+{% block meta_description %}Promoquality - Panel administración. Formulario de gestión de productos{% endblock %}
+
+{% block meta_robots %}noindex, follow{% endblock %}
+
+{% block title %}Promoquality - Panel administración. Formulario de gestión de productos{% endblock %}
 
 {% block breadcrumb %}
 
@@ -19,7 +23,7 @@
 			{{ form_widget(form.id) }}
 			
 			<div id="imatge-producte" class="form-row">
-				{{ form_label(form.imatgeportada.file, 'Subir imagen*') }}
+				{{ form_label(form.imatgeportada.file, 'Subir imagen portada*') }}
 				{{ form_widget(form.imatgeportada.file) }}
 			</div>
 			<div id="nom-producte" class="form-row">
@@ -31,7 +35,7 @@
 				{{ form_widget(form.imatgeportada.titol) }}
 			</div>
 			<div id="espec-producte" class="form-row">
-				{{ form_label(form.especificacions, 'Especificacions*') }}
+				{{ form_label(form.especificacions, 'Especificaciones*') }}
 				{{ form_widget(form.especificacions) }}
 			</div>
 			<div id="preus-producte" class="form-row">
@@ -52,6 +56,8 @@
 		</form>
 	</div>
 {% endblock %}
+
+{% block footer %}{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}

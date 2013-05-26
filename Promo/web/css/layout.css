@@ -13,16 +13,24 @@
 	height: 120px;
 	position: relative;
 }
+
 #main {
    	padding:10px;
-   	padding-bottom:60px;   /* Height of the footer */
+   	padding-bottom:120px;   /* Height of the footer */
+   	min-height: 500px;
 }
+
+* html #main { /*min-height: 500px;  min-height IE hack */
+   height: expression( this.scrollHeight < 501 ? "500px" : "auto" ); /* sets min-height for IE */
+}
+
 #footer {
 	position:absolute;
    	bottom:0;
    	width:100%;
-   	height:60px;   /* Height of the footer */
+   	height:120px;   /* Height of the footer */
    	/*border-top: 1px solid #DDDDDD;*/
+   	z-index: -1;
 }
 
 #menu {

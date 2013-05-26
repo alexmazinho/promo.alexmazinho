@@ -1,7 +1,11 @@
-{# src/Promo/Bundle/Resources/views/Static/index.html.twig #}
 {% extends 'PromoBundle::layout.html.twig' %}
 
-{% block title %}Bienvenido a Promoquality!{% endblock %}
+{% block meta_description %}Promoquality - Consultora y Promociones de Marketing Directo. 
+Gestión integral de acciones de marketing: consultoría, producción, almacenaje y entrega de regalos
+Localización e importación en exclusiva de artículos para campañas masivas. 
+Articulos para ferias, reuniones comerciales u otros eventos. Desde económicos hasta selectos y lujosos{% endblock %}
+
+{% block title %}Promoquality - Consultora y Promociones de Marketing Directo{% endblock %}
 
 {% block javascriptshead %} 
 	{{ parent() }}
@@ -39,7 +43,7 @@
                 }*/
 			},
             loop: false,
-        	supplied: "webmv, ogv, m4v",
+        	supplied: "ogv, webmv, m4v",
         	size: {
         		width: "600px",
         		height: "450px"	
@@ -108,6 +112,7 @@ Cos
 
 {% endblock %}
 
+{% block footer %}{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}

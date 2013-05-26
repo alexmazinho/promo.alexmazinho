@@ -1,8 +1,8 @@
 {% extends 'PromoBundle::layout.html.twig' %}
 
-{% block title %}
-Catálogo Promoquality{% if pare is not null %}. {{ pare.nom }}	{% endif %}
-{% endblock %}
+{% block meta_description %}Catálogo de productos Promoquality{% if pare is not null %}. {{ pare.nom }}	{% endif %}{% endblock %}
+
+{% block title %}Catálogo Promoquality{% if pare is not null %}. {{ pare.nom }}	{% endif %}{% endblock %}
 
 {% block breadcrumb %}
 	{% set pareid = 0 %}
@@ -20,11 +20,11 @@ Catálogo Promoquality{% if pare is not null %}. {{ pare.nom }}	{% endif %}
 	{% if admin == true %}
 		{# Si encara no hi ha categories pot afegir productes i tancar la recursivitat #}
 		{% if categories|length == 0 %}
-		<div id="admin-action">
+		<div id="admin-action" class="category-item">
 			<a href="{{ path('PromoBundle_producto', {'categoria': pareid }) }}">Nuevo producto</a>
 		</div>
 		{% endif %}
-		<div id="admin-action">
+		<div id="admin-action" class="category-item">
 			<a href="{{ path('PromoBundle_categoria', {'pare': pareid }) }}">Nueva categoría</a>
 		</div>
 	{% endif %}
@@ -36,11 +36,25 @@ Catálogo Promoquality{% if pare is not null %}. {{ pare.nom }}	{% endif %}
    		<li><a href="{{ path('PromoBundle_catalogo', {'categoria': categoria.ruta}) }}">
 	   		<div class="cataleg-imatge"><img  width="{{ categoria.imatge.width }}" height="{{ categoria.imatge.height }}" alt="{{ categoria.imatge.titol }}" title="{{ categoria.imatge.titol }}" src="{{ asset('images/items/') }}{{ categoria.imatge.path }}"></div>
    			<div class="cataleg-nom">{{ categoria.nom }}</div></a>
+   			{% if admin == true %}
+   			<div class="admin-actions">
+	   			<a href="{{ path('PromoBundle_categoria', {'categoria': categoria.id, 'action': 'remove' }) }}">
+	   				<img  width="15" height="15" alt="Eliminar categoría" title="Eliminar categoría" src="{{ asset('images/delete-icon.gif') }}">
+	   			</a>	
+	   			<a href="{{ path('PromoBundle_categoria', {'categoria': categoria.id, 'action': 'edit' }) }}">
+	   				<img width="15" height="15" alt="Editar categoría" title="Editar categoría" src="{{ asset('images/edit-icon.gif') }}">
+	   			</a>	
+   			</div>
+   			{% endif %}
    		</li>
+   	{% else %}
+   		<span>Todavía no hay productos en {{ pare.nom }}</span>
    	{% endfor %}
 	</ol> 
 	
 {% endblock %}
+
+{% block footer %}{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
@@ -50,8 +64,9 @@ Catálogo Promoquality{% if pare is not null %}. {{ pare.nom }}	{% endif %}
 	$(document).ready(function(){
 		$("#menu-catalogo").addClass("menu-item-active");
 
-		redimensionarImatgesCataleg("#list-cataleg img");
-			
+		redimensionarImatgesCataleg(".cataleg-imatge img");
+
+		hoverCatalegAdminActions();
 	});
 
 	

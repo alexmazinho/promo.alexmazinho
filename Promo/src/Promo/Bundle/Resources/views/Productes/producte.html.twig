@@ -1,8 +1,8 @@
 {% extends 'PromoBundle::layout.html.twig' %}
 
-{% block title %}
-Catálogo Promoquality. {{ producte.nom }}
-{% endblock %}
+{% block meta_description %}Catálogo de productos Promoquality. {{ producte.nom }}. {{ producte.especificacions }} {% endblock %}
+
+{% block title %} Catálogo de productos Promoquality. {{ producte.nom }}{% endblock %}
 
 {% block breadcrumb %}
 	<div id="current-category" class="category-item">
@@ -11,7 +11,7 @@ Catálogo Promoquality. {{ producte.nom }}
 {% endblock %}
 
 {% block content %}
-	<div class="left-block">
+	<div class="left-block producte-dades">
 		<div id="producte-nom">{{ producte.nom }}</div>
 		<div id="producte-espc">
 			<p class="producte-titol">Especificaciones técnicas</p>
@@ -27,6 +27,20 @@ Catálogo Promoquality. {{ producte.nom }}
 			<img  width="{{ producte.imatgeportada.width }}" height="{{ producte.imatgeportada.height }}" 
 				alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
 				src="{{ asset('images/items/') }}{{ producte.imatgeportada.path }}">
+		</div>
+		<div id="producte-imatges">
+			<div class="producte-imatge">
+			<img   
+				alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
+				src="{{ asset('images/items/') }}{{ producte.imatgeportada.path }}"></div>
+			<div class="producte-imatge">
+			<img   
+				alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
+				src="{{ asset('images/items/') }}{{ producte.imatgeportada.path }}"></div>
+			<div class="producte-imatge">
+			<img   
+				alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
+				src="{{ asset('images/items/') }}{{ producte.imatgeportada.path }}"></div>		
 		</div>
 	</div>
 {% endblock %}

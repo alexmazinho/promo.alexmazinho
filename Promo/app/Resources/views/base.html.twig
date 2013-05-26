@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <!--[if lt IE 9]>
+        <meta content="{% block meta_description %}{% endblock %}" name="description">
+		<meta content="{% block meta_keywords %}regalos, empresa, marketing directo, consultoria, 
+		producción, almacenaje, entrega, promoción, comercialización, producto, grupo planeta{% endblock %}" name="keywords">
+		<meta content="7 days" name="revisit-after">
+		<meta content="{% block meta_robots %}index, follow{% endblock %}" name="robots">
+		<meta content="Copyright © 2013 Promoquality" name="copyright">
+		<meta content="version 1.0" name="version">
+		<meta content="OnDisseny Web. Alex Macia" name="author">
+        
+        <title>{% block title %}Promoquality - Consultora y Promociones de Marketing Directo{% endblock %}</title>
+		{% block stylesheets %}{% endblock %}
+		<!--[if lt IE 9]>
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-        <title>{% block title %}Promoquality{% endblock %}</title>
-		{% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" >
         {% block javascriptshead %}{% endblock %}
     </head>
