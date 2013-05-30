@@ -47,9 +47,28 @@ PromoBundle_categoria:
     requirements:
         _method:  GET|POST
 
+PromoBundle_removecategoria:
+    pattern:  /admin/removecategoria
+    defaults: { _controller: "PromoBundle:Admin:removecategoria" }
+    requirements:
+        _method:  GET
+
 PromoBundle_producto:
     pattern:  /admin/producto
     defaults: { _controller: "PromoBundle:Admin:producto" }
+    requirements:
+        _method:  GET|POST
+
+PromoBundle_removeproducto:
+    pattern:  /admin/removeproducto
+    defaults: { _controller: "PromoBundle:Admin:removeproducto" }
+    requirements:
+        _method:  GET
+
+
+PromoBundle_galeria:
+    pattern:  /admin/galeria
+    defaults: { _controller: "PromoBundle:Admin:galeria" }
     requirements:
         _method:  GET|POST
 

@@ -18,14 +18,21 @@ class AdminController extends Controller
     public function categoriaAction()
     {
     	$request = $this->getRequest();
-    	 
+
+    	$admin = true;  /* pendent */
+    	
     	$categoria = new EntityCategoria();
     	
     	$pare = null;
     	if ($this->getRequest()->getMethod() == 'GET') {
+    		if ($request->query->has('categoria') and $request->query->get('categoria') != 0) {
+    			// Edició 
+    			$categoria = $this->getDoctrine()->getRepository('PromoBundle:EntityCategoria')->find($request->query->get('categoria'));
+    		} 
+    		
     		if ($request->query->has('pare') and $request->query->get('pare') != 0) {
-    			$pare = $this->getDoctrine()->getRepository('PromoBundle:EntityCategoria')->find($request->query->get('pare'));
-    			$categoria->setPare($pare);
+   				$pare = $this->getDoctrine()->getRepository('PromoBundle:EntityCategoria')->find($request->query->get('pare'));
+   				$categoria->setPare($pare);
     		}
     	}
     	
@@ -50,15 +57,27 @@ class AdminController extends Controller
     		}
     	}
     	
-    	
     	return $this->render('PromoBundle:Admin:categoria.html.twig',
-    			array('form' => $form->createView(), 'pare' => ($pare == null)?null:$pare, 'admin' => true));
+    			array('form' => $form->createView(), 'portada' => $categoria->getImatge(), 'pare' => ($pare == null)?null:$pare, 'admin' => $admin));
+    }
+    
+    public function removecategoriaAction()
+    {
+    	$request = $this->getRequest();
+    	
+    	$admin = true;  /* pendent */
+    	
+    	/* formawrd catalogoAction($categoria) amb el pare */
+    	
+    	return new Resposnse("esborrar categoria");
     }
     
     public function productoAction()
     {
     	$request = $this->getRequest();
     
+    	$admin = true;  /* pendent */
+    	
     	$producte = new EntityProducte();
     	 
     	$categoria = null;
@@ -91,6 +110,13 @@ class AdminController extends Controller
     	 
     	 
     	return $this->render('PromoBundle:Admin:producte.html.twig',
-    			array('form' => $form->createView(), 'producte' => $producte, 'admin' => true));
+    			array('form' => $form->createView(), 'producte' => $producte, 'admin' => $admin));
+    }
+    
+    public function galeriaAction()
+    {
+    	return new JsonResponse(array('name' => "Hola"), 200);
+    	
+    	//return new Response("Hola");
     }
 }

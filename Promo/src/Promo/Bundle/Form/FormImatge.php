@@ -22,7 +22,11 @@ class FormImatge extends AbstractType {
 		$builder->add('titol', 'text', array(
 				            'required' => false));
 		
-		$builder->add('file', 'file');
+		$atributs = array('accept' => 'image/*');
+        
+		if ($this->options['multiple'] == true) $atributs['multiple'] = 'multiple';
+		
+		$builder->add('file', 'file', array('attr' => $atributs));
 
 	}
 	

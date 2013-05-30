@@ -34,7 +34,10 @@ class FormCategoria extends AbstractType {
 			'multiple' => false,
 		));
 		
-		$builder->add('imatge', new FormImatge());
+		$atributs = array('accept' => 'image/*');
+		$builder->add('portada', 'file', array('property_path' => false, 'attr' => $atributs));
+		
+		/*	$builder->add('imatge', new FormImatge()); */
 		
 	}
 	

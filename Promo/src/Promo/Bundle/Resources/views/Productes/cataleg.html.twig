@@ -38,10 +38,10 @@
    			<div class="cataleg-nom">{{ categoria.nom }}</div></a>
    			{% if admin == true %}
    			<div class="admin-actions">
-	   			<a href="{{ path('PromoBundle_categoria', {'categoria': categoria.id, 'action': 'remove' }) }}">
+	   			<a class="remove-item" href="{{ path('PromoBundle_removecategoria', {'categoria': categoria.id }) }}">
 	   				<img  width="15" height="15" alt="Eliminar categoría" title="Eliminar categoría" src="{{ asset('images/delete-icon.gif') }}">
 	   			</a>	
-	   			<a href="{{ path('PromoBundle_categoria', {'categoria': categoria.id, 'action': 'edit' }) }}">
+	   			<a href="{{ path('PromoBundle_categoria', {'categoria': categoria.id }) }}">
 	   				<img width="15" height="15" alt="Editar categoría" title="Editar categoría" src="{{ asset('images/edit-icon.gif') }}">
 	   			</a>	
    			</div>

@@ -4,6 +4,16 @@
 
 {% block meta_robots %}noindex, follow{% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }} 
+	<link media="all" href="{{ asset('css/dropzone.css') }}" type="text/css" rel="stylesheet" >
+{% endblock %}
+
+{% block javascriptshead %}
+	{{ parent() }} 
+   	<script src="{{ asset('js/dropzone.js') }}" type="text/javascript"></script>
+{% endblock %}
+
 {% block title %}Promoquality - Panel administración. Formulario de gestión de categorías{% endblock %}
 
 {% block breadcrumb %}
@@ -26,29 +36,34 @@
 		<form action="{{ path('PromoBundle_categoria') }}" method="post" {{ form_enctype(form) }}>
 			{{ form_widget(form.id) }}
 			
-			<div id="imatge-categoria" class="form-row">
-				{{ form_label(form.imatge.file, 'Subir imagen*:') }}
-				{{ form_widget(form.imatge.file) }}
+			<div id="portada-categoria" class="form-row">
+				{{ form_label(form.portada, 'Portada*:') }}
+				{{ form_widget(form.portada) }}
+				<div id="carrega-imatges" class="form-row dropzone"></div>
 			</div>
+			<!-- <div id="imatge-categoria" class="form-row">
+				{# form_label(form.imatge.file, 'Subir imagen*:') #}
+				{# form_widget(form.imatge.file) #}
+			</div> -->
 			<div id="nom-categoria" class="form-row">
 				{{ form_label(form.nom, 'Nombre*:') }}
 				{{ form_widget(form.nom) }}
 			</div>
-			<div id="titol-imatge-categoria" class="form-row">
-				{{ form_label(form.imatge.titol, 'Descripción (html title):') }}
-				{{ form_widget(form.imatge.titol) }}
-			</div>
+			<!-- <div id="titol-imatge-categoria" class="form-row">
+				{# form_label(form.imatge.titol, 'Descripción (html title):') #}
+				{# form_widget(form.imatge.titol) #}
+			</div> -->
 			<div id="pare-categoria" class="form-row">
 				{{ form_label(form.pare, 'Categoría padre:') }}
 				{{ form_widget(form.pare) }}
 			</div>
 			
-			{{ form_rest(form.imatge) }}
+			{# form_rest(form.imatge) #}
 			{{ form_rest(form) }}
 			
 			<div>
 				<label>&nbsp;</label>
-	        	<input type="submit" class="submit-form" value="Crear categoría" />
+	        	<input type="submit" class="submit-form" value="Guardar" />
 	        </div>  
 		</form>
 	</div>
@@ -62,6 +77,48 @@
     <script type="text/javascript">
     
 	$(document).ready(function(){
+		$("#carrega-imatges").dropzone({ 
+        	url: "/admin/galeria",
+        	maxFilesize: 2, 
+        	paramName: "file",
+        	enqueueForUpload: false,
+        	accept: function(file, done) {
+            	/* Després de added  */
+        		//this.removeAllFiles();
+        		//if () this.removeFile(file);
+        	},
+        	init: function() {
+        		var _this = this;
+
+        		$("input:file").removeAttr('multiple');
+        		
+        	    this.on("addedfile", function(file) { 
+         	 		alert("Added file." + file.name);
+         	 		
+            	    $('.dz-preview:not(:has(.deleteImage))').append('<span class="deleteImage">Delete</span>').click(function(){
+						alert("esborrar"+file.name);
+						_this.removeFile(file);
+            	     });
+            	     
+            	});
+        	    this.on("selectedfiles", function(files) { 
+            	    alert("selected" + files.length); 
+            	    //files.pop();
+            	    //files=new Array(files[0]);
+            	    
+            	});
+        	    this.on("dragleave", function(event) { 
+            	    alert("Dragleave file." + event.target.nodeName); 
+            	   // this.removeFile(event.target.text);
+            	});
+        	    this.on("removedfile", function(file) { 
+            	    //    	    alert("Removed" + file.name); 
+            	});
+        	  }
+        });
+
+		
+		
 	});
 	
 	</script>
