@@ -13,9 +13,11 @@
 	    return { width:srcWidth*ratio, height:srcHeight*ratio };
 	}
 	
-	redimensionarImatgesCataleg = function(id) {
+	redimensionarImatgesCataleg = function(id, maxWidth, maxHeight) {
 		$(id).each(function() {
-	    	var a = calculateAspectRatioFit($(this).attr("width"), $(this).attr("height"), $(this).parent().width(), $(this).parent().height() - 10);
+			var vmaxWidth = (maxWidth == 0)?$(this).parent().width():maxWidth;
+			var vmaxHeight = (maxHeight == 0)?$(this).parent().height():maxHeight;
+	    	var a = calculateAspectRatioFit($(this).attr("width"), $(this).attr("height"), vmaxWidth, vmaxHeight - 10);
 	    	$(this).attr("width", Math.round(a.width));
 	    	$(this).attr("height", Math.round(a.height));
 	    	
@@ -29,17 +31,20 @@
 	
 	/************************************************* Cataleg *****************************************************/
 	
-	hoverCatalegAdminActions = function() {
-		$("#list-cataleg li").mouseenter( function(){
-			$(this).find(".cataleg-imatge").addClass("hover-cataleg-item");
-			$(this).find(".cataleg-nom").addClass("hover-cataleg-item");
-			$(this).find(".admin-actions").fadeIn(200);
+	hoverCatalegAdminActions = function(hoverobject, alphaselect, adminselect) {
+	
+		hoverobject.mouseenter( function(){
+			/*$(this).find(".cataleg-imatge").addClass("hover-cataleg-item");
+			$(this).find(".cataleg-nom").addClass("hover-cataleg-item");*/
+			$(this).find(alphaselect).addClass("hover-cataleg-item");
+			$(this).find(adminselect).fadeIn(200);
 		});
 	
-		$("#list-cataleg li").mouseleave( function(){
-			$(this).find(".cataleg-imatge").removeClass("hover-cataleg-item");
-			$(this).find(".cataleg-nom").removeClass("hover-cataleg-item");
-			$(this).find(".admin-actions").fadeOut(200);
+		hoverobject.mouseleave( function(){
+			/*$(this).find(".cataleg-imatge").removeClass("hover-cataleg-item");
+			$(this).find(".cataleg-nom").removeClass("hover-cataleg-item");*/
+			$(this).find(adminselect).fadeOut(200);
+			$(this).find(alphaselect).removeClass("hover-cataleg-item");
 		});
 	}
 	

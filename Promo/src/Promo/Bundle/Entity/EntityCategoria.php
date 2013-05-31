@@ -72,6 +72,18 @@ class EntityCategoria {
     	}
     }
     
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return integer
+     */
+    public function setId($id)
+    {
+    	$this->id = $id;
+    
+    	return $this;
+    }
     
     /**
      * Get id
@@ -87,7 +99,7 @@ class EntityCategoria {
      * Set nom
      *
      * @param string $nom
-     * @return EntityCategoria
+     * @return string
      */
     public function setNom($nom)
     {
@@ -110,7 +122,7 @@ class EntityCategoria {
      * Set imatge
      *
      * @param Promo\Bundle\Entity\EntityImatge $imatge
-     * @return EntityCategoria
+     * @return EntityImatge
      */
     public function setImatge(\Promo\Bundle\Entity\EntityImatge $imatge = null)
     {
@@ -190,7 +202,7 @@ class EntityCategoria {
      * Add productes
      *
      * @param Promo\Bundle\Entity\EntityProducte $productes
-     * @return EntityCategoria
+     * @return EntityProducte
      */
     public function addProducte(\Promo\Bundle\Entity\EntityProducte $productes)
     {

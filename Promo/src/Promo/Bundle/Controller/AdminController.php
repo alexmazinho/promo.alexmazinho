@@ -22,39 +22,55 @@ class AdminController extends Controller
     	$admin = true;  /* pendent */
     	
     	$categoria = new EntityCategoria();
-    	
     	$pare = null;
-    	if ($this->getRequest()->getMethod() == 'GET') {
+    	
+    	if ($request->getMethod() == 'GET') {
     		if ($request->query->has('categoria') and $request->query->get('categoria') != 0) {
     			// Edició 
     			$categoria = $this->getDoctrine()->getRepository('PromoBundle:EntityCategoria')->find($request->query->get('categoria'));
     		} 
     		
     		if ($request->query->has('pare') and $request->query->get('pare') != 0) {
+    			// Nova 
    				$pare = $this->getDoctrine()->getRepository('PromoBundle:EntityCategoria')->find($request->query->get('pare'));
    				$categoria->setPare($pare);
     		}
-    	}
+    	} else  {
+    		$c = $request->request->get('categoria');
+
+			if ($c['id'] != "") $categoria = $this->getDoctrine()->getRepository('PromoBundle:EntityCategoria')->find($c['id']);
+		} 
     	
-    	$form = $this->createForm(new FormCategoria(), $categoria);
+    	$form = $this->createForm(new FormCategoria(), $categoria); 
     	
-    	if ($this->getRequest()->getMethod() === 'POST') {
-    		$form->bindRequest($this->getRequest());
+    	if ($request->getMethod() === 'POST') {
+    		$form->bindRequest($request);
     		
     		if ($form->isValid()) {
+
+    			$uploadedfile = $form['imatge']->getData();
     			
+    			$portada = null;
+    			$uploadReturn = true;
     			$em = $this->getDoctrine()->getEntityManager();
-    		
-    			if ($categoria->getImatge()->upload($categoria->getNom()) == true) {
-	    			$em->persist($categoria->getImatge());
-	    			$em->persist($categoria);
+				if ($uploadedfile != null) {
+	    			$portada = new EntityImatge($uploadedfile);		
+					$portada->setTitol("Categoría " . $categoria->getNom());
+					$em->persist($portada);
+					$categoria->setImatge($portada);
+					$uploadReturn = $portada->upload($categoria->getNom());
+				}
+				
+    			if ($uploadReturn == true) {
+    				
+	    			if ($categoria->getId() == null) $em->persist($categoria);  // Nova
 	    			
 	    			$em->flush();
     		
-	    			return $this->redirect($this->generateUrl('PromoBundle_catalogo'));
-    			}
-    			$this->get('session')->setFlash('sms-notice','Error durante la carga de la imagen');
-    		}
+	    			return $this->redirect($this->generateUrl('PromoBundle_catalogo', 
+	    					array('categoria' => ($categoria->getPare() != null)?$categoria->getPare()->getRuta():"")));
+    			} else $this->get('session')->setFlash('sms-notice','Error durante la carga de la imagen');
+    		} else $this->get('session')->setFlash('sms-notice','Error en la validación de los datos');
     	}
     	
     	return $this->render('PromoBundle:Admin:categoria.html.twig',
@@ -67,9 +83,24 @@ class AdminController extends Controller
     	
     	$admin = true;  /* pendent */
     	
-    	/* formawrd catalogoAction($categoria) amb el pare */
+    	if ($request->getMethod() == 'GET') {
+    		if ($request->query->has('categoria') and $request->query->get('categoria') != 0) {
+    			// Edició
+    			$categoria = $this->getDoctrine()->getRepository('PromoBundle:EntityCategoria')->find($request->query->get('categoria'));
+    		}
+    	}
     	
-    	return new Resposnse("esborrar categoria");
+    	if ($categoria != null and count($categoria->getFills()) == 0) {
+    		$em = $this->getDoctrine()->getEntityManager();
+    		$em->remove($categoria); 
+    		$em->flush();
+    		
+    		return $this->redirect($this->generateUrl('PromoBundle_catalogo',
+    				array('categoria' => ($categoria->getPare() != null)?$categoria->getPare()->getRuta():"")));
+    	}
+    	$this->get('session')->setFlash('sms-notice','Esta categoría contiene objetos internos y no se puede eliminar');
+    	return $this->redirect($this->generateUrl('PromoBundle_catalogo'));
+    	
     }
     
     public function productoAction()
@@ -81,7 +112,7 @@ class AdminController extends Controller
     	$producte = new EntityProducte();
     	 
     	$categoria = null;
-    	if ($this->getRequest()->getMethod() == 'GET') {
+    	if ($request->getMethod() == 'GET') {
     		if ($request->query->has('categoria') and $request->query->get('categoria') != 0) {
     			$categoria = $this->getDoctrine()->getRepository('PromoBundle:EntityCategoria')->find($request->query->get('categoria'));
     			$producte->setCategoria($categoria);
@@ -90,8 +121,8 @@ class AdminController extends Controller
     	 
     	$form = $this->createForm(new FormProducte(), $producte);
     	 
-    	if ($this->getRequest()->getMethod() === 'POST') {
-    		$form->bindRequest($this->getRequest());
+    	if ($request->getMethod() === 'POST') {
+    		$form->bindRequest($request);
     
     		if ($form->isValid()) {
     			$em = $this->getDoctrine()->getEntityManager();

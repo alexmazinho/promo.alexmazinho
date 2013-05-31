@@ -6,12 +6,52 @@
 
 {% block stylesheets %}
 	{{ parent() }} 
-	<link media="all" href="{{ asset('css/dropzone.css') }}" type="text/css" rel="stylesheet" >
 {% endblock %}
 
 {% block javascriptshead %}
 	{{ parent() }} 
-   	<script src="{{ asset('js/dropzone.js') }}" type="text/javascript"></script>
+  	
+   	<script type="text/javascript">
+   	(function($){
+   		$.fn.imagePreview = function(params){
+   		$(this).change(function(evt){
+
+   		if(typeof FileReader == "undefined") return true; // File reader not available.
+
+   		var fileInput = $(this);
+   		var files = evt.target.files; // FileList object
+
+   		// Loop through the FileList and render image files as thumbnails.
+   		for (var i = 0, f; f = files[i]; i++) {
+
+   		// Only process image files.
+   		if (!f.type.match('image.*')) {
+   		continue;
+   		}
+
+   		var reader = new FileReader();
+
+   		// Closure to capture the file information.
+   		reader.onload = (function(theFile) {
+   		return function(e) {
+   		// Render thumbnail.
+   		var imgHTML = '<img  height="200" class="file-input-thumb" src="' + e.target.result + '" title="' + theFile.name + '"/>';
+
+   		if( typeof params.selector != 'undefined' ){
+   		$(params.selector).html(imgHTML);
+   		}else{
+   		fileInput.before(imgHTML);
+   		}
+   		};
+   		})(f);
+
+   		// Read in the image file as a data URL.
+   		reader.readAsDataURL(f);
+   		}
+   		});
+   		};
+   		})(jQuery);
+   	</script>
 {% endblock %}
 
 {% block title %}Promoquality - Panel administración. Formulario de gestión de categorías{% endblock %}
@@ -36,24 +76,33 @@
 		<form action="{{ path('PromoBundle_categoria') }}" method="post" {{ form_enctype(form) }}>
 			{{ form_widget(form.id) }}
 			
-			<div id="portada-categoria" class="form-row">
-				{{ form_label(form.portada, 'Portada*:') }}
-				{{ form_widget(form.portada) }}
-				<div id="carrega-imatges" class="form-row dropzone"></div>
+			<div id="portada-categoria" class="form-row clearfix">
+				{{ form_label(form.imatge, 'Portada*:') }}
+				{{ form_widget(form.imatge) }}
+				{% if portada is null %}
+					<div class="portada-item">
+						<span id="image-upload">Subir imagen<br/>(click)</span>
+					</div>
+				{% else %}
+					<div class="portada-item">
+						<span id="image-upload"><img height="200" src="{{ portada.webPath }}" title="{{ portada.titol }}" alt="{{ portada.titol }}"></span>
+					</div>
+					<!-- 
+					<div id="portada-item">
+						<div class="portada-imatge">
+							<img height="200" src="{# portada.webPath #}" title="{# portada.titol #}" alt="{# portada.titol #}">
+						</div>	
+						<div class="admin-actions"><a class="remove-item" href="javascript:void(0);">
+	   						<img  width="15" height="15" alt="Cambiar imagen" title="Cambiar imagen" src="{# asset('images/delete-icon.gif') #}">
+	   					</a></div>
+					</div> -->
+				{% endif %}
 			</div>
-			<!-- <div id="imatge-categoria" class="form-row">
-				{# form_label(form.imatge.file, 'Subir imagen*:') #}
-				{# form_widget(form.imatge.file) #}
-			</div> -->
-			<div id="nom-categoria" class="form-row">
+			<div id="nom-categoria" class="form-row clearfix">
 				{{ form_label(form.nom, 'Nombre*:') }}
 				{{ form_widget(form.nom) }}
 			</div>
-			<!-- <div id="titol-imatge-categoria" class="form-row">
-				{# form_label(form.imatge.titol, 'Descripción (html title):') #}
-				{# form_widget(form.imatge.titol) #}
-			</div> -->
-			<div id="pare-categoria" class="form-row">
+			<div id="pare-categoria" class="form-row clearfix">
 				{{ form_label(form.pare, 'Categoría padre:') }}
 				{{ form_widget(form.pare) }}
 			</div>
@@ -61,7 +110,7 @@
 			{# form_rest(form.imatge) #}
 			{{ form_rest(form) }}
 			
-			<div>
+			<div class="form-row clearfix"> 
 				<label>&nbsp;</label>
 	        	<input type="submit" class="submit-form" value="Guardar" />
 	        </div>  
@@ -75,7 +124,22 @@
     {{ parent() }}
     
     <script type="text/javascript">
-    
+    	$(document).ready(function(){
+
+    		$('#categoria_imatge').imagePreview({ selector : '#image-upload' });
+    		
+			$("#image-upload").click(function() {
+				$('#categoria_imatge').click();
+				
+			});
+
+			/*$('#categoria_portada').change(function(click) {
+				$('#image-upload').html(this.value);
+			});*/
+			
+        });
+    	
+    /*
 	$(document).ready(function(){
 		$("#carrega-imatges").dropzone({ 
         	url: "/admin/galeria",
@@ -83,7 +147,7 @@
         	paramName: "file",
         	enqueueForUpload: false,
         	accept: function(file, done) {
-            	/* Després de added  */
+            	// Després de added  
         		//this.removeAllFiles();
         		//if () this.removeFile(file);
         	},
@@ -119,7 +183,7 @@
 
 		
 		
-	});
+	});*/
 	
 	</script>
     

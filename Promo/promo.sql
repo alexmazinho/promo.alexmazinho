@@ -2,10 +2,10 @@
 -- version 3.3.7deb7
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Temps de generació: 18-05-2013 a les 01:06:06
--- Versió del servidor: 5.1.66
--- Versió de PHP : 5.3.3-7+squeeze15
+-- Host: localhost
+-- Generation Time: May 31, 2013 at 02:54 PM
+-- Server version: 5.1.66
+-- PHP Version: 5.3.3-7+squeeze15
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -16,13 +16,13 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de dades: `promo`
+-- Database: `promo`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de la taula `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE IF NOT EXISTS `categories` (
@@ -33,10 +33,10 @@ CREATE TABLE IF NOT EXISTS `categories` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_3AF34668389D7490` (`imatge`),
   KEY `pare` (`pare`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
 
 --
--- Bolcant dades de la taula `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `imatge`, `pare`, `nom`) VALUES
@@ -46,12 +46,13 @@ INSERT INTO `categories` (`id`, `imatge`, `pare`, `nom`) VALUES
 (17, 17, NULL, 'bbbbb'),
 (18, 18, NULL, 'Informática'),
 (19, 19, 2, 'Tazas y mug'),
-(21, 21, 2, 'Pequeños aparatos');
+(21, 21, 2, 'Pequeños aparatos'),
+(24, 27, 17, 'dddddddd');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de la taula `imatges`
+-- Table structure for table `imatges`
 --
 
 CREATE TABLE IF NOT EXISTS `imatges` (
@@ -59,10 +60,10 @@ CREATE TABLE IF NOT EXISTS `imatges` (
   `path` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `titol` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=36 ;
 
 --
--- Bolcant dades de la taula `imatges`
+-- Dumping data for table `imatges`
 --
 
 INSERT INTO `imatges` (`id`, `path`, `titol`) VALUES
@@ -74,12 +75,24 @@ INSERT INTO `imatges` (`id`, `path`, `titol`) VALUES
 (19, '1368776434_Tazas_y_mug.jpeg', 'Categoría tazas y mug'),
 (21, '1368779899_Pequenos_aparatos.jpeg', 'Categoría Pequeños aparatos'),
 (22, '1368782667_Lector_tarjetas_SD_MS_Mini_SD_Micr.jpeg', 'Lector tarjetas SD/MS/Mini SD/Micro SD'),
-(23, '1368824898_Carpeta_porta_papeles.jpeg', 'Carpeta porta papeles');
+(23, '1368824898_Carpeta_porta_papeles.jpeg', 'Carpeta porta papeles'),
+(24, '1369996393_asdasdasd.jpeg', 'Categoría asdasdasd'),
+(25, '1369997876_asdasdasd.jpeg', 'Categoría asdasdasd'),
+(26, '1369998028_asdasdasd.jpeg', 'Categoría asdasdasd'),
+(27, '1369998095_dddddddd.jpeg', 'Categoría dddddddd'),
+(28, '1369998219_ffffff.jpeg', 'Categoría ffffff'),
+(29, '1369998338_asdasdasd.jpeg', 'Categoría asdasdasd'),
+(30, '1369998388_asdasdasd.jpeg', 'Categoría asdasdasd'),
+(31, '1369998452_asdasdasd.jpeg', 'Categoría asdasdasd'),
+(32, '1369998539_asdasdasd.jpeg', 'Categoría asdasdasd'),
+(33, '1370000260_asdasdasd.jpeg', 'Categoría asdasdasd'),
+(34, '1370000320_asdasdasd.jpeg', 'Categoría asdasdasd'),
+(35, '1370001236_rrrrr.jpeg', 'Categoría rrrrr');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de la taula `imatges_productes`
+-- Table structure for table `imatges_productes`
 --
 
 CREATE TABLE IF NOT EXISTS `imatges_productes` (
@@ -91,14 +104,14 @@ CREATE TABLE IF NOT EXISTS `imatges_productes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Bolcant dades de la taula `imatges_productes`
+-- Dumping data for table `imatges_productes`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Estructura de la taula `productes`
+-- Table structure for table `productes`
 --
 
 CREATE TABLE IF NOT EXISTS `productes` (
@@ -115,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `productes` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
--- Bolcant dades de la taula `productes`
+-- Dumping data for table `productes`
 --
 
 INSERT INTO `productes` (`id`, `imatgeportada`, `categoria`, `nom`, `especificacions`, `preus`, `casexit`) VALUES
@@ -125,7 +138,7 @@ INSERT INTO `productes` (`id`, `imatgeportada`, `categoria`, `nom`, `especificac
 -- --------------------------------------------------------
 
 --
--- Estructura de la taula `usuaris`
+-- Table structure for table `usuaris`
 --
 
 CREATE TABLE IF NOT EXISTS `usuaris` (
@@ -140,29 +153,29 @@ CREATE TABLE IF NOT EXISTS `usuaris` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Bolcant dades de la taula `usuaris`
+-- Dumping data for table `usuaris`
 --
 
 
 --
--- Restriccions per taules bolcades
+-- Constraints for dumped tables
 --
 
 --
--- Restriccions per la taula `categories`
+-- Constraints for table `categories`
 --
 ALTER TABLE `categories`
   ADD CONSTRAINT `FK_3AF34668389D7490` FOREIGN KEY (`imatge`) REFERENCES `imatges` (`id`);
 
 --
--- Restriccions per la taula `imatges_productes`
+-- Constraints for table `imatges_productes`
 --
 ALTER TABLE `imatges_productes`
   ADD CONSTRAINT `FK_658D0D0E389D7490` FOREIGN KEY (`imatge`) REFERENCES `imatges` (`id`),
   ADD CONSTRAINT `FK_658D0D0E476EEF0B` FOREIGN KEY (`producte`) REFERENCES `productes` (`id`);
 
 --
--- Restriccions per la taula `productes`
+-- Constraints for table `productes`
 --
 ALTER TABLE `productes`
   ADD CONSTRAINT `FK_8C9B786C4E10122D` FOREIGN KEY (`categoria`) REFERENCES `categories` (`id`),

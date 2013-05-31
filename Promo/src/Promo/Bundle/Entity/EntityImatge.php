@@ -37,6 +37,14 @@ class EntityImatge {
 	 */
 	protected $file;
 	
+	/**
+	 * Constructor
+	 */
+	public function __construct($file)
+	{
+		$this->file = $file;
+	}
+	
 	public function __toString() {
 		return $this->path;
 	}
@@ -107,14 +115,14 @@ class EntityImatge {
 	{
 		// the absolute directory path where uploaded
 		// documents should be saved
-		return __DIR__.'/../../../../web/'.$this->getUploadDir();
+		return __DIR__.'/../../../../web'.$this->getUploadDir();
 	}
 	
 	protected function getUploadDir()
 	{
 		// get rid of the __DIR__ so it doesn't screw up
 		// when displaying uploaded doc/image in the view.
-		return 'images/items';
+		return '/images/items';
 	}
 	
     /**
