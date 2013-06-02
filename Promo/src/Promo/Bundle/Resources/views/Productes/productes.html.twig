@@ -2,6 +2,11 @@
 
 {% block meta_description %}Catálogo de productos Promoquality. {{ categoria.nom }}{% endblock %}
 
+{% block javascriptshead %}
+	{{ parent() }} 
+   	<script src="{{ asset('js/jquery-ui.js') }}" type="text/javascript"></script>
+{% endblock %}
+
 {% block title %}Catálogo de productos Promoquality. {{ categoria.nom }} {% endblock %}
 
 {% block breadcrumb %}
@@ -23,6 +28,11 @@
 {% endblock %}
 
 {% block content %}
+	{% if app.session.hasFlash('sms-notice') %}
+    <div class="sms-notice">
+        {{ app.session.flash('sms-notice') }}
+    </div>
+	{% endif %}
 	<ol id="list-cataleg"> 
 	{% for producte in productes %}
    		<li><a href="{{ path('PromoBundle_catalogodetalle', {'producto': producte.ruta}) }}">
@@ -33,17 +43,16 @@
    			<div class="cataleg-nom">{{ producte.nom }}</div></a>
    			{% if admin == true %}
    			<div class="admin-actions">
-	   			<a href="{{ path('PromoBundle_producto', {'producto': categoria.id, 'action': 'remove' }) }}">
-	   				<img  width="15" height="15" alt="Eliminar producto" title="Eliminar producto" src="{{ asset('images/delete-icon.gif') }}">
-	   			</a>	
-	   			<a href="{{ path('PromoBundle_producto', {'producto': categoria.id, 'action': 'edit' }) }}">
-	   				<img width="15" height="15" alt="Editar producto" title="Editar producto" src="{{ asset('images/edit-icon.gif') }}">
-	   			</a>	
+   				<a class="ui-icon ui-icon-trash" title="Eliminar producto {{ producte.nom }}" alt="Eliminar producto {{ producte.nom }}" 
+								href="{{ path('PromoBundle_removeproducto', {'producto': producte.id }) }}">Eliminar producto</a>
+				<a class="ui-icon ui-icon-pencil" title="Editar producto" alt="Editar producto" 
+								href="{{ path('PromoBundle_producto', {'producto': producte.id }) }}">Editar producto</a>
    			</div>
    			{% endif %}
    		</li>
    	{% endfor %}
 	</ol> 
+	<div id="dialog-confirm"></div>
 	
 {% endblock %}
 
@@ -57,10 +66,12 @@
 	$(document).ready(function(){
 		$("#menu-catalogo").addClass("menu-item-active");
 
-		redimensionarImatgesCataleg(".cataleg-imatge img");
+		redimensionarImatgesCataleg(".cataleg-imatge img", 0, 0);
 
-		hoverCatalegAdminActions();
-		
+		hoverCatalegAdminActions($("#list-cataleg li"), ".cataleg-item", ".admin-actions");
+
+		removeItem($("#dialog-confirm"), "¿Seguro que quieres borrar el producto?");
+				
 	});
 
 	

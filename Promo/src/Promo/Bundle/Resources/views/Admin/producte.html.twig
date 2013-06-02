@@ -4,21 +4,22 @@
 
 {% block meta_robots %}noindex, follow{% endblock %}
 
-{% block stylesheets %}
-	{{ parent() }} 
-	<link media="all" href="{{ asset('css/dropzone.css') }}" type="text/css" rel="stylesheet" >
-{% endblock %}
-
 {% block javascriptshead %}
 	{{ parent() }} 
-   	<script src="{{ asset('js/dropzone.js') }}" type="text/javascript"></script>
+   	<script src="{{ asset('js/jquery-ui.js') }}" type="text/javascript"></script>
 {% endblock %}
 
 {% block title %}Promoquality - Panel administración. Formulario de gestión de productos{% endblock %}
 
 {% block breadcrumb %}
 
-	<div id="current-category" class="category-item"><h3>Nuevo producto de {{ producte.categoria.nom }}</h3></div>
+	<div id="current-category" class="category-item"><h3>
+	{% if producte.id is null %}
+	Nuevo producto de {{ producte.categoria.nom }}
+	{% else %}
+	Modificar producto {{ producte.nom }}
+	{% endif %}
+	</h3></div>
 
 {% endblock %}
 
@@ -31,48 +32,70 @@
 	<div id="producte"  class="form-container">
 		<form action="{{ path('PromoBundle_producto') }}" method="post" {{ form_enctype(form) }}>
 			{{ form_widget(form.id) }}
+			{{ form_widget(form.imatges) }}
 			
-			<div id="imatge-producte" class="form-row">
-				{{ form_label(form.imatgeportada.file, 'Subir imagen portada*') }}
-				{{ form_widget(form.imatgeportada.file) }}
-			</div>
-			<div id="nom-producte" class="form-row">
-				{{ form_label(form.nom, 'Nombre*') }}
+			{% if producte.id is null %}
+				<div id="pujar-imatges" class="form-row clearfix">
+					<label>Subir imágenes*:</label>
+					<div class="galeria-upload">
+						<div class="image-upload"><span class="box-center-txt">Subir imágenes<br/>(click)</span></div>
+					</div>
+				</div>
+			{% else %}
+				<div class="drag-container">
+					<div id="portada-producte" class="form-row clearfix">
+						<label>Portada:</label>
+						<div id="portada-producte-item">
+						{% if producte.imatgePortada is null %}
+							<span class="image-portada box-center-txt">No hay imagen<br/>Disponible</span>
+						{% else %}
+							<div class="image-portada">
+								<img height="200" src="{{ producte.imatgePortada.webPath }}" alt="{{ producte.imatgePortada.titol }}" 
+								title="{{ producte.imatgePortada.titol }}" data-imageid="{{ producte.imatgePortada.id }}">
+							</div>
+						{% endif %}
+						</div>
+					</div>
+					<div id="imatges-producte" class="form-row clearfix">
+						<label>Galería:<br/><span class="help-text">(Arrastrar para<br/>cambiar la portada)</span></label>
+						<div id="imatges-producte-item" class="galeria-upload">
+							<div class="image-upload"><span class="box-center-txt">Subir imágenes<br/>(click)</span></div>
+						{% for imatge in producte.imatges %}
+							<div class="image-preview image-producte">
+								<img height="200" src="{{ imatge.webPath }}" alt="Arrastrar para cambiar la portada" 
+								title="Arrastrar para cambiar la portada" data-imageid="{{ imatge.id }}">
+								<a class="ui-icon ui-icon-trash" title="Quitar la imagen" alt="Quitar la imagen" 
+								href="{{ path('PromoBundle_borrarimagen', {'producto': producte.id, 'imagen': imatge.id} ) }}">Quitar la imagen</a>
+							</div>
+						{% endfor %}
+						</div>
+					</div>
+				</div>
+			{% endif %}
+			
+			
+			<div id="nom-producte" class="form-row clearfix">
+				{{ form_label(form.nom, 'Nombre*:') }}
 				{{ form_widget(form.nom) }}
 			</div>
-			<div id="titol-imatge-producte" class="form-row">
-				{{ form_label(form.imatgeportada.titol, 'Descripción (html title)') }}
-				{{ form_widget(form.imatgeportada.titol) }}
-			</div>
-			<div id="espec-producte" class="form-row">
-				{{ form_label(form.especificacions, 'Especificaciones*') }}
+			<div id="espec-producte" class="form-row clearfix">
+				{{ form_label(form.especificacions, 'Especificaciones*:') }}
 				{{ form_widget(form.especificacions) }}
 			</div>
-			<div id="preus-producte" class="form-row">
-				{{ form_label(form.preus, 'Precios*') }}
+			<div id="preus-producte" class="form-row clearfix">
+				{{ form_label(form.preus, 'Precios*:') }}
 				{{ form_widget(form.preus) }}
 			</div>
-			<div id="categoria-producte" class="form-row">
-				{{ form_label(form.categoria, 'Padre') }}
+			<div id="categoria-producte" class="form-row clearfix">
+				{{ form_label(form.categoria, 'Padre:') }}
 				{{ form_widget(form.categoria) }}
 			</div>
 
-			<div class="form-row"><label>Galeria</label></div>
-			<div id="imatges-producte" class="form-row dropzone"></div>
-			
-			{{ form_rest(form.imatgeportada) }}
 			{{ form_rest(form) }}
-			
-			<!--<div id="categoria-imatges-upload" class="form-row fallback">
-				<label>Otras imagenes</label>
-				<input name="file" type="file" multiple />
-				<input id="fileupload" type="file" name="files[]" data-url="{# asset('images/items') #}" multiple> 
-				<div id="prova-fitxers"></div>
-			</div>-->
 			
 			<div>
 				<label>&nbsp;</label>
-		    	<input type="submit" class="submit-form" value="Crear producto" />
+		    	<input type="submit" class="submit-form" value="Guardar producto" />
 		    </div>
 		</form>
 		
@@ -89,20 +112,19 @@
     <script type="text/javascript">
 
     $(document).ready(function(){
-
-    	$("#imatges-producte").dropzone({ 
-        	url: "/admin/galeria",
-        	maxFilesize: 2, 
-        	paramName: "file",
-        	init: function() {
-        	    this.on("addedfile", function(file) { alert("Added file." + file.name); });
-        	  }
-        });
-		    	
+    	hoverCatalegAdminActions($(".image-producte"), "img", ".ui-icon");
     	
-      
+    	$('#producte_imatges').imagePreview({ selector : '.galeria-upload', multiple: true, textover: 'Imagen pendiente de subir al servidor' });
+		
+		$(".image-upload").click(function() {
+			$('#producte_imatges').click();
+		});
+
+		prepareDragAndDrop("{{ path('PromoBundle_portada') }}");
+
+		removeImageClick();
+
     });
-    
 
 	</script>
     

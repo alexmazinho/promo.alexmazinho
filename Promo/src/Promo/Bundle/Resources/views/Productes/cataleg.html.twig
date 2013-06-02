@@ -2,6 +2,11 @@
 
 {% block meta_description %}Catálogo de productos Promoquality{% if pare is not null %}. {{ pare.nom }}	{% endif %}{% endblock %}
 
+{% block javascriptshead %}
+	{{ parent() }} 
+   	<script src="{{ asset('js/jquery-ui.js') }}" type="text/javascript"></script>
+{% endblock %}
+
 {% block title %}Catálogo Promoquality{% if pare is not null %}. {{ pare.nom }}	{% endif %}{% endblock %}
 
 {% block breadcrumb %}
@@ -41,17 +46,21 @@
    		<li>
 			<div class="cataleg-item">
 				<a href="{{ path('PromoBundle_catalogo', {'categoria': categoria.ruta}) }}">
-	   			<div class="cataleg-imatge"><img  width="{{ categoria.imatge.width }}" height="{{ categoria.imatge.height }}" alt="{{ categoria.imatge.titol }}" title="{{ categoria.imatge.titol }}" src="{{ asset('images/items/') }}{{ categoria.imatge.path }}"></div>
+	   			<div class="cataleg-imatge">
+	   			{% if categoria.imatge is not null %}
+		   			<img  width="{{ categoria.imatge.width }}" height="{{ categoria.imatge.height }}" alt="{{ categoria.imatge.titol }}" title="{{ categoria.imatge.titol }}" src="{{ categoria.imatge.webPath }}">
+				{% else %}
+		   			<span class="noimage-available">No hay imagen<br/>Disponible</span>
+		   		{% endif %}  
+	   			</div>
 				<div class="cataleg-nom">{{ categoria.nom }}</div></a>
 			</div>
 			{% if admin == true %}
 			<div class="admin-actions">
-	  			<a class="remove-item" href="{{ path('PromoBundle_removecategoria', {'categoria': categoria.id }) }}">
-	   				<img  width="15" height="15" alt="Eliminar categoría" title="Eliminar categoría" src="{{ asset('images/delete-icon.gif') }}">
-	   			</a>	
-	   			<a href="{{ path('PromoBundle_categoria', {'categoria': categoria.id }) }}">
-	   				<img width="15" height="15" alt="Editar categoría" title="Editar categoría" src="{{ asset('images/edit-icon.gif') }}">
-	   			</a>	
+				<a class="ui-icon ui-icon-trash" title="Eliminar categoría {{ categoria.nom }}" alt="Eliminar categoría {{ categoria.nom }}" 
+								href="{{ path('PromoBundle_removecategoria', {'categoria': categoria.id }) }}">Eliminar categoría</a>
+				<a class="ui-icon ui-icon-pencil" title="Editar categoría" alt="Editar categoría" 
+								href="{{ path('PromoBundle_categoria', {'categoria': categoria.id }) }}">Editar categoría</a>
 			</div>
 			{% endif %}
    		</li>
@@ -59,6 +68,7 @@
    		<span>Todavía no hay productos en {{ pare.nom }}</span>
    	{% endfor %}
 	</ol> 
+	<div id="dialog-confirm"></div>
 	
 {% endblock %}
 
@@ -75,6 +85,8 @@
 		redimensionarImatgesCataleg(".cataleg-imatge img", 0, 0);
 
 		hoverCatalegAdminActions($("#list-cataleg li"), ".cataleg-item", ".admin-actions");
+
+		removeItem($("#dialog-confirm"), "¿Seguro que quieres borrar la categoría?");
 	});
 
 	

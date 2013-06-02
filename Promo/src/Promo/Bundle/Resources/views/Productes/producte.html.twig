@@ -2,6 +2,16 @@
 
 {% block meta_description %}Catálogo de productos Promoquality. {{ producte.nom }}. {{ producte.especificacions }} {% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+    <link media="all" href="{{ asset('css/colorbox.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block javascriptshead %} 
+	{{ parent() }}
+	<script src="{{ asset('js/jquery.colorbox.js') }}" type="text/javascript"></script>
+{% endblock %}
+
 {% block title %} Catálogo de productos Promoquality. {{ producte.nom }}{% endblock %}
 
 {% block breadcrumb %}
@@ -11,7 +21,7 @@
 {% endblock %}
 
 {% block content %}
-	<div class="left-block producte-dades">
+	<div class="left-block">
 		<div id="producte-nom">{{ producte.nom }}</div>
 		<div id="producte-espc">
 			<p class="producte-titol">Especificaciones técnicas</p>
@@ -24,23 +34,21 @@
 	</div>
 	<div class="right-block">
 		<div id="producte-imatge-portada">
-			<img  width="{{ producte.imatgeportada.width }}" height="{{ producte.imatgeportada.height }}" 
-				alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
-				src="{{ asset('images/items/') }}{{ producte.imatgeportada.path }}">
+			<div class="imatge-hcenter">
+				<a href="{{ producte.imatgeportada.webPath }}" class="colorbox"><img  height="350" 
+					alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
+					src="{{ producte.imatgeportada.webPath }}"></a>
+			</div>
 		</div>
 		<div id="producte-imatges">
-			<div class="producte-imatge">
-			<img   
-				alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
-				src="{{ asset('images/items/') }}{{ producte.imatgeportada.path }}"></div>
-			<div class="producte-imatge">
-			<img   
-				alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
-				src="{{ asset('images/items/') }}{{ producte.imatgeportada.path }}"></div>
-			<div class="producte-imatge">
-			<img   
-				alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
-				src="{{ asset('images/items/') }}{{ producte.imatgeportada.path }}"></div>		
+			{% for imatge in producte.imatges %}
+				<div class="producte-imatge">
+					<div class="cataleg-imatge imatge-hcenter">
+						<a href="{{ imatge.webPath }}" class="colorbox"><img width="{{ imatge.width }}" height="{{ imatge.height }}" 
+						src="{{ imatge.webPath }}" alt="{{ imatge.titol }}"	title="{{ imatge.titol }}"></a>
+					</div>
+				</div>
+			{% endfor %}		
 		</div>
 	</div>
 {% endblock %}
@@ -52,6 +60,15 @@
 
 	$(document).ready(function(){
 		$("#menu-catalogo").addClass("menu-item-active");
+
+		redimensionarImatgesCataleg(".cataleg-imatge img", 0, 0);
+
+		$(".colorbox").colorbox({
+			rel:'{{ producte.nom }}',
+			scalePhotos: true,
+			maxWidth: "600px",
+			maxHeight: "500px"
+		});
 	});
 	</script>
     

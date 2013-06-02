@@ -5,43 +5,23 @@
     <link media="all" href="{{ asset('css/fonts.css') }}" type="text/css" rel="stylesheet" >
     <link media="all" href="{{ asset('css/style.css') }}" type="text/css" rel="stylesheet" >
     <link media="all" href="{{ asset('css/layout.css') }}" type="text/css" rel="stylesheet">
+    <link media="all" href="{{ asset('css/redmond/jquery-ui.css') }}" type="text/css" rel="stylesheet" >
+    <link media="all" href="{{ asset('css/notifications/jquery_notification.css') }}" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block javascriptshead %} 
    	<script src="{{ asset('js/jquery-1.9.1.min.js') }}" type="text/javascript"></script>
    	<script src="{{ asset('js/promo-jquery-scripts.js') }}" type="text/javascript"></script>
+ 	<script src="{{ asset('js/notifications/jquery_notification.js') }}" type="text/javascript"></script>
    	<script type="text/javascript">
    		(function(d, s, id) {
-  		var js, fjs = d.getElementsByTagName(s)[0];
-  		if (d.getElementById(id)) return;
-  		js = d.createElement(s); js.id = id;
-  		js.src = "//connect.facebook.net/ca_ES/all.js#xfbml=1";
-  		fjs.parentNode.insertBefore(js, fjs);
+  			var js, fjs = d.getElementsByTagName(s)[0];
+  			if (d.getElementById(id)) return;
+  			js = d.createElement(s); js.id = id;
+  			js.src = "//connect.facebook.net/ca_ES/all.js#xfbml=1";
+  			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
 	<!--  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>-->
-	<script type="text/javascript">
-	$(document).ready(function(){
-		$('a#bookmark').click(function(e){
-			e.preventDefault();
-			var bookmarkURL = this.href;
-			var bookmarkTitle = this.title;
-			try {
-			if (window.sidebar) { // moz
-			window.sidebar.addPanel(bookmarkTitle, bookmarkURL, "");
-			} else if (window.external || document.all) { // ie
-			window.external.AddFavorite(bookmarkURL, bookmarkTitle);
-			} else if (window.opera) { // duh
-			$('a#bookmark').attr('href',bookmarkURL);
-			$('a#bookmark').attr('title',bookmarkTitle);
-			$('a#bookmark').attr('rel','sidebar');
-			}
-			} catch (err) { // catch all incl webkit
-				alert('Pulsa ctrl+D para añadir esta página a favoritos (Command+D para macs)'); 
-			}
-		});
-	});
-	</script>
-		
 {% endblock %}
 
 {% block header %}
@@ -80,6 +60,7 @@
 	<div id="breadcrumb">{% block breadcrumb %}{% endblock %}</div>
 	<div id="content">{% block content %}{% endblock %}</div>
 </div>
+
 {% endblock %}
 
 {% block footer %}
@@ -96,5 +77,26 @@
 	</div>
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
 
+	$(document).ready(function(){
+
+		bookmarkClick();
+		
+		if ($(".sms-notice").length) {
+			showNotification({
+				message: $(".sms-notice").html(),
+				type : "error",
+				autoClose: true,
+				duration: 2
+			});
+		}
+		
+	});
+	</script>
+    
+{% endblock %}
 

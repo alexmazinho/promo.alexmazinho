@@ -59,6 +59,18 @@ PromoBundle_producto:
     requirements:
         _method:  GET|POST
 
+PromoBundle_portada:
+    pattern:  /admin/portada
+    defaults: { _controller: "PromoBundle:Admin:portada" }
+    requirements:
+        _method:  GET
+
+PromoBundle_borrarimagen:
+    pattern:  /admin/borrarimagen 
+    defaults: { _controller: "PromoBundle:Admin:borrarimagen" }
+    requirements:
+        _method:  GET
+
 PromoBundle_removeproducto:
     pattern:  /admin/removeproducto
     defaults: { _controller: "PromoBundle:Admin:removeproducto" }

@@ -13,7 +13,7 @@
    			<div class="cataleg-nom">{{ producte.nom }}</div></a>
    		</li>
    	{% endfor %}
-	</ol>
+	</ol> 
 	
 {% endblock %}
 
@@ -25,7 +25,7 @@
 	$(document).ready(function(){
 		$("#menu-casosexito").addClass("menu-item-active");
 
-		redimensionarImatgesCataleg("#list-cataleg img");
+		redimensionarImatgesCataleg(".cataleg-imatge img", 0, 0);
 	});
 
 	

@@ -65,7 +65,7 @@ body {
 .clearfix {
     clear: both;
     margin: 0 auto;
-    overflow: hidden;
+    /*overflow: hidden;*/
     padding: 0;
     position: relative;
 }
@@ -94,7 +94,7 @@ a, a:hover, a:active {
 }
 
 .sms-notice {
-	color: red;
+	display:none;
 }
 
 /************************* Generics final *******************************/
@@ -105,8 +105,12 @@ a, a:hover, a:active {
     position: fixed;
 }
 
+#logo img {
+	width: 265px;
+}
+
 #main-contact img {
-	width:35%;
+	width: 35%;
 }
 
 /************************* Menu *******************************/
@@ -140,8 +144,6 @@ a, a:hover, a:active {
 .form-container {
 	font-weight: bold;
 	font-size: 0.8em;
-	padding-left: 7px;
-	
 }
 
 form label {
@@ -221,19 +223,47 @@ form input.submit-form:hover {
 
 /************************* Contact final *******************************/
 
-/************************* Form categoria *******************************/
+/************************* Forms categoria / Producte *******************************/
 
-#categoria form label {
-	width: 150px;
+#categoria form label,
+#producte form label {
+	min-width: 150px;
+	width: 10%;
 }
 
-#portada-item {
+* html #categoria form label,
+* html #producte form label { /*min-width: 1500px;  min-width IE hack */
+   height: expression( this.scrollWidth < 151 ? "150px" : "auto" ); /* sets min-width for IE */
+}
+
+.galeria-upload {
 	position: relative;
 	float:left;
 }
 
-#image-upload {
-	width: 100px;
+#producte .galeria-upload {
+	width: 80%;
+}
+
+#portada-producte-item {
+	position: relative;
+	float:left;
+}
+
+.border-highlight-green {
+	outline: 1px solid #9ccc55;
+}
+
+.image-portada {
+	/*margin:1px;*/
+}
+
+.image-portada img {
+	cursor: pointer;
+}
+
+.box-center-txt {
+	width: 131px;
 	height: 100px;
 	vertical-align: middle;
 	text-align: center; 
@@ -242,25 +272,64 @@ form input.submit-form:hover {
 	cursor: pointer;
 }
 
-#portada-item .admin-actions {
-	top:0;
-}
-
-#categoria_imatge {
+#categoria_imatge,
+#producte_imatges {
 	display:none;
 }
 
+.image-upload {
+	display: inline-block;
+	margin-right: 15px;
+	/*margin-bottom: 10px;*/
+}
+/*
+.image-preview img {
+	border: 1px solid #dddddd;
+	height: 100px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}*/
 
-/************************* Form categoria final *******************************/
-
-/************************* Form producte *******************************/
-
-#producte form label {
-	width: 150px;
+.image-preview {
+	display: inline-block;
+	cursor: pointer;
+	position: relative;
+	padding-right: 15px;
+	padding-bottom: 10px;
 }
 
-/************************* Form producte final *******************************/
+.image-preview img {
+	outline: 1px solid #dddddd;
+	height: 100px;
+}
 
+.image-uploaded img {
+	outline: 1px solid #fe0002;
+	height: 100px;
+	margin-right: 2px;
+	
+	
+}
+
+.help-text {
+	font-style: italic;
+    font-weight: normal;
+}
+
+.image-producte .ui-icon {
+	display:none;
+	position:absolute;
+	right: 0;
+	top: 0;
+}
+
+.hover_caption {
+	background-image: url("/images/hover_caption_bg.png");
+    margin-right: 10px;
+}
+
+
+/************************* Form categoria / Producte  final *******************************/
 
 
 /************************* Menu final *******************************/
@@ -308,14 +377,13 @@ form input.submit-form:hover {
 
 .category-item {
 	float: left;
-	margin-left: 7px;
 	/*margin-bottom: 10px;*/
  	/*width: 160px;*/
  	height:20px;
  	display:block;
  	background:transparent url('/images/category-item.png') right top no-repeat;
  	/*background-size:150px 35px;*/
- 	background-size:300px 20px;
+ 	background-size:400px 20px;
 	font-weight: bold;
 	padding-top: 5px;
 	padding-right: 10px;
@@ -333,9 +401,14 @@ form input.submit-form:hover {
 	color: #FFFFFF;
 }
 
+.category-item a:hover {
+	color: #1b307e;
+}
+
 #admin-action {
 	float: right;
 	color: #FFFFFF;
+	margin-right: 33px;
 	/*padding-right: 10px;
  	padding-top: 15px;*/
 }
@@ -351,9 +424,6 @@ form input.submit-form:hover {
     width: 100%;
 }
 
-#list-cataleg span {
-	padding-left: 7px;
-}
 
 #list-cataleg li {
     float: left;
@@ -401,24 +471,37 @@ form input.submit-form:hover {
 	margin-right: auto; 
 } 
 
-.cataleg-imatge-cell {
+.imatge-cell {
 	vertical-align: middle;
 	text-align: center; 
 	display: table-cell; 
 }
 
 .hover-cataleg-item {
-	opacity:0.4;
-	filter:alpha(opacity=40); /* For IE8 and earlier */
+	opacity:0.7;
+	filter:alpha(opacity=70); /* For IE8 and earlier */
+}
+
+.noimage-available {
+	width: 50%;
+	height: 120px;
+	vertical-align: middle;
+	text-align: center; 
+	display: table-cell; 
+	cursor: pointer;
+}
+
+#dialog-confirm,
+.ui-dialog-titlebar, .ui-dialog-buttonpane  {
+	font-weight: normal;
+	font-size: 0.8em;
+	font-style: normal;
 }
 
 /************************* Cataleg final *******************************/
 
 /************************* Producte *******************************/
 
-.producte-dades {
-	padding-left: 7px;	
-}
 
 #producte-nom {
 	font-weight: bold;
@@ -441,27 +524,40 @@ form input.submit-form:hover {
 }
 
 #producte-imatge-portada {
-	/*height: 120px;*/
-	text-align: center;
-	margin-left: auto;   
-	margin-right: auto; 
-	min-height: 300px;
+	/*width: 100%;
+	margin: 0;
+	position: relative;*/
 }
 
-#producte-imatge-portada img {
 
+.imatge-hcenter img {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #producte-imatges {
-	width: 100%;
-	
+	width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+
+	/*height: 200px;*/
 }
 
 .producte-imatge {
 	width: 32%;
 	float: left;
 	
+	/*display: inline-block;*/
+    /*padding-bottom: 10px;
+    padding-right: 15px;
+    position: relative;*/
 }
+
+.producte-imatge img {
+    /*height: 100px;*/
+}
+
 /************************* Producte final *******************************/
 
 /************************* Footer *******************************/

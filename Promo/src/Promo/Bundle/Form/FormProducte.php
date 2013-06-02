@@ -21,7 +21,9 @@ class FormProducte extends AbstractType {
 		
 		$builder->add('id', 'hidden');
 		
-		$builder->add('imatgeportada', new FormImatge(array('multiple' => true)));
+		//$builder->add('imatgeportada', new FormImatge(array('multiple' => true)));
+		$atributs = array('accept' => 'image/*', 'multiple' => 'multiple');
+		$builder->add('imatges', 'file', array('property_path' => false, 'required' => false, 'attr' => $atributs));
 		
 		$builder->add('nom', 'text');
 		
