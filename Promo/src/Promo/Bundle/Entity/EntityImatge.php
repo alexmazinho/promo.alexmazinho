@@ -50,12 +50,20 @@ class EntityImatge {
 	}
 
 	public function getWidth() {
-		$image_info = getimagesize($this->getAbsolutePath());
+		try {
+			$image_info = getimagesize($this->getAbsolutePath());
+		} catch (\Exception $e) {
+			return 0; 
+		}
 		return $image_info[0];
 	}
 	
 	public function getHeight() {
-		$image_info = getimagesize($this->getAbsolutePath());
+		try {
+			$image_info = getimagesize($this->getAbsolutePath());
+		} catch (\Exception $e) {
+			return 0; 
+		}
 		return $image_info[1];
 	}
 

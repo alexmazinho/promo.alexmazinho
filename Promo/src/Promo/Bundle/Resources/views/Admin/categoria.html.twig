@@ -34,23 +34,14 @@
 			<div id="portada-categoria" class="form-row clearfix">
 				{{ form_label(form.imatge, 'Portada*:') }}
 				{{ form_widget(form.imatge) }}
-				{% if categoria.imatge is null %}
-					<div class="galeria-upload">
-						<div class="image-upload"><span class="box-center-txt">Subir portada<br/>(click)</span></div>
-					</div>
-				{% else %}
+				{% if categoria.imatge is not null and categoria.imatge.width > 0 and categoria.imatge.height > 0 %}
 					<div class="galeria-upload">
 						<div class="image-portada"><img height="200" src="{{ categoria.imatge.webPath }}" title="Cambiar imagen" alt="Cambiar imagen"></div>
 					</div>
-					<!-- 
-					<div id="portada-item">
-						<div class="portada-imatge">
-							<img height="200" src="{# portada.webPath #}" title="{# portada.titol #}" alt="{# portada.titol #}">
-						</div>	
-						<div class="admin-actions"><a class="remove-item" href="javascript:void(0);">
-	   						<img  width="15" height="15" alt="Cambiar imagen" title="Cambiar imagen" src="{# asset('images/delete-icon.gif') #}">
-	   					</a></div>
-					</div> -->
+				{% else %}
+					<div class="galeria-upload">
+						<div class="image-upload"><span class="box-center-txt">Subir portada<br/>(click)</span></div>
+					</div>
 				{% endif %}
 			</div>
 			<div id="nom-categoria" class="form-row clearfix">

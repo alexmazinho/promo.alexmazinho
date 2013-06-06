@@ -34,19 +34,23 @@
 	</div>
 	<div class="right-block">
 		<div id="producte-imatge-portada">
-			<div class="imatge-hcenter">
-				<a href="{{ producte.imatgeportada.webPath }}" class="colorbox"><img  height="350" 
-					alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
-					src="{{ producte.imatgeportada.webPath }}"></a>
-			</div>
+			{% if producte.imatgeportada is not null and producte.imatgeportada.width > 0 and producte.imatgeportada.height > 0 %}
+			<div class="imatge-hcenter"><a href="{{ producte.imatgeportada.webPath }}" class="colorbox">
+	   			<img  height="350" alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
+				src="{{ producte.imatgeportada.webPath }}"></a></div>
+			{% else %}
+	   		<div><span class="noimage-available">No hay imagen<br/>Disponible</span></div>
+	   		{% endif %} 
 		</div>
 		<div id="producte-imatges">
 			{% for imatge in producte.imatges %}
 				<div class="producte-imatge">
+					{% if imatge is not null and imatge.width > 0 and imatge.height > 0 %}
 					<div class="cataleg-imatge imatge-hcenter">
 						<a href="{{ imatge.webPath }}" class="colorbox"><img width="{{ imatge.width }}" height="{{ imatge.height }}" 
 						src="{{ imatge.webPath }}" alt="{{ imatge.titol }}"	title="{{ imatge.titol }}"></a>
 					</div>
+	   				{% endif %} 
 				</div>
 			{% endfor %}		
 		</div>

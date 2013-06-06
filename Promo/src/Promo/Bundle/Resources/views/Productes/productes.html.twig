@@ -37,9 +37,14 @@
 	{% for producte in productes %}
    		<li><a href="{{ path('PromoBundle_catalogodetalle', {'producto': producte.ruta}) }}">
 	   		<div class="cataleg-imatge">
-	   			<img  width="{{ producte.imatgeportada.width }}" height="{{ producte.imatgeportada.height }}" 
-	   			alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
-	   			src="{{ asset('images/items/') }}{{ producte.imatgeportada.path }}"></div>
+	   		{% if producte.imatgeportada is not null and producte.imatgeportada.width > 0 and producte.imatgeportada.height > 0 %}
+		   		<img  width="{{ producte.imatgeportada.width }}" height="{{ producte.imatgeportada.height }}" 
+	   				alt="{{ producte.imatgeportada.titol }}" title="{{ producte.imatgeportada.titol }}" 
+	   				src="{{ producte.imatgeportada.webPath }}">
+			{% else %}
+		   		<span class="noimage-available">No hay imagen<br/>Disponible</span>
+		   	{% endif %}  
+	   		</div>
    			<div class="cataleg-nom">{{ producte.nom }}</div></a>
    			{% if admin == true %}
    			<div class="admin-actions">

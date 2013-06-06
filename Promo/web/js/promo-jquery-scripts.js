@@ -108,11 +108,11 @@
 	hoverPortada = function(hoverobject) {
 		
 		hoverobject.mouseenter( function(){
-			$(this).addClass("border-highlight-green");
+			$(this).addClass("border-highlight-blue");
 		});
 	
 		hoverobject.mouseleave( function(){
-			$(this).removeClass("border-highlight-green");
+			$(this).removeClass("border-highlight-blue");
 		});
 	};
 	

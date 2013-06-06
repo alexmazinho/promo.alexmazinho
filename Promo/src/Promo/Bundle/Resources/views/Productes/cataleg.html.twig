@@ -47,7 +47,7 @@
 			<div class="cataleg-item">
 				<a href="{{ path('PromoBundle_catalogo', {'categoria': categoria.ruta}) }}">
 	   			<div class="cataleg-imatge">
-	   			{% if categoria.imatge is not null %}
+	   			{% if categoria.imatge is not null and categoria.imatge.width > 0 and categoria.imatge.height > 0 %}
 		   			<img  width="{{ categoria.imatge.width }}" height="{{ categoria.imatge.height }}" alt="{{ categoria.imatge.titol }}" title="{{ categoria.imatge.titol }}" src="{{ categoria.imatge.webPath }}">
 				{% else %}
 		   			<span class="noimage-available">No hay imagen<br/>Disponible</span>

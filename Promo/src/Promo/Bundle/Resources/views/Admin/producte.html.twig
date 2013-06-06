@@ -46,13 +46,13 @@
 					<div id="portada-producte" class="form-row clearfix">
 						<label>Portada:</label>
 						<div id="portada-producte-item">
-						{% if producte.imatgePortada is null %}
-							<span class="image-portada box-center-txt">No hay imagen<br/>Disponible</span>
-						{% else %}
+						{% if producte.imatgePortada is not null and producte.imatgePortada.width > 0 and producte.imatgePortada.height > 0 %}
 							<div class="image-portada">
 								<img height="200" src="{{ producte.imatgePortada.webPath }}" alt="{{ producte.imatgePortada.titol }}" 
 								title="{{ producte.imatgePortada.titol }}" data-imageid="{{ producte.imatgePortada.id }}">
 							</div>
+						{% else %}
+							<span class="image-portada box-center-txt">No hay imagen<br/>Disponible</span>
 						{% endif %}
 						</div>
 					</div>
@@ -61,12 +61,14 @@
 						<div id="imatges-producte-item" class="galeria-upload">
 							<div class="image-upload"><span class="box-center-txt">Subir imágenes<br/>(click)</span></div>
 						{% for imatge in producte.imatges %}
+							{% if imatge is not null and imatge.width > 0 and imatge.height > 0 %}
 							<div class="image-preview image-producte">
 								<img height="200" src="{{ imatge.webPath }}" alt="Arrastrar para cambiar la portada" 
 								title="Arrastrar para cambiar la portada" data-imageid="{{ imatge.id }}">
 								<a class="ui-icon ui-icon-trash" title="Quitar la imagen" alt="Quitar la imagen" 
 								href="{{ path('PromoBundle_borrarimagen', {'producto': producte.id, 'imagen': imatge.id} ) }}">Quitar la imagen</a>
 							</div>
+							{% endif %}
 						{% endfor %}
 						</div>
 					</div>
