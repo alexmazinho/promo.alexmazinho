@@ -19,7 +19,6 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
 }
@@ -30,6 +29,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	font-size: 0.95em;
 }
 ol, ul {
 	list-style: none;
@@ -123,9 +123,10 @@ a, a:hover, a:active {
  	display:block;
  	background:transparent url('/images/menu-item.png') left top no-repeat;
  	/*background-size:150px 35px;*/
- 	background-size:80% 30px;
+ 	background-size:70% 30px;
  	color: #FFFFFF;
 	font-weight: bold;
+	font-size: 0.95em;
 	padding-top: 5px;
     text-indent: 5px;
 }
@@ -133,7 +134,7 @@ a, a:hover, a:active {
 .menu-item a:hover,
 .menu-item-active a {
 	background:transparent url('/images/menu-item-active.png') left top no-repeat;
-	background-size:85% 39px;
+	background-size:74% 39px;
 	/*background-size:158px 45px;*/
 	/*color: #009fee;*/
 	/*color: #7fcff6;*/ 
@@ -170,11 +171,11 @@ form .form-row {
 
 form input.submit-form {
  	height:40px;
+ 	display: block;
  	background:transparent url('/images/menu-item.png') right top no-repeat;
  	background-size:150px 30px;
  	color: #FFFFFF;
-    display: block;
-    font-size: 1em;
+    text-indent: 5px;
     font-weight: bold;
     border: medium none;
     padding-bottom: 18px;
@@ -355,10 +356,11 @@ form input.submit-form:hover {
 }
 
 .text-bloc {
-    font-size: 1.2em;
-    line-height: 1.7em;
+    font-size: 1.15em;
+    line-height: 1.6em;
+    width: 80%;
     /*text-align: justify;*/
-    width:90%;
+    
 }
 .text-bloc p {
 	margin: 0;
@@ -373,29 +375,31 @@ form input.submit-form:hover {
 
 /************************* Breadcumb *******************************/
 
-#current-category {
-	
-}
-
 .category-item {
-	float: left;
+	display:inline-block;
+} 
+
+
+.category-item a {
+	/*float: left;*/
 	/*margin-bottom: 10px;*/
  	/*width: 160px;*/
+ 	display: block;
  	height:20px;
- 	display:block;
  	background:transparent url('/images/category-item.png') right top no-repeat;
  	/*background-size:150px 35px;*/
- 	background-size:400px 20px;
+ 	background-size:400px 23px;
 	font-weight: bold;
-	padding-top: 5px;
-	padding-right: 10px;
-    text-indent: 5px;
-    font-size: 0.9em;
+	padding-top: 8px;
+	padding-right: 20px;
+	text-indent: 5px;
+    font-size: 0.8em;
+    width: auto;
 }
 
 @-moz-document url-prefix() {
-	.category-item {
-		padding-top: 3px;
+	.category-item a {
+		padding-top: 6px;
 	}
 }
 
@@ -407,12 +411,15 @@ form input.submit-form:hover {
 	color: #1b307e;
 }
 
-#admin-action {
+.admin-action {
 	float: right;
+	width: 20%;
+}
+
+.admin-action a {
 	color: #FFFFFF;
-	margin-right: 33px;
-	/*padding-right: 10px;
- 	padding-top: 15px;*/
+	padding-right: 0px;
+	width: 70%;
 }
 
 /************************* Breadcumb final *******************************/
@@ -434,8 +441,9 @@ form input.submit-form:hover {
     margin: 3px;
     padding: 1px;
     text-align: center;
-    width: 19%;
+    width: 13%;
     position: relative;
+   	padding: 0 40px 10px 12px;
 }
 
 #list-cataleg li .cataleg-nom {
@@ -471,7 +479,7 @@ form input.submit-form:hover {
 	display: block;   
 	margin-left: auto;   
 	margin-right: auto; 
-} 
+}
 
 .imatge-cell {
 	vertical-align: middle;
@@ -504,10 +512,13 @@ form input.submit-form:hover {
 
 /************************* Producte *******************************/
 
+.producte-detalls {
+	padding-top: 30px;
+}
 
 #producte-nom {
 	font-weight: bold;
-    font-size: 1.0em;
+    font-size: 1.2em;
     line-height: 20px;
     padding-bottom: 20px;	
 }
@@ -515,12 +526,12 @@ form input.submit-form:hover {
 .producte-titol {
 	font-weight: bold;
 	font-size: 0.9em;
-	padding-bottom: 15px;	
+	padding-bottom: 7px;	
 }
 
 .producte-detall {
-	font-size: 0.9em;
-	color: #999;
+	font-size: 0.85em;
+	color: #565193;
 	padding-bottom: 15px;
 	line-height: 20px;
 }

@@ -39,7 +39,7 @@
 		$(id).each(function() {
 			var vmaxWidth = (maxWidth == 0)?$(this).parent().width():maxWidth;
 			var vmaxHeight = (maxHeight == 0)?$(this).parent().height():maxHeight;
-	    	var a = calculateAspectRatioFit($(this).attr("width"), $(this).attr("height"), vmaxWidth, vmaxHeight - 10);
+	    	var a = calculateAspectRatioFit($(this).attr("width"), $(this).attr("height"), vmaxWidth - 10, vmaxHeight - 10);
 	    	$(this).attr("width", Math.round(a.width));
 	    	$(this).attr("height", Math.round(a.height));
 	    	

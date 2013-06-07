@@ -21,15 +21,15 @@
 {% endblock %}
 
 {% block content %}
-	<div class="left-block">
+	<div class="left-block producte-detalls">
 		<div id="producte-nom">{{ producte.nom }}</div>
 		<div id="producte-espc">
 			<p class="producte-titol">Especificaciones técnicas</p>
-			<p class="producte-detall">{{ producte.especificacions }}</p>
+			<div class="producte-detall">{{ producte.especificacions|nl2br }}</div>
 		</div>
 		<div id="producte-preus">
 			<p class="producte-titol">Precios (no incluyen impresión)</p>
-			<p class="producte-detall">{{ producte.preus }}</p>
+			<p class="producte-detall">{{ producte.preus|nl2br }}</p>
 		</div>
 	</div>
 	<div class="right-block">
