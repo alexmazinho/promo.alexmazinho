@@ -71,67 +71,19 @@
     
     <script type="text/javascript">
     	$(document).ready(function(){
-
+			
     		hoverPortada($(".image-portada"));
     		
     		$('#categoria_imatge').imagePreview({ selector : '.galeria-upload', multiple: false, textover: 'Cambiar imagen' });
     		
 			$(".galeria-upload").click(function() {
+				alert("a");
 				$('#categoria_imatge').click();
+				alert("b");
 				
 			});
 
-			/*$('#categoria_portada').change(function(click) {
-				$('#image-upload').html(this.value);
-			});*/
-			
         });
-    	
-    /*
-	$(document).ready(function(){
-		$("#carrega-imatges").dropzone({ 
-        	url: "/admin/galeria",
-        	maxFilesize: 2, 
-        	paramName: "file",
-        	enqueueForUpload: false,
-        	accept: function(file, done) {
-            	// Després de added  
-        		//this.removeAllFiles();
-        		//if () this.removeFile(file);
-        	},
-        	init: function() {
-        		var _this = this;
-
-        		$("input:file").removeAttr('multiple');
-        		
-        	    this.on("addedfile", function(file) { 
-         	 		alert("Added file." + file.name);
-         	 		
-            	    $('.dz-preview:not(:has(.deleteImage))').append('<span class="deleteImage">Delete</span>').click(function(){
-						alert("esborrar"+file.name);
-						_this.removeFile(file);
-            	     });
-            	     
-            	});
-        	    this.on("selectedfiles", function(files) { 
-            	    alert("selected" + files.length); 
-            	    //files.pop();
-            	    //files=new Array(files[0]);
-            	    
-            	});
-        	    this.on("dragleave", function(event) { 
-            	    alert("Dragleave file." + event.target.nodeName); 
-            	   // this.removeFile(event.target.text);
-            	});
-        	    this.on("removedfile", function(file) { 
-            	    //    	    alert("Removed" + file.name); 
-            	});
-        	  }
-        });
-
-		
-		
-	});*/
 	
 	</script>
     

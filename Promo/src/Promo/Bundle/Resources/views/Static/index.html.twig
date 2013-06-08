@@ -12,12 +12,16 @@ Articulos para ferias, reuniones comerciales u otros eventos. Desde económicos 
    	<script src="{{ asset('js/jquery.jplayer-2.3.0.min.js') }}" type="text/javascript"></script>
    	
    	 <script type="text/javascript">
-	
+
+ 	/* Extensions m4v iphone, mp4 android 
+ 	http://www.w3schools.com/html/html5_video.asp
+ 	 	*/
     $(document).ready(function(){
    		$("#introsprite").jPlayer({
        		ready: function () {
     	   		$(this).jPlayer("setMedia", {
-    	   			m4v: "/media/movie01_text.m4v",
+    	   			m4v: "/media/movie01_text.m4v",  
+    	   			m4v: "/media/movie01_text.mp4",
     	   			ogv: "/media/movie01_text.ogv",
     	   			webmv: "/media/movie01_text.webm",
     	   			poster: "/images/logo_promoquality_big.png" 
@@ -29,10 +33,7 @@ Articulos para ferias, reuniones comerciales u otros eventos. Desde económicos 
     		        document.documentElement.removeEventListener(click, kickoff, true);
     		    };
     		    document.documentElement.addEventListener(click, kickoff, true);
-
-    		    $("jp_video_0").bind("ended", function() {
-    		   		   alert("I'm done!");
-    		   	});
+    		    
     	   	},
     		ended: function () {
             },
@@ -51,7 +52,7 @@ Articulos para ferias, reuniones comerciales u otros eventos. Desde económicos 
             backgroundColor: "#ffffff",
         	swfPath: "/js",
         	wmode: "window",
-        	solution: "html,flash"
+        	solution: "html, flash"
         });
 	});
 	</script>
