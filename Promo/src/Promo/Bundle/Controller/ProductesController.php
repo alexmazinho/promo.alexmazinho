@@ -59,7 +59,8 @@ class ProductesController extends Controller
    							->find($producteid[0]);
     	
     	return $this->render('PromoBundle:Productes:producte.html.twig',	
-    			array('producte' => $currentProducto, 'admin' => true)); 
+    			array('producte' => $currentProducto,  'admin' => true, 
+    					'socialdescription' => $currentProducto->getNom(), 'hashtag' => $currentProducto->getHashTag())); 
    		    
     }
     
@@ -79,7 +80,8 @@ class ProductesController extends Controller
     	$productes = $query->getResult();
     	    	
     	return $this->render('PromoBundle:Productes:casosexit.html.twig',
-    			array('productes' => $productes, 'admin' => true));
+    			array('productes' => $productes, 'admin' => true, 
+    					'socialdescription' => 'Casos de éxito', 'hashtag' => 'PromoCasosExito'));
     		
     }
 }

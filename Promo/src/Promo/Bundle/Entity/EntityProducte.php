@@ -272,4 +272,19 @@ class EntityProducte {
     	return $this->id."-".Funcions::netejarPath($this->nom);
     }
     
+    /**
+     * Get hash tag
+     *
+     * @return string
+     */
+    public function getHashTag()
+    {
+    	$string = str_replace(
+    			array('-', '_'),
+    			array(''),
+    			$this->getRuta()
+    	);
+    	
+    	return substr($string,0,18);
+    }
 }
