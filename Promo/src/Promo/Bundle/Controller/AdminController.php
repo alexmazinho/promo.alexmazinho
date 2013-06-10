@@ -13,8 +13,46 @@ use Promo\Bundle\Entity\EntityCategoria;
 use Promo\Bundle\Form\FormCategoria;
 use Promo\Bundle\Entity\EntityImatge;
 
-class AdminController extends Controller
+class AdminController extends BaseController
 {
+	public function loginAction()  {
+		$request = $this->getRequest();
+		
+		if ($this->isCurrentAdmin()) return $this->redirect($this->generateUrl('PromoBundle_homepage'));
+		
+		$formBuilder = $this->createFormBuilder()
+			->add('usuari', 'email')
+			->add('pwd', 'password');
+
+		$form = $formBuilder->getForm();
+		
+		if ($request->getMethod() == 'POST') {
+			$em = $this->getDoctrine()->getEntityManager();
+			$admin = $em->getRepository('PromoBundle:EntityUsuari')->findOneByUsuari($request->request->get('usuari'));
+			if (!$admin) $this->get('session')->setFlash('sms-notice', '!Usuario incorrecto!');
+			else {
+				if ($admin->getPwd() != sha1($request->request->get('pwd'))) $this->get('session')->setFlash('sms-notice', '!Contraseña incorrecta!');
+				else {
+					$this->get('session')->set('usuari', $request->request->get('usuari'));
+					$this->get('session')->set('pwd', $request->request->get('pwd'));
+					
+					return $this->redirect($this->generateUrl('PromoBundle_catalogo'));
+				}
+			}
+		}
+		
+		return $this->render('PromoBundle:Admin:login.html.twig', array('form' => $form->createView()));
+	}
+	
+	public function logoutAction()
+	{
+		$this->get('session')->clear();
+	
+		$this->get('session')->setFlash('sms-notice', '!Sessión finalizada!');
+	
+		return $this->render('PromoBundle:Admin:logout.html.twig');
+	}
+	
     public function categoriaAction()
     {
     	$request = $this->getRequest();

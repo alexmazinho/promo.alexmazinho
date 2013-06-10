@@ -84,10 +84,22 @@ PromoBundle_galeria:
     requirements:
         _method:  GET|POST
 
+PromoBundle_admin:
+    pattern:  /admin
+    defaults: { _controller: "PromoBundle:Admin:login" }
+    requirements:
+        _method:  GET|POST
 
 PromoBundle_login:
     pattern:  /admin/login
-    defaults: { _controller: "PromoBundle:Security:login" }
+    defaults: { _controller: "PromoBundle:Admin:login" }
     requirements:
         _method:  GET|POST
+
+PromoBundle_logout:
+    pattern:  /admin/logout
+    defaults: { _controller: "PromoBundle:Admin:logout" }
+    requirements:
+        _method:  GET
+
         

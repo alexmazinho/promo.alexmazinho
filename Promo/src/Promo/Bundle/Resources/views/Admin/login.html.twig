@@ -1,0 +1,37 @@
+{% extends 'PromoBundle::layout.html.twig' %}
+
+{% block meta_description %}Promoquality - Panel administración. Entrada de usuarios {% endblock %}
+
+{% block meta_robots %}noindex, follow{% endblock %}
+
+{% block title %}Promoquality - Panel administración. Entrada de usuarios{% endblock %}
+
+
+{% block content %}
+ 	{% if app.session.hasFlash('sms-notice') %}
+    <div class="sms-notice">
+        {{ app.session.flash('sms-notice') }}
+    </div>
+	{% endif %}
+	<div id="login"  class="form-container">
+		<form action="{{ path('PromoBundle_login') }}" method="post" {{ form_enctype(form) }}>
+			<div id="user-login" class="form-row clearfix">
+				{{ form_label(form.usuari, 'Correo*:') }}
+				{{ form_widget(form.usuari) }}
+			</div>
+			<div id="pwd-login" class="form-row clearfix">
+				{{ form_label(form.pwd, 'Password*:') }}
+				{{ form_widget(form.pwd) }}
+			</div>
+			{{ form_rest(form) }}
+			
+			<div>
+				<label>&nbsp;</label>
+		    	<input type="submit" class="submit-form" value="Entrar" />
+		    </div>
+		</form>
+	</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
