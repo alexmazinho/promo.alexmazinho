@@ -12,36 +12,48 @@ use Promo\Bundle\Form\FormProducte;
 use Promo\Bundle\Entity\EntityCategoria;
 use Promo\Bundle\Form\FormCategoria;
 use Promo\Bundle\Entity\EntityImatge;
+use Promo\Bundle\Entity\EntityUsuari;
+use Promo\Bundle\Form\FormUsuari;
 
 class AdminController extends BaseController
 {
 	public function loginAction()  {
 		$request = $this->getRequest();
 		
-		if ($this->isCurrentAdmin()) return $this->redirect($this->generateUrl('PromoBundle_homepage'));
+		$admin = $this->isCurrentAdmin();
+		if ($admin == true) return $this->redirect($this->generateUrl('PromoBundle_homepage'));
 		
 		$formBuilder = $this->createFormBuilder()
-			->add('usuari', 'email')
-			->add('pwd', 'password');
+					->add('usuari', 'email')
+					->add('pwd', 'password');
 
 		$form = $formBuilder->getForm();
-		
+		/*INSERT INTO `promo`.`usuaris` (`usuari`, `mail`, `pwd`, 
+		 * `recoverytoken`, `recoveryexpiration`, `lastaccess`) VALUES 
+		 * (NULL, '******', SHA1('*****'), NULL, NULL, NULL);
+		 */
 		if ($request->getMethod() == 'POST') {
+			$formdata = $request->request->get('form');
 			$em = $this->getDoctrine()->getEntityManager();
-			$admin = $em->getRepository('PromoBundle:EntityUsuari')->findOneByUsuari($request->request->get('usuari'));
+			$admin = $em->getRepository('PromoBundle:EntityUsuari')->findOneByMail($formdata['usuari']);
 			if (!$admin) $this->get('session')->setFlash('sms-notice', '!Usuario incorrecto!');
 			else {
-				if ($admin->getPwd() != sha1($request->request->get('pwd'))) $this->get('session')->setFlash('sms-notice', '!Contraseña incorrecta!');
+				if ($admin->getPwd() != sha1($formdata['pwd'])) $this->get('session')->setFlash('sms-notice', '!Contraseña incorrecta!');
 				else {
-					$this->get('session')->set('usuari', $request->request->get('usuari'));
-					$this->get('session')->set('pwd', $request->request->get('pwd'));
+					$this->get('session')->set('usuari', $formdata['usuari']);
+					$this->get('session')->set('pwd', sha1($formdata['pwd']));
 					
-					return $this->redirect($this->generateUrl('PromoBundle_catalogo'));
+					$this->get('session')->setFlash('sms-notice', '!Inicio de sesion correcto!');
+					
+					$admin = true;
+					$response = $this->forward('PromoBundle:Productes:catalogo', array('categoria' => '0'));
+					
+					return $response;
 				}
 			}
 		}
 		
-		return $this->render('PromoBundle:Admin:login.html.twig', array('form' => $form->createView()));
+		return $this->render('PromoBundle:Admin:login.html.twig', array('form' => $form->createView(), 'admin' => $admin));
 	}
 	
 	public function logoutAction()
@@ -50,15 +62,42 @@ class AdminController extends BaseController
 	
 		$this->get('session')->setFlash('sms-notice', '!Sessión finalizada!');
 	
-		return $this->render('PromoBundle:Admin:logout.html.twig');
+		$response = $this->forward('PromoBundle:Admin:login');
+		
+		return $response;
+	}
+	
+	public function usuariAction()  {
+		
+		$request = $this->getRequest();
+		
+		$admin = $this->isCurrentAdmin();
+		if ($admin == false) return $this->redirect($this->generateUrl('PromoBundle_catalogo'));
+
+		$em = $this->getDoctrine()->getEntityManager();
+		$admin = $em->getRepository('PromoBundle:EntityUsuari')->findOneByMail($this->get('session')->get('usuari'));
+		
+		$form = $this->createForm(new FormUsuari(), $admin);
+		 
+		if ($request->getMethod() === 'POST') {
+			$form->bindRequest($request);
+		
+			if ($form->isValid()) {
+				
+			}
+		}
+				
+		return $this->render('PromoBundle:Admin:usuari.html.twig', 
+				array('form' => $form->createView(), 'admin' => $admin));
 	}
 	
     public function categoriaAction()
     {
     	$request = $this->getRequest();
 
-    	$admin = true;  /* pendent */
-    	
+    	$admin = $this->isCurrentAdmin();
+    	if ($admin == false) return $this->redirect($this->generateUrl('PromoBundle_catalogo'));
+    	 
     	$categoria = new EntityCategoria();
     	$pare = null;
     	
@@ -106,7 +145,7 @@ class AdminController extends BaseController
 	    			$em->flush();
     		
 	    			return $this->redirect($this->generateUrl('PromoBundle_catalogo', 
-	    					array('categoria' => ($categoria->getPare() != null)?$categoria->getPare()->getRuta():"")));
+	    					array('categoria' => ($categoria->getPare() != null)?$categoria->getPare()->getRuta():"", 'admin' => $admin)));
     			} else $this->get('session')->setFlash('sms-notice','Error durante la carga de la imagen');
     		} else $this->get('session')->setFlash('sms-notice','Error en la validación de los datos');
     	}
@@ -119,8 +158,9 @@ class AdminController extends BaseController
     {
     	$request = $this->getRequest();
     
-    	$admin = true;  /* pendent */
-    	 
+    	$admin = $this->isCurrentAdmin();
+    	if ($admin == false) return $this->redirect($this->generateUrl('PromoBundle_catalogo'));
+    	    	 
     	$producte = new EntityProducte();
     
     	$categoria = null;
@@ -192,7 +232,7 @@ class AdminController extends BaseController
     		
     				$em->flush();
     		
-    				return $this->redirect($this->generateUrl('PromoBundle_catalogo',	array('categoria' => $producte->getCategoria()->getRuta())));
+    				return $this->redirect($this->generateUrl('PromoBundle_catalogo',	array('categoria' => $producte->getCategoria()->getRuta(), 'admin' => $admin)));
     			} else $this->get('session')->setFlash('sms-notice','Error durante la carga de las imágenes');
     		} else $this->get('session')->setFlash('sms-notice','Error en la validación de los datos');
     		
@@ -209,7 +249,7 @@ class AdminController extends BaseController
     {
     	$request = $this->getRequest();
     	
-    	$admin = true;  /* pendent */
+    	$admin = $this->isCurrentAdmin();
     	 
     	$oldId = $request->query->get('oldId');
     	$newId = $request->query->get('newId');
@@ -239,7 +279,7 @@ class AdminController extends BaseController
     {
     	$request = $this->getRequest();
     	
-    	$admin = true;  /* pendent */
+    	$admin = $this->isCurrentAdmin();
     	
     	$imatgeId = $request->query->get('imagen');
     	$producteId = $request->query->get('producto');
@@ -266,7 +306,7 @@ class AdminController extends BaseController
     {
     	$request = $this->getRequest();
     	
-    	$admin = true;  /* pendent */
+    	$admin = $this->isCurrentAdmin();
     	
     	if ($request->getMethod() == 'GET') {
     		if ($request->query->has('categoria') and $request->query->get('categoria') != 0) {
@@ -275,7 +315,7 @@ class AdminController extends BaseController
     		}
     	}
     	
-    	if ($categoria != null and count($categoria->getFills()) == 0 and count($categoria->getProductes()) == 0) {
+    	if ($admin == true and $categoria != null and count($categoria->getFills()) == 0 and count($categoria->getProductes()) == 0) {
     		$em = $this->getDoctrine()->getEntityManager();
     		$em->remove($categoria); 
     		$em->flush();
@@ -290,7 +330,7 @@ class AdminController extends BaseController
     {
     	$request = $this->getRequest();
     	 
-    	$admin = true;  /* pendent */
+    	$admin = $this->isCurrentAdmin();
     	 
     	if ($request->getMethod() == 'GET') {
     		if ($request->query->has('producto') and $request->query->get('producto') != 0) {
@@ -299,7 +339,7 @@ class AdminController extends BaseController
     		}
     	}
     	 
-    	if ($producte != null) {
+    	if ($admin == true and $producte != null) {
     		$em = $this->getDoctrine()->getEntityManager();
     		$em->remove($producte->getImatgePortada());
     		foreach ($producte->getImatges() as $imatge) {

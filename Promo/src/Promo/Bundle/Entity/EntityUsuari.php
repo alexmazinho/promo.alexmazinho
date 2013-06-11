@@ -15,8 +15,9 @@ class EntityUsuari {
 	
 	/**
 	 * @ORM\Id
-	 * @ORM\Column(name="usuari",type="string", length=12)
-	 */
+	 * @ORM\Column(type="integer")
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 */	
 	protected $usuari;	
 	
 	/**
@@ -30,11 +31,6 @@ class EntityUsuari {
 	 * @Assert\NotBlank()
 	 */
 	protected $pwd;
-	
-	/**
-	 * @ORM\Column(type="boolean")
-	 */
-	protected $forceupdate;
 	
 	/**
 	 * @ORM\Column(type="string", length=40, nullable=true)
@@ -63,8 +59,8 @@ class EntityUsuari {
     /**
      * Set usuari
      *
-     * @param string $usuari
-     * @return EntityUsuari
+     * @param integer $usuari
+     * @return integer
      */
     public function setUsuari($usuari)
     {
@@ -76,7 +72,7 @@ class EntityUsuari {
     /**
      * Get usuari
      *
-     * @return string 
+     * @return integer 
      */
     public function getUsuari()
     {
@@ -127,29 +123,6 @@ class EntityUsuari {
     public function getPwd()
     {
         return $this->pwd;
-    }
-
-    /**
-     * Set forceupdate
-     *
-     * @param boolean $forceupdate
-     * @return EntityUsuari
-     */
-    public function setForceupdate($forceupdate)
-    {
-        $this->forceupdate = $forceupdate;
-    
-        return $this;
-    }
-
-    /**
-     * Get forceupdate
-     *
-     * @return boolean 
-     */
-    public function getForceupdate()
-    {
-        return $this->forceupdate;
     }
 
     /**

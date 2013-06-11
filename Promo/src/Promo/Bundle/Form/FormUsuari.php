@@ -5,9 +5,9 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Promo\Bundle\Entity\EntityImatge;
+use Promo\Bundle\Entity\EntityUsuari;
 
-class FormProducte extends AbstractType {
+class FormUsuari extends AbstractType {
 
 	protected $options;
 	
@@ -19,43 +19,24 @@ class FormProducte extends AbstractType {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		
-		$builder->add('id', 'hidden');
-		
-		//$builder->add('imatgeportada', new FormImatge(array('multiple' => true)));
-		$atributs = array('accept' => 'image/*', 'multiple' => 'multiple');
-		$builder->add('imatges', 'file', array('property_path' => false, 'required' => false, 'attr' => $atributs));
-		
-		$builder->add('nom', 'text');
-		
-		$builder->add('categoria', 'entity', array(
-    		'class' => 'PromoBundle:EntityCategoria',
-			'query_builder' => function(EntityRepository $er) {
-				return $er->createQueryBuilder('c')
-				->orderBy('c.nom', 'ASC');
-			},
-			'required' => true,
-			'expanded' => false,
-			'multiple' => false,
-		));
+		$builder->add('usuari', 'hidden');
 
-		$builder->add('especificacions', 'textarea',
-				array('attr' =>array('rows' => '8' )));
+		$builder->add('mail', 'hidden');
 		
-		$builder->add('preus', 'textarea',
-				array('attr' =>array('rows' => '8' )));
+		$builder->add('pwd', 'password');
 		
 	}
 	
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
 		$resolver->setDefaults(array(
-				'data_class' => 'Promo\Bundle\Entity\EntityProducte',
+				'data_class' => 'Promo\Bundle\Entity\EntityUsuari',
 		));
 	}
 	
 	public function getName()
 	{
-		return 'producte';
+		return 'usuari';
 	}
 
 }

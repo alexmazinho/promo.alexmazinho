@@ -2,13 +2,12 @@
 
 namespace Promo\Bundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Component\HttpFoundation\Response;
 
-class ProductesController extends Controller
+class ProductesController extends BaseController
 {
     public function catalogoAction($categoria)
     {
@@ -28,7 +27,7 @@ class ProductesController extends Controller
    				// No té categories filles, mostrar productes forward
    				//$router->generate('blog_show', array('slug' => 'my-blog-post'), true);
    				return $this->render('PromoBundle:Productes:productes.html.twig',	
-   						array('productes' => $currentCategoria->getProductes(), 'categoria' => $currentCategoria, 'admin' => true));
+   						array('productes' => $currentCategoria->getProductes(), 'categoria' => $currentCategoria, 'admin' => $this->isCurrentAdmin()));
    			} else {
    				$categories = $currentCategoria->getFills();
    			}
@@ -43,7 +42,7 @@ class ProductesController extends Controller
     		$categories = $query->getResult();
     	}
     	
-    	return $this->render('PromoBundle:Productes:cataleg.html.twig',	array('categories' => $categories, 'pare' => $currentCategoria, 'admin' => true)); 
+    	return $this->render('PromoBundle:Productes:cataleg.html.twig',	array('categories' => $categories, 'pare' => $currentCategoria, 'admin' => $this->isCurrentAdmin())); 
     }
     
     public function productoAction($producto)
@@ -59,7 +58,7 @@ class ProductesController extends Controller
    							->find($producteid[0]);
     	
     	return $this->render('PromoBundle:Productes:producte.html.twig',	
-    			array('producte' => $currentProducto,  'admin' => true, 
+    			array('producte' => $currentProducto,  'admin' => $this->isCurrentAdmin(), 
     					'socialdescription' => $currentProducto->getNom(), 'hashtag' => $currentProducto->getHashTag())); 
    		    
     }
@@ -80,7 +79,7 @@ class ProductesController extends Controller
     	$productes = $query->getResult();
     	    	
     	return $this->render('PromoBundle:Productes:casosexit.html.twig',
-    			array('productes' => $productes, 'admin' => true, 
+    			array('productes' => $productes, 'admin' => $this->isCurrentAdmin(), 
     					'socialdescription' => 'Casos de éxito', 'hashtag' => 'PromoCasosExito'));
     		
     }

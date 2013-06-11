@@ -2,26 +2,25 @@
 
 namespace Promo\Bundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Promo\Bundle\Form\FormContact;
 use Promo\Bundle\Entity\EntityContact;
 use Symfony\Component\HttpFoundation\Response;
 
-class StaticController extends Controller
+class StaticController extends BaseController
 {
     public function indexAction()
     {
-        return $this->render('PromoBundle:Static:index.html.twig');
+        return $this->render('PromoBundle:Static:index.html.twig', array('admin' => $this->isCurrentAdmin()));
     }
     public function empresaAction()
     {
-    	return $this->render('PromoBundle:Static:empresa.html.twig');
+    	return $this->render('PromoBundle:Static:empresa.html.twig', array('admin' => $this->isCurrentAdmin()));
     }
     public function consultoriaAction()
     {
-    	return $this->render('PromoBundle:Static:consultoria.html.twig');
+    	return $this->render('PromoBundle:Static:consultoria.html.twig', array('admin' => $this->isCurrentAdmin()));
     }
     
     public function contactoAction() {
@@ -48,13 +47,11 @@ class StaticController extends Controller
     
     			// Redirect - This is important to prevent users re-posting
     			// 	the form if they refresh the page
-    			return $this->redirect($this->generateUrl('PromoBundle_contacto'));
+    			return $this->redirect($this->generateUrl('PromoBundle_contacto'), array('admin' => $this->isCurrentAdmin()));
     		}
     	}
     
     	return $this->render('PromoBundle:Static:contact.html.twig',
-    			array('form' => $form->createView()));
+    			array('form' => $form->createView(), 'admin' => $this->isCurrentAdmin()));
     }
-    
-    
 }

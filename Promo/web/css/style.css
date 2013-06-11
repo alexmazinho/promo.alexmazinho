@@ -146,6 +146,12 @@ a, a:hover, a:active {
 	/*color: #7fcff6;*/ 
 }
 
+#admin-connection {
+	position: absolute;
+	top: 0px;
+	right: 60px;
+}
+
 /************************* Forms *******************************/
 
 .form-container {
@@ -229,6 +235,17 @@ form input.submit-form:hover {
 }
 
 /************************* Contact final *******************************/
+
+/************************* Form Login / Usuari  *******************************/
+
+#login form label,
+#usuari form label {
+	min-width: 100px;
+	width: 10%;
+}
+
+
+/************************* Form Login Final  *******************************/
 
 /************************* Forms categoria / Producte *******************************/
 

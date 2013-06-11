@@ -40,6 +40,29 @@ PromoBundle_casosexito:
     requirements:
         _method:  GET
 
+PromoBundle_admin:
+    pattern:  /admin
+    defaults: { _controller: "PromoBundle:Admin:login" }
+    requirements:
+        _method:  GET|POST
+
+PromoBundle_login:
+    pattern:  /admin/login
+    defaults: { _controller: "PromoBundle:Admin:login" }
+    requirements:
+        _method:  GET|POST
+
+PromoBundle_logout:
+    pattern:  /admin/logout
+    defaults: { _controller: "PromoBundle:Admin:logout" }
+    requirements:
+        _method:  GET
+
+PromoBundle_usuari:
+    pattern:  /admin/usuario
+    defaults: { _controller: "PromoBundle:Admin:usuari" }
+    requirements:
+        _method:  GET|POST
 
 PromoBundle_categoria:
     pattern:  /admin/categoria
@@ -84,22 +107,5 @@ PromoBundle_galeria:
     requirements:
         _method:  GET|POST
 
-PromoBundle_admin:
-    pattern:  /admin
-    defaults: { _controller: "PromoBundle:Admin:login" }
-    requirements:
-        _method:  GET|POST
-
-PromoBundle_login:
-    pattern:  /admin/login
-    defaults: { _controller: "PromoBundle:Admin:login" }
-    requirements:
-        _method:  GET|POST
-
-PromoBundle_logout:
-    pattern:  /admin/logout
-    defaults: { _controller: "PromoBundle:Admin:logout" }
-    requirements:
-        _method:  GET
 
         
