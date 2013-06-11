@@ -23,7 +23,11 @@ class FormUsuari extends AbstractType {
 
 		$builder->add('mail', 'hidden');
 		
-		$builder->add('pwd', 'password');
+		$builder->add('pwd', 'repeated', array(
+    			 'type' => 'password',
+    			 'required' => true,
+				 'invalid_message' => 'Las contraseñas no coinciden'
+		));
 		
 	}
 	

@@ -85,7 +85,7 @@ class EntityContact {
 		$metadata->addPropertyConstraint('nom', new NotBlank());
 		/*$metadata->addPropertyConstraint('telf', new MaxLength(250));*/
 		$metadata->addPropertyConstraint('email', new Email(array(
-    	'message' => 'Indica una direcció de correo correcta'
+    	'message' => 'Indica una dirección de correo correcta'
 		)));
 		$metadata->addPropertyConstraint('assumpte', new NotBlank());
 		$metadata->addPropertyConstraint('assumpte', new MaxLength(250));

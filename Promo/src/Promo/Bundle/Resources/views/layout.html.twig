@@ -74,11 +74,11 @@
 	<div id="social-block" class="right-block">
 		<div id="facebook-like"><div class="fb-like" data-send="false" data-width="450" data-show-faces="false"></div></div>
 		<div id="social-icons">
-			<a title="Compartir en Facebook" href="http://www.facebook.com/sharer.php?u={{ app.request.uri }}&t=Promoquality%20-%20Consultora%20y%20Promociones%20de%20Marketing%20Directo%20-%20{% if socialdescription is defined %}{{ socialdescription }}{% endif %}" target="_blank"><img alt="Compartir en Facebook" src="{{ asset('images/facebook-sharing.jpg') }}" ></a>
-			<a title="Compartir en Twitter" href="http://twitter.com/share?hashtags={% if hashtag is defined %}{{ hashtag }}{% endif %}&text=Promoquality%20-%20Consultora%20y%20Promociones%20de%20Marketing%20Directo%20-%20{% if socialdescription is defined %}{{ socialdescription }}{% endif %}" data-count="none"><img alt="Compartir en Twitter" src="{{ asset('images/twitter-sharing.png') }}" ></a>
+			<a title="Compartir en Facebook" href="http://www.facebook.com/sharer.php?u={{ app.request.uri }}&t=Promoquality%20-%20Consultora%20y%20Promociones%20de%20Marketing%20Directo%20{% if socialdescription is defined %}-%20{{ socialdescription }}{% endif %}" target="_blank"><img alt="Compartir en Facebook" src="{{ asset('images/facebook-sharing.jpg') }}" ></a>
+			<a title="Compartir en Twitter" href="http://twitter.com/share?{% if hashtag is defined %}hashtags={{ hashtag }}&{% endif %}text=Promoquality%20-%20Consultora%20y%20Promociones%20de%20Marketing%20Directo%20{% if socialdescription is defined %}-%20{{ socialdescription }}{% endif %}" target="_blank" data-count="none"><img alt="Compartir en Twitter" src="{{ asset('images/twitter-sharing.png') }}" ></a>
 			<!-- <a title="Compartir en Twitter" href="https://twitter.com/share" class="twitter-share-button" data-lang="es" data-count="none"><img alt="Compartir en Twitter" src="{{ asset('images/twitter-sharing.png') }}" ></a> -->
 			<a title="Añadir a favoritos" href="#" id="bookmark"><img alt="Añadir a favoritos" src="{{ asset('images/bookmark-add.png') }}" ></a>
-			<a title="Enviar enlace por correo" href="mailto:?subject=Te%20recomiendo%20Promoquality&body=Promoquality%20-%20Consultora%20y%20Promociones%20de%20Marketing%20Directo%20-%20{% if socialdescription is defined %}{{ socialdescription }}{% endif %}%20{{ app.request.uri }}"><img alt="Enviar enlace por correo" src="{{ asset('images/email-contacto.png') }}" ></a>
+			<a title="Enviar enlace por correo" href="mailto:?subject=Te%20recomiendo%20Promoquality&body=Promoquality%20-%20Consultora%20y%20Promociones%20de%20Marketing%20Directo%20{% if socialdescription is defined %}-%20{{ socialdescription }}{% endif %}%20{{ app.request.uri }}"><img alt="Enviar enlace por correo" src="{{ asset('images/email-contacto.png') }}" ></a>
 		</div>
 	</div>
 {% endblock %}
@@ -95,9 +95,9 @@
 		if ($(".sms-notice").length) {
 			showNotification({
 				message: $(".sms-notice").html(),
-				type : "error",
+				type : "information",
 				autoClose: true,
-				duration: 2
+				duration: 4
 			});
 		}
 		

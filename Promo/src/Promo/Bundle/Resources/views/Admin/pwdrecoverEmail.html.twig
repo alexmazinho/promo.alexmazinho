@@ -1,0 +1,20 @@
+<html>
+<head></head>
+<body>
+<p>Hola,</p>
+
+<p>Ha solicitado recuperar la contraseña des de la página web de <a href="{{ url('PromoBundle_homepage') }}">Promoquality</a></p>
+
+<p>Per restablecer la contraseña debe acceder al siguiente enlace:</p>
+
+<a href="{{ url('PromoBundle_usuari', {'token': token, 'mail': mail}) }}">{{ url('PromoBundle_usuari', {'token': token, 'mail': mail}) }}</a>
+
+<p>Si no ha pedido cambiar la contraseña, ignore este mensaje y la contraseña no se modificará</p>
+
+<p>Atentamente<br/>
+Equipo técnico de Promoquality, {{ "now" | date("d/m/Y") }}.</p>
+
+<img width="265" src="{{ logo }}" alt="Promoquality" />
+
+</body>
+</html>

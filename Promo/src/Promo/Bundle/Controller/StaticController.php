@@ -35,19 +35,23 @@ class StaticController extends BaseController
     
     		if ($form->isValid()) {
     			$message = \Swift_Message::newInstance()
-    			->setSubject('::Contacto Promoquality::'. $form->getData()->getSubject())
-    			->setFrom($form->getData()->getEmail())
-    			->setTo($this->getContactMails())
-    			->setBody($this->renderView('FecdasPartesBundle:Page:contactEmail.txt.twig',
-    					array('contact' => $contact)));
+    				->setSubject('[Contacto Promoquality] - '. $contact->getAssumpte())
+    				->setFrom($contact->getEmail())
+    				->setTo(array('alexmazinho@gmail.com'));
+
+    			$logosrc = $message->embed(\Swift_Image::fromPath('images/logo_promoquality.png'));
+    			
+    			$body = $this->renderView('PromoBundle:Static:contactEmail.html.twig',
+    					array('contact' => $contact, 'logo' => $logosrc));
+    			
+    			$message->setBody($body, 'text/html');
     
     			$this->get('mailer')->send($message);
-    			$this->get('session')
-    			->setFlash('sms-notice','Petició enviada correctament. Gràcies!');
+    			$this->get('session')->setFlash('sms-notice','Petición enviada correctamente. Gracias');
     
     			// Redirect - This is important to prevent users re-posting
     			// 	the form if they refresh the page
-    			return $this->redirect($this->generateUrl('PromoBundle_contacto'), array('admin' => $this->isCurrentAdmin()));
+    			return $this->redirect($this->generateUrl('PromoBundle_contacto'));
     		}
     	}
     

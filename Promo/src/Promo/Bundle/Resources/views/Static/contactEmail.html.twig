@@ -1,0 +1,23 @@
+<html>
+<head></head>
+<body>
+<p>Hola,</p>
+
+<p>Mensaje enviado a través del formulario de contacto de la página web de <a href="{{ url('PromoBundle_homepage') }}">Promoquality</a></p>
+
+<p>Usuario: {{ contact.nom }} </p>
+
+<p>Dirección: {{ contact.adreca }} </p>
+
+<p>Teléfono: {{ contact.telf }} </p>
+
+<p>Contenido del mensaje:</p>
+
+<div>{{ contact.missatge|nl2br }}</div>
+
+<p>Atentamente<br/>
+Equipo técnico de Promoquality, {{ "now" | date("d/m/Y") }}.</p>
+
+<img width="265" src="{{ logo }}" alt="Promoquality" />
+</body>
+</html>

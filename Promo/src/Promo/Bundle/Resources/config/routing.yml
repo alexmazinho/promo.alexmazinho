@@ -20,7 +20,7 @@ PromoBundle_contacto:
     pattern:  /contacto
     defaults: { _controller: "PromoBundle:Static:contacto" }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 PromoBundle_catalogo:
     pattern:  /catalogo/{categoria}
@@ -41,7 +41,7 @@ PromoBundle_casosexito:
         _method:  GET
 
 PromoBundle_admin:
-    pattern:  /admin
+    pattern:  /admin/
     defaults: { _controller: "PromoBundle:Admin:login" }
     requirements:
         _method:  GET|POST
@@ -51,6 +51,12 @@ PromoBundle_login:
     defaults: { _controller: "PromoBundle:Admin:login" }
     requirements:
         _method:  GET|POST
+
+PromoBundle_pwdrecover:
+    pattern:  /admin/pwdrecover
+    defaults: { _controller: "PromoBundle:Admin:pwdrecover" }
+    requirements:
+        _method:  GET
 
 PromoBundle_logout:
     pattern:  /admin/logout

@@ -44,6 +44,8 @@ class FormProducte extends AbstractType {
 		$builder->add('preus', 'textarea',
 				array('attr' =>array('rows' => '8' )));
 		
+		$builder->add('casexit', 'checkbox',
+				array('required' => false));
 	}
 	
 	public function setDefaultOptions(OptionsResolverInterface $resolver)

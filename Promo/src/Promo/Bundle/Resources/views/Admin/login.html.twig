@@ -20,18 +20,34 @@
 				{{ form_widget(form.usuari) }}
 			</div>
 			<div id="pwd-login" class="form-row clearfix">
-				{{ form_label(form.pwd, 'Password*:') }}
+				{{ form_label(form.pwd, 'Contraseña*:') }}
 				{{ form_widget(form.pwd) }}
 			</div>
-			{{ form_rest(form) }}
-			
-			<div>
+			<div class="form-row clearfix">
 				<label>&nbsp;</label>
 		    	<input type="submit" class="submit-form" value="Entrar" />
 		    </div>
+			<div class="form-row clearfix">
+				<label>&nbsp;</label>
+		    	<a id="pwd-recover" href="{{ path('PromoBundle_pwdrecover') }}">¿Recuperar contraseña?</a>
+		    </div>
+		    {{ form_rest(form) }}
 		</form>
 	</div>
 {% endblock %}
 
 {% block footer %}{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
+    	$(document).ready(function(){
+			
+    		pwdRecoverClick();
+    		
+        });
+	
+	</script>
+    
+{% endblock %}

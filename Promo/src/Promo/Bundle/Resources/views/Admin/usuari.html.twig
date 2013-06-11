@@ -15,13 +15,13 @@
 	{% endif %}
 	<div id="usuari"  class="form-container">
 		<form action="{{ path('PromoBundle_usuari') }}" method="post" {{ form_enctype(form) }}>
-			<div id="mail-usuari" class="form-row clearfix">
-				{{ form_label(form.mail, 'Correo:') }}
-				{{ form_widget(form.mail) }}
-			</div>
 			<div id="pwd-usuari" class="form-row clearfix">
-				{{ form_label(form.pwd, 'Password*:') }}
-				{{ form_widget(form.pwd) }}
+				{{ form_label(form.pwd.first, 'Contraseña*:') }}
+				{{ form_widget(form.pwd.first) }}
+			</div>
+			<div id="pwdrepeate-usuari" class="form-row clearfix">
+				{{ form_label(form.pwd.second, 'Repetir contraseña*:') }}
+				{{ form_widget(form.pwd.second) }}
 			</div>
 			{{ form_rest(form) }}
 			

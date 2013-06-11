@@ -20,8 +20,8 @@ class AdminController extends BaseController
 	public function loginAction()  {
 		$request = $this->getRequest();
 		
-		$admin = $this->isCurrentAdmin();
-		if ($admin == true) return $this->redirect($this->generateUrl('PromoBundle_homepage'));
+		$isadmin = $this->isCurrentAdmin();
+		if ($isadmin == true) return $this->redirect($this->generateUrl('PromoBundle_homepage'));
 		
 		$formBuilder = $this->createFormBuilder()
 					->add('usuari', 'email')
@@ -36,16 +36,24 @@ class AdminController extends BaseController
 			$formdata = $request->request->get('form');
 			$em = $this->getDoctrine()->getEntityManager();
 			$admin = $em->getRepository('PromoBundle:EntityUsuari')->findOneByMail($formdata['usuari']);
-			if (!$admin) $this->get('session')->setFlash('sms-notice', '!Usuario incorrecto!');
+			if (!$admin) $this->get('session')->setFlash('sms-notice', 'Usuario incorrecto');
 			else {
 				if ($admin->getPwd() != sha1($formdata['pwd'])) $this->get('session')->setFlash('sms-notice', '!Contraseña incorrecta!');
 				else {
 					$this->get('session')->set('usuari', $formdata['usuari']);
 					$this->get('session')->set('pwd', sha1($formdata['pwd']));
 					
-					$this->get('session')->setFlash('sms-notice', '!Inicio de sesion correcto!');
+					$this->get('session')->setFlash('sms-notice', 'Inicio de sesion correcto');
 					
-					$admin = true;
+					$em = $this->getDoctrine()->getEntityManager();
+					if ($admin->getRecoverytoken() != null) {
+						// Esborrar token de recuperació de password, si entra amb login normal
+						$admin->setRecoverytoken(null);
+						$admin->setRecoveryexpiration(null);
+					}
+					$admin->setLastaccess( new \DateTime('now'));
+					$em->flush();
+					
 					$response = $this->forward('PromoBundle:Productes:catalogo', array('categoria' => '0'));
 					
 					return $response;
@@ -53,16 +61,16 @@ class AdminController extends BaseController
 			}
 		}
 		
-		return $this->render('PromoBundle:Admin:login.html.twig', array('form' => $form->createView(), 'admin' => $admin));
+		return $this->render('PromoBundle:Admin:login.html.twig', array('form' => $form->createView(), 'admin' => $isadmin));
 	}
 	
 	public function logoutAction()
 	{
 		$this->get('session')->clear();
 	
-		$this->get('session')->setFlash('sms-notice', '!Sessión finalizada!');
-	
-		$response = $this->forward('PromoBundle:Admin:login');
+		$this->get('session')->setFlash('sms-notice', 'Sessión finalizada');
+		
+		$response = $this->redirect($this->generateUrl('PromoBundle_login'));
 		
 		return $response;
 	}
@@ -70,33 +78,122 @@ class AdminController extends BaseController
 	public function usuariAction()  {
 		
 		$request = $this->getRequest();
-		
-		$admin = $this->isCurrentAdmin();
-		if ($admin == false) return $this->redirect($this->generateUrl('PromoBundle_catalogo'));
 
 		$em = $this->getDoctrine()->getEntityManager();
-		$admin = $em->getRepository('PromoBundle:EntityUsuari')->findOneByMail($this->get('session')->get('usuari'));
+		
+		$isadmin = $this->isCurrentAdmin();
+		
+		if ($this->isCurrentAdmin() == true) {
+			// Canvi password normal 
+			$admin = $em->getRepository('PromoBundle:EntityUsuari')->findOneByMail($this->get('session')->get('usuari'));
+		} else {
+			if ($request->getMethod() === 'GET') {
+				// GET
+				if (!$request->query->has('token') or !$request->query->has('mail')) // Sense token no admet GET  
+								return $this->redirect($this->generateUrl('PromoBundle_login'));
+			
+				$adminmail = $request->query->get('mail'); 
+				$token = $request->query->get('token');
+					
+				$this->get('session')->set('token', $token);
+			} else {
+				// POST
+				if (!$this->get('session')->has('token')) // Sense token no admet POST
+							return $this->redirect($this->generateUrl('PromoBundle_login'));
+				
+				$userdata = $request->request->get('usuari');
+				$adminmail = $userdata['mail'];
+				$token = $this->get('session')->get('token');
+			}
+		
+			$admin = $em->getRepository('PromoBundle:EntityUsuari')->findOneByMail($adminmail);
+			$now = new \DateTime('now');
+			
+			if (!$admin or $admin->getRecoverytoken() != sha1($token) or $now > $admin->getRecoveryexpiration() ) {
+				$this->get('session')->setFlash('sms-notice', 'Enlace de recuperación de contraseña inválido o caducado');
+				return $this->redirect($this->generateUrl('PromoBundle_login'));
+			}
+			$this->get('session')->setFlash('sms-notice', 'Proceso de recuperación de contraseña');
+		}
 		
 		$form = $this->createForm(new FormUsuari(), $admin);
-		 
+		
 		if ($request->getMethod() === 'POST') {
+			// Formulari upd password
 			$form->bindRequest($request);
 		
 			if ($form->isValid()) {
+				$password = $admin->getPwd();
+				$admin->setPwd(sha1($password));
+				$admin->setRecoverytoken(null);
+				$admin->setRecoveryexpiration(null);
 				
+				if ($isadmin == false) {
+					// Recuperació de contrasenya. Activar sessió
+					$this->get('session')->set('usuari', $admin->getMail());
+					$this->get('session')->set('pwd', $admin->getPwd());
+					$isadmin = true;
+				}
+				
+				$em->flush();
+				
+				$this->get('session')->setFlash('sms-notice', 'Contraseña modificada correctamente');
 			}
 		}
 				
 		return $this->render('PromoBundle:Admin:usuari.html.twig', 
-				array('form' => $form->createView(), 'admin' => $admin));
+				array('form' => $form->createView(), 'admin' => $isadmin));
+	}
+	
+	public function pwdrecoverAction()  {
+		$request = $this->getRequest();
+		
+		$usuari = "";
+		if ($request->query->has('usuari')) {
+			$em = $this->getDoctrine()->getEntityManager();
+			
+			$usuari = $request->query->get('usuari');
+			
+			$admin = $em->getRepository('PromoBundle:EntityUsuari')->findOneByMail($usuari);
+
+			if ($admin) {
+				$token = base64_encode(openssl_random_pseudo_bytes(30));
+				
+				$expiration = new \DateTime('now');
+				$expiration->add(new \DateInterval('PT4H'));  // 4 hores
+				
+				$admin->setRecoverytoken(sha1($token));
+				$admin->setRecoveryexpiration($expiration);
+				
+				$em->flush();
+				
+				$message = \Swift_Message::newInstance()
+					->setSubject('[Mensaje Promoquality] - Solicitud de recuperación de contraseña')
+					->setFrom(array('ondissenyweb@gmail.com'))
+					->setTo(array('alexmazinho@gmail.com', $admin->getMail()));
+
+				$logosrc = $message->embed(\Swift_Image::fromPath('images/logo_promoquality.png'));
+				
+				$body = $this->renderView('PromoBundle:Admin:pwdrecoverEmail.html.twig',
+						array('mail' => $admin->getMail(), 'token' => $token, 'logo' => $logosrc));
+				
+				$message->setBody($body, 'text/html');
+				
+				$this->get('mailer')->send($message);
+				
+				return new response ("Se ha enviado un enlace al correo del usuario con las intrucciones para restaurar la contraseña");
+			}
+		}
+		
+		return new response ("No se ha encontrado el usuario " . $usuari);
 	}
 	
     public function categoriaAction()
     {
     	$request = $this->getRequest();
 
-    	$admin = $this->isCurrentAdmin();
-    	if ($admin == false) return $this->redirect($this->generateUrl('PromoBundle_catalogo'));
+    	$isadmin = $this->isCurrentAdmin();
+    	if ($isadmin == false) return $this->redirect($this->generateUrl('PromoBundle_catalogo'));
     	 
     	$categoria = new EntityCategoria();
     	$pare = null;
@@ -145,21 +242,21 @@ class AdminController extends BaseController
 	    			$em->flush();
     		
 	    			return $this->redirect($this->generateUrl('PromoBundle_catalogo', 
-	    					array('categoria' => ($categoria->getPare() != null)?$categoria->getPare()->getRuta():"", 'admin' => $admin)));
+	    					array('categoria' => ($categoria->getPare() != null)?$categoria->getPare()->getRuta():"", 'admin' => $isadmin)));
     			} else $this->get('session')->setFlash('sms-notice','Error durante la carga de la imagen');
     		} else $this->get('session')->setFlash('sms-notice','Error en la validación de los datos');
     	}
     	
     	return $this->render('PromoBundle:Admin:categoria.html.twig',
-    			array('form' => $form->createView(), 'categoria' => $categoria, 'pare' => ($pare == null)?null:$pare, 'admin' => $admin));
+    			array('form' => $form->createView(), 'categoria' => $categoria, 'pare' => ($pare == null)?null:$pare, 'admin' => $isadmin));
     }
     
     public function productoAction()
     {
     	$request = $this->getRequest();
     
-    	$admin = $this->isCurrentAdmin();
-    	if ($admin == false) return $this->redirect($this->generateUrl('PromoBundle_catalogo'));
+    	$isadmin = $this->isCurrentAdmin();
+    	if ($isadmin == false) return $this->redirect($this->generateUrl('PromoBundle_catalogo'));
     	    	 
     	$producte = new EntityProducte();
     
@@ -232,7 +329,7 @@ class AdminController extends BaseController
     		
     				$em->flush();
     		
-    				return $this->redirect($this->generateUrl('PromoBundle_catalogo',	array('categoria' => $producte->getCategoria()->getRuta(), 'admin' => $admin)));
+    				return $this->redirect($this->generateUrl('PromoBundle_catalogo',	array('categoria' => $producte->getCategoria()->getRuta(), 'admin' => $isadmin)));
     			} else $this->get('session')->setFlash('sms-notice','Error durante la carga de las imágenes');
     		} else $this->get('session')->setFlash('sms-notice','Error en la validación de los datos');
     		
@@ -242,14 +339,14 @@ class AdminController extends BaseController
     	$formView->getChild('imatges')->set('full_name', 'producte[imatges][]'); // Canviar nom del input file/multiple per a que Symfony reconegui varis fitxers (vector)
     	
     	return $this->render('PromoBundle:Admin:producte.html.twig',
-    			array('form' => $formView, 'producte' => $producte, 'admin' => $admin));
+    			array('form' => $formView, 'producte' => $producte, 'admin' => $isadmin));
     }
     
     public function portadaAction()
     {
     	$request = $this->getRequest();
     	
-    	$admin = $this->isCurrentAdmin();
+    	$isadmin = $this->isCurrentAdmin();
     	 
     	$oldId = $request->query->get('oldId');
     	$newId = $request->query->get('newId');
@@ -259,7 +356,7 @@ class AdminController extends BaseController
     	$oldImatge = $this->getDoctrine()->getRepository('PromoBundle:EntityImatge')->find($oldId);
     	$newImatge = $this->getDoctrine()->getRepository('PromoBundle:EntityImatge')->find($newId);
     	
-    	if ($admin == true and $producte != null and $oldImatge != null and $newImatge != null) {
+    	if ($isadmin == true and $producte != null and $oldImatge != null and $newImatge != null) {
     		$producte->setImatgePortada($newImatge);
     		$producte->removeImatge($newImatge);
     		$producte->addImatge($oldImatge);
@@ -279,7 +376,7 @@ class AdminController extends BaseController
     {
     	$request = $this->getRequest();
     	
-    	$admin = $this->isCurrentAdmin();
+    	$isadmin = $this->isCurrentAdmin();
     	
     	$imatgeId = $request->query->get('imagen');
     	$producteId = $request->query->get('producto');
@@ -287,7 +384,7 @@ class AdminController extends BaseController
     	$producte = $this->getDoctrine()->getRepository('PromoBundle:EntityProducte')->find($producteId);
     	$imatge = $this->getDoctrine()->getRepository('PromoBundle:EntityImatge')->find($imatgeId);
 
-    	if ($admin == true and $producte != null and $imatge != null) {
+    	if ($isadmin == true and $producte != null and $imatge != null) {
     		$producte->removeImatge($imatge);
     		
     		$em = $this->getDoctrine()->getEntityManager();
@@ -306,7 +403,7 @@ class AdminController extends BaseController
     {
     	$request = $this->getRequest();
     	
-    	$admin = $this->isCurrentAdmin();
+    	$isadmin = $this->isCurrentAdmin();
     	
     	if ($request->getMethod() == 'GET') {
     		if ($request->query->has('categoria') and $request->query->get('categoria') != 0) {
@@ -315,7 +412,7 @@ class AdminController extends BaseController
     		}
     	}
     	
-    	if ($admin == true and $categoria != null and count($categoria->getFills()) == 0 and count($categoria->getProductes()) == 0) {
+    	if ($isadmin == true and $categoria != null and count($categoria->getFills()) == 0 and count($categoria->getProductes()) == 0) {
     		$em = $this->getDoctrine()->getEntityManager();
     		$em->remove($categoria); 
     		$em->flush();
@@ -330,7 +427,7 @@ class AdminController extends BaseController
     {
     	$request = $this->getRequest();
     	 
-    	$admin = $this->isCurrentAdmin();
+    	$isadmin = $this->isCurrentAdmin();
     	 
     	if ($request->getMethod() == 'GET') {
     		if ($request->query->has('producto') and $request->query->get('producto') != 0) {
@@ -339,7 +436,7 @@ class AdminController extends BaseController
     		}
     	}
     	 
-    	if ($admin == true and $producte != null) {
+    	if ($isadmin == true and $producte != null) {
     		$em = $this->getDoctrine()->getEntityManager();
     		$em->remove($producte->getImatgePortada());
     		foreach ($producte->getImatges() as $imatge) {

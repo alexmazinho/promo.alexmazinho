@@ -129,7 +129,7 @@ class EntityUsuari {
      * Set recoverytoken
      *
      * @param string $recoverytoken
-     * @return EntityUsuari
+     * @return string
      */
     public function setRecoverytoken($recoverytoken)
     {
@@ -152,7 +152,7 @@ class EntityUsuari {
      * Set recoveryexpiration
      *
      * @param \DateTime $recoveryexpiration
-     * @return EntityUsuari
+     * @return \DateTime
      */
     public function setRecoveryexpiration($recoveryexpiration)
     {
@@ -175,7 +175,7 @@ class EntityUsuari {
      * Set lastaccess
      *
      * @param \DateTime $lastaccess
-     * @return EntityUsuari
+     * @return \DateTime
      */
     public function setLastaccess($lastaccess)
     {

@@ -103,6 +103,39 @@
 	
 	/*************************************************** Fi Cataleg *****************************************************/
 	
+	/************************************************* Usuari *****************************************************/
+	
+	pwdRecoverClick = function() {
+		$("#pwd-recover").click(function(e) {
+			e.preventDefault();
+	        
+			if ($("#form_usuari").val() == "") {
+				showNotification({
+					message: "Debes indicar una dirección de correo",
+					type : "information",
+					autoClose: true,
+					duration: 4
+				});	
+				return false;
+			}
+			
+	        var url = $(this).attr("href");
+	        
+	        $.get(url, {usuari: $("#form_usuari").val()},
+	        	function(data, textStatus) {
+					showNotification({
+						message: data,
+						type : "information",
+						autoClose: true,
+						duration: 4
+					});						
+	    		}
+			);
+		});
+	};
+	
+	/************************************************* Fi Usuari *****************************************************/
+	
 	/************************************************* Formularis *****************************************************/
 	
 	hoverPortada = function(hoverobject) {

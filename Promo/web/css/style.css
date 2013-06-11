@@ -240,7 +240,7 @@ form input.submit-form:hover {
 
 #login form label,
 #usuari form label {
-	min-width: 100px;
+	min-width: 125px;
 	width: 10%;
 }
 
