@@ -127,13 +127,13 @@ a, a:hover, a:active {
  	color: #FFFFFF;
 	font-weight: bold;
 	font-size: 0.95em;
-	padding-top: 6px;
+	padding-top: 8px;
     text-indent: 5px;
 }
 
 @-moz-document url-prefix() {
-	.category-item a {
-		padding-top: 4px;
+	.menu-item a {
+		padding-top: 6px;
 	}
 }
 
