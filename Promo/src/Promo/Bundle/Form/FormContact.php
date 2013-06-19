@@ -17,8 +17,8 @@ class FormContact extends AbstractType {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder->add('nom', 'text');
-		$builder->add('adreca', 'text');
-		$builder->add('telf', 'text');
+		$builder->add('adreca', 'text', array('required' => false));
+		$builder->add('telf', 'text', array('required' => false));
 		$builder->add('email', 'email');
 		$builder->add('assumpte', 'text');
 		$builder->add('missatge', 'textarea',

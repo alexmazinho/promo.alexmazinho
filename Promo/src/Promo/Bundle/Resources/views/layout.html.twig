@@ -32,7 +32,7 @@
 	<img alt="Logo promoquality" src="{{ asset('images/logo_promoquality.png') }}"></a>
 	
 </div>
-<div id="menu" class="right-block">
+<div id="menu" class="right-block" >
 	<div id="menu-empresa" class="menu-item">
 	<h2><a alt="Entrada menú información empresa" title="Entrada menú información empresa" href="{{ path('PromoBundle_empresa') }}">La empresa</a></h2>
 	</div>
@@ -87,9 +87,12 @@
     {{ parent() }}
     
     <script type="text/javascript">
-
 	$(document).ready(function(){
-
+		$(".menu-item a").addClass("menu-item-link");
+	    if( $("html").hasClass("ie8lte") ) { 
+			$(".menu-item-link").addClass("menu-item-ie8lte");
+		}
+		
 		bookmarkClick();
 		
 		if ($(".sms-notice").length) {

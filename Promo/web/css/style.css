@@ -115,37 +115,62 @@ a, a:hover, a:active {
 
 /************************* Menu *******************************/
 
-
-.menu-item a {
-	/*margin-bottom: 10px;*/
- 	/*width: 160px;*/
- 	/*font-size: 1em;*/
- 	height:40px;
+.menu-item-link {
+ 	/*height:40px;*/
  	display:block;
  	background:transparent url('/images/menu-item.png') left top no-repeat;
- 	/*background-size:150px 35px;*/
- 	background-size:70% 30px;
- 	color: #FFFFFF;
+ 	/*background-size:70% 30px;*/
+ 	
+ 	background-size:contain;
+ 	
+ 	
+ 	height:40px;
+ 	width: 129px;
+
+
+	color: #ffffff;
 	font-weight: bold;
 	font-size: 0.95em;
 	padding-top: 6px;
     text-indent: 5px;
+    
 }
 
+
 @media screen and (-webkit-min-device-pixel-ratio:0) {  
-	.menu-item a {
+	.menu-item-link {
 		padding-top: 8px;
 	}
 }
 
-.menu-item a:hover,
-.menu-item-active a {
+.menu-item-link:hover,
+.menu-item-active {
 	background:transparent url('/images/menu-item-active.png') left top no-repeat;
-	background-size:74% 39px;
+	/*background-size:74% 39px;*/
+	
+	
+ 	background-size:contain;
+ 	/*height:35px;*/
+ 	width: 137px;
+	color: #ffffff;	
+	
+	
 	/*background-size:158px 45px;*/
 	/*color: #009fee;*/
 	/*color: #7fcff6;*/ 
 }
+
+.menu-item-ie8lte {
+ 	background:transparent url('/images/menu-item-thin.png') right top no-repeat;
+}
+
+.menu-item-ie8lte:hover,
+.menu-item-ie8lte-active {
+ 	background:transparent url('/images/menu-item-active-thin.png') right top no-repeat;
+ 	width: 137px;
+}
+
+
 
 #admin-connection {
 	position: absolute;
@@ -198,6 +223,14 @@ form input.submit-form {
 
 form input.submit-form:hover {
 	color: #7fcff6; 
+}
+
+form input.submit-form-ie8lte {
+ 	background:transparent url('/images/menu-item-thin.png') right top no-repeat;
+}
+
+form input.submit-form-ie8lte:hover {
+ 	background:transparent url('/images/menu-item-active-thin.png') right top no-repeat;
 }
 
 
@@ -503,6 +536,10 @@ form input.submit-form:hover {
 	display: block;   
 	margin-left: auto;   
 	margin-right: auto; 
+}
+
+.cataleg-imatge img {
+	display:none;
 }
 
 .imatge-cell {

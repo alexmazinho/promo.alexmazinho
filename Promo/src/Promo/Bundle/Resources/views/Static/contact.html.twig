@@ -73,7 +73,13 @@ correo electrónico o el formulario de contacto. {% endblock %}
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#menu-contacto").addClass("menu-item-active");
+
+		menuActive($("#menu-contacto a"));
+
+		if( $("html").hasClass("ie8lte") ) { 
+			$(".submit-form").addClass("submit-form-ie8lte");
+		}
+		
 	});
 </script>
 

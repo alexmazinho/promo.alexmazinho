@@ -6,6 +6,15 @@
 	
 	/************************************************* Utils *****************************************************/
 
+	menuActive = function(menuobj) {
+		if( $("html").hasClass("ie8lte") ) {
+			menuobj.addClass("menu-item-ie8lte-active");
+		} else {
+			menuobj.addClass("menu-item-active");
+		}
+	}
+	
+	
 	bookmarkClick = function() {
 		$('a#bookmark').click(function(e){
 			e.preventDefault();
@@ -40,12 +49,17 @@
 			var vmaxWidth = (maxWidth == 0)?$(this).parent().width():maxWidth;
 			var vmaxHeight = (maxHeight == 0)?$(this).parent().height():maxHeight;
 	    	var a = calculateAspectRatioFit($(this).attr("width"), $(this).attr("height"), vmaxWidth - 10, vmaxHeight - 10);
+	    	
 	    	$(this).attr("width", Math.round(a.width));
 	    	$(this).attr("height", Math.round(a.height));
 	    	
 	    	if (Math.round(a.width) > Math.round(a.height)) {
-	        	$(this).parent().addClass("imatge-cell");
+	    		if( ! $("html").hasClass("ie8lte") ) { 
+	    			$(this).parent().addClass("imatge-cell");
+	    		}
 			}
+	    	
+	    	$(this).show();
 		});
 	};	
 		
