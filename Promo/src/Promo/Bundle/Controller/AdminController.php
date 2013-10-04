@@ -438,7 +438,10 @@ class AdminController extends BaseController
     	 
     	if ($isadmin == true and $producte != null) {
     		$em = $this->getDoctrine()->getEntityManager();
-    		$em->remove($producte->getImatgePortada());
+    		/* Incidència. 04/10/2013 Error esborrar productes sense portada */
+    		if ($producte->getImatgePortada() != null) $em->remove($producte->getImatgePortada());
+    		//$em->remove($producte->getImatgePortada());
+    		/* Fi incidència */	
     		foreach ($producte->getImatges() as $imatge) {
     			$em->remove($imatge);
     		}
