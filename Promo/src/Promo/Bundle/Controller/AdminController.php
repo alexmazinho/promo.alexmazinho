@@ -197,6 +197,7 @@ class AdminController extends BaseController
     	 
     	$categoria = new EntityCategoria();
     	$pare = null;
+    	$pareOld = null;
     	
     	if ($request->getMethod() == 'GET') {
     		if ($request->query->has('categoria') and $request->query->get('categoria') != 0) {
@@ -214,7 +215,8 @@ class AdminController extends BaseController
 
 			if ($c['id'] != "") $categoria = $this->getDoctrine()->getRepository('PromoBundle:EntityCategoria')->find($c['id']);
 		} 
-    	
+		$pareOld = $categoria->getPare();
+		
     	$form = $this->createForm(new FormCategoria(), $categoria); 
     	
     	if ($request->getMethod() === 'POST') {
@@ -224,27 +226,32 @@ class AdminController extends BaseController
 
     			$uploadedfile = $form['imatge']->getData();
     			
-    			$portada = null;
-    			$uploadReturn = true;
-    			$em = $this->getDoctrine()->getEntityManager();
-				if ($uploadedfile != null) {
-	    			$portada = new EntityImatge($uploadedfile);		
-					$portada->setTitol("Categoría " . $categoria->getNom());
-					$em->persist($portada);
-					$categoria->setImatge($portada);
-					$uploadReturn = $portada->upload($categoria->getNom());
-				}
-				
-    			if ($uploadReturn == true) {
-    				
-	    			if ($categoria->getId() == null) $em->persist($categoria);  // Nova
-	    			
-	    			$em->flush();
-    		
-	    			return $this->redirect($this->generateUrl('PromoBundle_catalogo', 
-	    					array('categoria' => ($categoria->getPare() != null)?$categoria->getPare()->getRuta():"", 'admin' => $isadmin)));
-    			} else $this->get('session')->setFlash('sms-notice','Error durante la carga de la imagen');
-    		} else $this->get('session')->setFlash('sms-notice','Error en la validación de los datos');
+    			if ($categoria->getId() != null and $categoria->getId() == $categoria->getPare()->getId()) {
+    				$this->get('session')->setFlash('sms-notice','Categoria del padre incorrecta');
+    				$categoria->setPare($pareOld);  // Restore pare
+    			} else { 
+	    			$portada = null;
+	    			$uploadReturn = true;
+	    			$em = $this->getDoctrine()->getEntityManager();
+					if ($uploadedfile != null) {
+		    			$portada = new EntityImatge($uploadedfile);		
+						$portada->setTitol("Categoría " . $categoria->getNom());
+						$em->persist($portada);
+						$categoria->setImatge($portada);
+						$uploadReturn = $portada->upload($categoria->getNom());
+					}
+					
+	    			if ($uploadReturn == true) {
+	    				
+		    			if ($categoria->getId() == null) $em->persist($categoria);  // Nova
+		    			
+		    			$em->flush();
+	    		
+		    			return $this->redirect($this->generateUrl('PromoBundle_catalogo', 
+		    					array('categoria' => ($categoria->getPare() != null)?$categoria->getPare()->getRuta():"", 'admin' => $isadmin)));
+	    			} else $this->get('session')->setFlash('sms-notice','Error durante la carga de la imagen');
+    			}
+	    	} else $this->get('session')->setFlash('sms-notice','Error en la validación de los datos');
     	}
     	
     	return $this->render('PromoBundle:Admin:categoria.html.twig',
