@@ -226,7 +226,7 @@ class AdminController extends BaseController
 
     			$uploadedfile = $form['imatge']->getData();
     			
-    			if ($categoria->getId() != null and $categoria->getId() == $categoria->getPare()->getId()) {
+    			if ($categoria->getId() != null and $categoria->getPare() != null and $categoria->getId() == $categoria->getPare()->getId()) {
     				$this->get('session')->setFlash('sms-notice','Categoria del padre incorrecta');
     				$categoria->setPare($pareOld);  // Restore pare
     			} else { 
