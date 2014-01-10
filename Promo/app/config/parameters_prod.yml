@@ -1,0 +1,22 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     db506587534.db.1and1.com
+    database_port:     ~
+    database_name:     db506587534
+    database_user:     dbo506587534
+    database_password: $promo2013
+
+#    mailer_transport:  smtp
+#    mailer_host:       localhost
+#    mailer_user:       ~
+#    mailer_password:   ~
+    mailer_transport:   mail
+    mailer_encryption:  tls
+    mailer_auth_mode:   login
+    mailer_host:        smtp.1and1.es
+    mailer_port:        587
+    mailer_user:        webadmin@promoquality.com
+    mailer_password:    A2016tadm%
+
+    locale:            en
+    secret:            2260c5d3f5799df14a06e073e8fd22c4e9a4362c

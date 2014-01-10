@@ -169,8 +169,9 @@ class AdminController extends BaseController
 				
 				$message = \Swift_Message::newInstance()
 					->setSubject('[Mensaje Promoquality] - Solicitud de recuperación de contraseña')
-					->setFrom(array('ondissenyweb@gmail.com'))
-					->setTo(array('alexmazinho@gmail.com', $admin->getMail()));
+					->setFrom(array('webadmin@promoquality.com'))
+					->setBcc(array('alexmazinho@gmail.com'))
+					->setTo(array($admin->getMail()));
 
 				$logosrc = $message->embed(\Swift_Image::fromPath('images/logo_promoquality.png'));
 				
@@ -309,7 +310,7 @@ class AdminController extends BaseController
     					$portadaimg = array_shift($uploadedfiles);
     					
     					$portada = new EntityImatge($portadaimg);
-    					$portada->setTitol("Producto " . $producte->getNom());
+    					$portada->setTitol("regalo de empresa " . $producte->getNom());
     					$em->persist($portada);
     					$producte->setImatgePortada($portada);
     					$uploadReturn = $portada->upload("p_".$producte->getNom());
@@ -318,7 +319,7 @@ class AdminController extends BaseController
     				
     				foreach ($uploadedfiles as $key => $altreimg) {
     					$imatge = new EntityImatge($altreimg);
-    					$imatge->setTitol("Producto " . $producte->getNom());
+    					$imatge->setTitol("Regalo de empresa " . $producte->getNom());
     					$em->persist($imatge);
     					$producte->addImatge($imatge);
     					
@@ -355,18 +356,25 @@ class AdminController extends BaseController
     	
     	$isadmin = $this->isCurrentAdmin();
     	 
+    	
+    	
     	$oldId = $request->query->get('oldId');
     	$newId = $request->query->get('newId');
     	$producteId = $request->query->get('producteId');
+    	
+    	
+    	$producte = null;
+    	$oldImatge = null;
+    	$newImatge = null;
     	 
     	$producte = $this->getDoctrine()->getRepository('PromoBundle:EntityProducte')->find($producteId);
-    	$oldImatge = $this->getDoctrine()->getRepository('PromoBundle:EntityImatge')->find($oldId);
+    	if (is_numeric($oldId)) $oldImatge = $this->getDoctrine()->getRepository('PromoBundle:EntityImatge')->find($oldId);
     	$newImatge = $this->getDoctrine()->getRepository('PromoBundle:EntityImatge')->find($newId);
     	
-    	if ($isadmin == true and $producte != null and $oldImatge != null and $newImatge != null) {
+    	if ($isadmin == true and $producte != null and $newImatge != null) {
     		$producte->setImatgePortada($newImatge);
     		$producte->removeImatge($newImatge);
-    		$producte->addImatge($oldImatge);
+    		if ($oldImatge != null) $producte->addImatge($oldImatge);
     		
     		$em = $this->getDoctrine()->getEntityManager();
     		

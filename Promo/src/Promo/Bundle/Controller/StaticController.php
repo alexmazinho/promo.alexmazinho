@@ -37,7 +37,8 @@ class StaticController extends BaseController
     			$message = \Swift_Message::newInstance()
     				->setSubject('[Contacto Promoquality] - '. $contact->getAssumpte())
     				->setFrom($contact->getEmail())
-    				->setTo(array('alexmazinho@gmail.com'));
+    				->setBcc(array('alexmazinho@gmail.com'))
+    				->setTo(array('info@promoquality.com'));
 
     			$logosrc = $message->embed(\Swift_Image::fromPath('images/logo_promoquality.png'));
     			

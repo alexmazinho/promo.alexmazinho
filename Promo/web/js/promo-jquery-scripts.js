@@ -236,7 +236,7 @@
 	        	function(data, textStatus) {
 	        	 	$parent.remove();
 					
-        	}).fail(function() { alert("Se ha poducido un error borrando la imagen de portada"); });
+        	}).fail(function() { alert("Se ha producido un error borrando la imagen de portada"); });
 		});
 	};
 	
@@ -266,7 +266,7 @@
 		        	$(".image-portada").append($new); // Agegir nova
 		        	
 		        	prepareDragAndDrop(url);
-			}).fail(function() { alert("Se ha poducido un error cambiando la imagen de portada"); });
+			}).fail(function() {  alert("Se ha producido un error cambiando la imagen de portada"); });
 			
 
     	};  
