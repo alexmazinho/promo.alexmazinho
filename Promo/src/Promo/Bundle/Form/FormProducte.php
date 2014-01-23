@@ -33,6 +33,7 @@ class FormProducte extends AbstractType {
 				return $er->createQueryBuilder('c')
 				->orderBy('c.nom', 'ASC');
 			},
+			'property' => 'ListLabel',
 			'required' => true,
 			'expanded' => false,
 			'multiple' => false,

@@ -29,6 +29,7 @@ class FormCategoria extends AbstractType {
 				return $er->createQueryBuilder('c')
 				->orderBy('c.nom', 'ASC');
 			},
+			'property' => 'ListLabel',
 			'required' => false,
 			'expanded' => false,
 			'multiple' => false,

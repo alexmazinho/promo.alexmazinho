@@ -60,6 +60,10 @@ class EntityCategoria {
     	return $this->getRoot();
     }
     
+    public function getListLabel() {
+    	return $this->nom . "  ( ". $this->getRoot() . " )";
+    }
+    
     public function getRoot() {
     	return $this->getRootChain($this);
     }
