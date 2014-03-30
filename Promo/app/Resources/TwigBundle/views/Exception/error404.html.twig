@@ -1,0 +1,17 @@
+{% extends 'PromoBundle::layout.html.twig' %}
+
+{% block meta_description %}Promoquality - Consultora y Promociones de Marketing Directo. La página indicada no se ha encontrado {% endblock %}
+
+{% block title %}Promoquality - Consultora y Promociones de Marketing Directo. Página no encontrada{% endblock %}
+
+{% block javascriptshead %} {{ parent() }} {% endblock %}
+
+
+{% block content %} 
+<div class="text-bloc">
+<h1>No se ha encontrado la página. "{{ status_code }} {{ status_text }}"</h1>
+<h2>Disculpe las molestias</h2>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

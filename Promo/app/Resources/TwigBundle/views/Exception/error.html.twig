@@ -1,0 +1,17 @@
+{% extends 'PromoBundle::layout.html.twig' %}
+
+{% block meta_description %}Promoquality - Consultora y Promociones de Marketing Directo. Se ha producido el error {{ status_code }} {{ status_text }} {% endblock %}
+
+{% block title %}Promoquality - Consultora y Promociones de Marketing Directo. Error {{ status_code }} {{ status_text }} {% endblock %}
+
+{% block javascriptshead %} {{ parent() }} {% endblock %}
+
+
+{% block content %} 
+<div class="text-bloc">
+<h1>Se ha producido un error, inténtelo más tarde. "{{ status_code }} {{ status_text }}"</h1>
+<h2>Disculpe las molestias</h2>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
