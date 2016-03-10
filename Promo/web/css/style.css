@@ -658,3 +658,95 @@ form input.submit-form-ie8lte:hover {
 
 
 /************************* Footer final *******************************/
+
+#banner-popup {
+	font-size: 1em;
+	line-height: 1.5em;
+	padding-left: 220px; 
+	max-width: 500px;
+	background:#FFFFFF url('/images/promoquality_sant_jordi.png') left bottom no-repeat;
+}
+
+#banner-popup a { 
+	position: absolute; 
+	left: 20px; 
+	top: 20%;
+	font-weight: bold; 
+	text-align: center;
+	width: 175px;
+	height: 35px;
+}
+
+#banner-popup a .normal-background {
+	background-color: #1b307e;
+    border-radius: 20px;
+    /*height: 100%;*/
+    left: 0;
+    position: absolute;
+    top: 0;
+    /*width: 100%;*/
+    color:  #FFFFFF;
+    padding: 5px 10px;
+}
+
+#banner-popup a .hover-background {
+	background-color: #009fee;
+    border-radius: 20px;
+    height: 100%;
+    left: 3px;
+    position: absolute;
+    top: 3px;
+    width: 100%;
+    opacity: 0;
+    -webkit-transition: opacity 0.6s ease-in-out, color 0.6s ease-in-out;
+  	-moz-transition: opacity 0.6s ease-in-out, color 0.6s ease-in-out;
+  	-ms-transition: opacity 0.6s ease-in-out, color 0.6s ease-in-out;
+  	-o-transition: opacity 0.6s ease-in-out, color 0.6s ease-in-out;
+  	transition: opacity 0.6s ease-in-out, color 0.6s ease-in-out;
+}
+
+#banner-popup a:hover .hover-background {  opacity: 1; }
+
+#banner-popup h2 { font-size: 1.2em; font-weight: bold; padding-bottom: 15px; }
+#banner-popup p { font-style: italic; padding: 7px 0; }
+
+/* Z-index of #mask must lower than #boxes .window */
+.mask {
+  	position:absolute;
+  	left: 0;
+  	top: 0;
+  	z-index:200;
+  	background-color:#FFFFFF;
+  	display:none;
+}
+
+.finestra-overlay {
+  	position: fixed;
+  	width: 30%;
+  	height: auto;
+  	display: none;
+  	z-index: 300;
+  
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), 0 0 0 #000000 inset;
+   	-moz-box-shadow:0 0 90px 5px #000000;
+  	-webkit-box-shadow: 0 0 90px #000000;
+	border: 1px solid #81C6FF;
+    border-radius: 5px;
+  	-webkit-border-radius: 5px;
+	background-color:#FFFFFF;
+	padding: 20px 20px 10px 20px;
+}
+
+html>body .finestra-overlay {
+  	position:fixed;
+}
+
+/* close button positioned on upper right corner */
+.finestra-overlay .close {
+    position:absolute;
+    right:-15px;
+    top:-15px;
+    cursor:pointer;
+    height:35px;
+    width:35px;
+}

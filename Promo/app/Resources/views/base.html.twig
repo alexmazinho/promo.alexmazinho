@@ -38,6 +38,8 @@
 	   		<section id="main">{% block main %}{% endblock %}</section>
 			<section id="footer">{% block footer %}{% endblock %}</section>
 		</div>
+		<div class="mask"></div>
+		<div id="banner-popup" class="finestra-overlay">{% block banner %}{% endblock %}</div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

@@ -1,12 +1,17 @@
+DirectoryIndex app.php
+
 <IfModule mod_rewrite.c>
+    Options +FollowSymlinks
+    #Options -MultiViews 
     RewriteEngine On
+    RewriteBase /
 
-    #<IfModule mod_vhost_alias.c>
-    #    RewriteBase /
-    #</IfModule>
+    # Explicitly disable rewriting for front controllers
+    #RewriteRule ^app_dev.php - [L]
+    #RewriteRule ^app.php - [L]
 
-	RewriteCond %{HTTP_HOST} ^promo.dev
-	RewriteRule (.*) http://www.promo.dev/$1 [R=301,L]
+    RewriteCond %{HTTP_HOST} ^promo.dev
+    RewriteRule (.*) http://www.promo.dev/$1 [R=301,L]
 
     RewriteCond %{REQUEST_FILENAME} !-f
     #RewriteRule ^(.*)$ app.php [QSA,L]

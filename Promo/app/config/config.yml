@@ -65,7 +65,8 @@ swiftmailer:
     host:       smtp.1and1.es
     port:       587
     username:   webadmin@promoquality.com
-    password:   A2016tadm%
+#    password:   A2016tadm%
+    password:   ADM2015%rhy
     spool:     { type: memory }
 
     
