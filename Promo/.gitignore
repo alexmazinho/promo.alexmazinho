@@ -12,3 +12,5 @@ web/bundles/*
 
 # Configuration files
 app/config/parameters.yml
+/db506587534_20160304.sql
+/db506587534_20160312_promoquality_hosting_antic.sql
