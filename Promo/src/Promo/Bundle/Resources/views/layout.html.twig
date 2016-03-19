@@ -84,9 +84,9 @@
 {% endblock %}
 
 {% block banner %}
-<a alt="Información libros Diada de Sant Jordi" title="Información libros Diada de Sant Jordi" href="{{ path('PromoBundle_contacto') }}">
-<div class="hover-background"></div><div class="normal-background">pídenos información</div>
-</a>
+<a class="btn-close" alt="Tancar" title="Tancar" href="#"><img alt="Añadir a favoritos" src="{{ asset('images/close.png') }}" ></a>
+<a class="btn-contacte" alt="Información libros Diada de Sant Jordi" title="Información libros Diada de Sant Jordi" href="{{ path('PromoBundle_contacto') }}">
+<div class="hover-background"></div><div class="normal-background">pídenos información</div></a>
 <h2>23 de abril - Sant Jordi - Día internacional del libro</h2>
 <p>Regala cultura, una acción extraordinaria con la que contribuirás a su divulgación. Tus colaboradores y clientes lo valorarán.</p>
 <p>Contacta con nosotros; te buscaremos el libro que necesitas para hacer un regalo inolvidable.</p>
@@ -98,7 +98,42 @@
     
     <script type="text/javascript">
 
+    playIntro = function() {
+     	/* Extensions m4v iphone, mp4 android 
+     	http://www.w3schools.com/html/html5_video.asp
+     	 	*/
+    	$("#introsprite").jPlayer({
+       		ready: function () {
+    	   		$(this).jPlayer("setMedia", {
+    	   			m4v: "/media/output.mp4",
+    	   			ogv: "/media/output.ogv",
+    	   			//webmv: "/media/output.webm",
+    	   			poster: "/images/logo_promoquality_big.png" 
+    	   		}).jPlayer("play");
+
+    	    	var click = document.ontouchstart === undefined ? 'click' : 'touchstart';
+    		    var kickoff = function () {
+    		       	$("#introsprite").jPlayer("play");
+    		        document.documentElement.removeEventListener(click, kickoff, true);
+    		    };
+    		    document.documentElement.addEventListener(click, kickoff, true);
+    		    
+    	   	},
+            loop: false,
+        	supplied: "webmv, ogv, m4v",
+        	size: {
+        		width: "600px",
+        		height: "450px"	
+            },
+            backgroundColor: "#ffffff",
+        	swfPath: "/js",
+        	wmode: "window",
+        	solution: "html, flash"
+        });
+    };
+    
     showBanner = function() {
+    	
 		sessionStorage.setItem('advertOnce','true');
 
 		var maskHeight = $(document).height();
@@ -112,7 +147,7 @@
         //$(id).css('top',  winH/2-$(id).height()/2);
         
         $('#banner-popup').css('top', maskHeight/2 - $('#banner-popup').height()/2 - 150);
-        $('#banner-popup').css('left', maskWidth/2 - $('#banner-popup').width()/2);
+        $('#banner-popup').css('left', maskWidth/2 - $('#banner-popup').width()/2 - 110); // padding-left/2
      
         //transition effect
         $('#banner-popup').fadeIn(2000);
@@ -127,6 +162,7 @@
 	        e.preventDefault();
 	        $('.mask, .finestra-overlay').hide();
 	        $('.finestra-overlay').html('');
+	        if (intro !== undefined && intro == true) playIntro();
 	    });    
 	     
 	    //if mask is clicked
@@ -135,24 +171,16 @@
 	        $(this).fadeOut("slow"); 
 	        $('.finestra-overlay').hide();
 	        $('.finestra-overlay').html('');
+	        if (intro !== undefined && intro == true) playIntro();
 	    });       
 		
-		$('.form-button-cancel').click(function (e) {
+		$('.btn-close').click(function (e) {
 	        //Cancel the link behavior
 	        e.preventDefault();
 	        $('.mask, .finestra-overlay').hide();
 	        $('.finestra-overlay').html('');
+	        if (intro !== undefined && intro == true) playIntro();
 	    });   
-		
-		/*
-		 * Disable enter on form */
-		$(".modalform").keypress(function(e) {
-	        if (e.which == 13) {
-	        	if ($("form :submit").is(":focus")) return true;
-	        	if ($("form :textarea").is(":focus")) return true;
-	            return false;
-	        }
-	    });
 	};
     
 	$(document).ready(function(){
@@ -172,19 +200,16 @@
 			});
 		}
 
-		sessionStorage.removeItem('advertOnce'); // Comentar a producció
+		//sessionStorage.removeItem('advertOnce'); // Comentar a producció
 
 		// SessionStorage dura mentre navegador obert
 		// https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
 		if (sessionStorage.getItem('advertOnce') !== 'true') {
-			//$('body').append('<div id="advert-once"><a href="http://trck.me/305959/" target="_blank"><img src="http://dash.trck.me/img/200x200.jpg" width="200" height="200" border="0" alt="banner" /></a><div class="advert-button"></div></div>')
 			showBanner();
+		} else {
+			playIntro();
 		}
 			 
-		$('#advert-once .advert-button').on('click',function(){
-			$('#advert-once').hide();
-		});
-		
 	});
 
 	$(window).resize(function(){

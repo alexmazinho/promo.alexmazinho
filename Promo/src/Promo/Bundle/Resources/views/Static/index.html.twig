@@ -9,44 +9,9 @@ Articulos para ferias, reuniones comerciales u otros eventos. Desde económicos 
 
 {% block javascriptshead %} 
 	{{ parent() }}
-   	<script src="{{ asset('js/jquery.jplayer-2.3.0.min.js') }}" type="text/javascript"></script>
-   	
-   	 <script type="text/javascript">
 
- 	/* Extensions m4v iphone, mp4 android 
- 	http://www.w3schools.com/html/html5_video.asp
- 	 	*/
-    $(document).ready(function(){
-   		$("#introsprite").jPlayer({
-       		ready: function () {
-    	   		$(this).jPlayer("setMedia", {
-    	   			m4v: "/media/output.mp4",
-    	   			ogv: "/media/output.ogv",
-    	   			//webmv: "/media/output.webm",
-    	   			poster: "/images/logo_promoquality_big.png" 
-    	   		}).jPlayer("play");
+	<script src="{{ asset('js/jquery.jplayer-2.3.0.min.js') }}" type="text/javascript"></script>
 
-    	    	var click = document.ontouchstart === undefined ? 'click' : 'touchstart';
-    		    var kickoff = function () {
-    		       	$("#introsprite").jPlayer("play");
-    		        document.documentElement.removeEventListener(click, kickoff, true);
-    		    };
-    		    document.documentElement.addEventListener(click, kickoff, true);
-    		    
-    	   	},
-            loop: false,
-        	supplied: "webmv, ogv, m4v",
-        	size: {
-        		width: "600px",
-        		height: "450px"	
-            },
-            backgroundColor: "#ffffff",
-        	swfPath: "/js",
-        	wmode: "window",
-        	solution: "html, flash"
-        });
-	});
-	</script>
 {% endblock %}
 
 
@@ -95,3 +60,19 @@ Articulos para ferias, reuniones comerciales u otros eventos. Desde económicos 
 
 {% block footer %}{% endblock %}
 
+{% block javascripts %}
+   	 <script type="text/javascript">
+
+   		var intro = true;
+    $(document).ready(function(){
+   		
+    	//playIntro();
+    	
+   		
+	});
+	</script>
+
+	{{ parent() }}
+    
+{% endblock %}
+    
