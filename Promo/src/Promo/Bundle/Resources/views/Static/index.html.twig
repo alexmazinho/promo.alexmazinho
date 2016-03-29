@@ -61,9 +61,11 @@ Articulos para ferias, reuniones comerciales u otros eventos. Desde económicos 
 {% block footer %}{% endblock %}
 
 {% block javascripts %}
+	{{ parent() }}
+
    	 <script type="text/javascript">
 
-   		var intro = true;
+   		intro = true;
     $(document).ready(function(){
    		
     	//playIntro();
@@ -72,7 +74,7 @@ Articulos para ferias, reuniones comerciales u otros eventos. Desde económicos 
 	});
 	</script>
 
-	{{ parent() }}
+	
     
 {% endblock %}
     

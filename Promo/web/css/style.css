@@ -713,8 +713,8 @@ form input.submit-form-ie8lte:hover {
 
 #banner-popup a.btn-contacte:hover .hover-background {  opacity: 1; }
 
-#banner-popup h2 { font-size: 1.2em; font-weight: bold; padding-bottom: 15px; }
-#banner-popup p { font-style: italic; padding: 7px 0; }
+#banner-popup h2 { font-size: 1.4em; font-weight: bold; padding-bottom: 15px;  text-align: center; }
+#banner-popup p { font-style: italic; padding: 7px 0; } 
 
 /* Z-index of #mask must lower than #boxes .window */
 .mask {

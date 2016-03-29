@@ -87,8 +87,8 @@
 <a class="btn-close" alt="Tancar" title="Tancar" href="#"><img alt="Añadir a favoritos" src="{{ asset('images/close.png') }}" ></a>
 <a class="btn-contacte" alt="Información libros Diada de Sant Jordi" title="Información libros Diada de Sant Jordi" href="{{ path('PromoBundle_contacto') }}">
 <div class="hover-background"></div><div class="normal-background">pídenos información</div></a>
-<h2>23 de abril - Sant Jordi - Día internacional del libro</h2>
-<p>Regala cultura, una acción extraordinaria con la que contribuirás a su divulgación. Tus colaboradores y clientes lo valorarán.</p>
+<h2>Día internacional del libro<br/>23 de abril - Sant Jordi</h2>
+<p>Regala un libro, con ello contribuirás a la divulgación de la cultura. Tus colaboradores y clientes lo valorarán.</p>
 <p>Contacta con nosotros; te buscaremos el libro que necesitas para hacer un regalo inolvidable.</p>
 <p class="banner-italic">Un libro, el regalo que satisface al que lo hace y ensalza al que lo recibe</p>
 {% endblock %}
@@ -98,6 +98,8 @@
     
     <script type="text/javascript">
 
+    var intro = false;
+    
     playIntro = function() {
      	/* Extensions m4v iphone, mp4 android 
      	http://www.w3schools.com/html/html5_video.asp
@@ -146,7 +148,7 @@
         //Set the popup window to center
         //$(id).css('top',  winH/2-$(id).height()/2);
         
-        $('#banner-popup').css('top', maskHeight/2 - $('#banner-popup').height()/2 - 150);
+        $('#banner-popup').css('top', maskHeight/2 - $('#banner-popup').height()/2 - 100);
         $('#banner-popup').css('left', maskWidth/2 - $('#banner-popup').width()/2 - 110); // padding-left/2
      
         //transition effect
@@ -207,7 +209,7 @@
 		if (sessionStorage.getItem('advertOnce') !== 'true') {
 			showBanner();
 		} else {
-			playIntro();
+			if (intro !== undefined && intro == true) playIntro();
 		}
 			 
 	});
